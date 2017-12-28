@@ -1,7 +1,15 @@
 {
   "private": true,
   "name": "acorn-observable",
-  "peerDependencies": {
+  "dependencies": {
+    "@std/esm": "^0.16.0",
     "acorn": "^5.2.1"
+  },
+  "scripts": {
+    "test": "node -r @std/esm index.test"
+  },
+  "@std/esm": {
+    "esm": "js",
+    "cjs": true
   }
 }
