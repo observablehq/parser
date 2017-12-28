@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "name": "acorn-observable",
+  "peerDependencies": {
+    "acorn": "^5.2.1"
+  }
+}
