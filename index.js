@@ -1,14 +1,6 @@
 export default function(acorn) {
   const tt = acorn.tokTypes;
 
-  function checkLVal(next) {
-    return function(expr, bindingType) {
-      if (expr.type !== "ViewExpression" || bindingType !== "import") {
-        return next.apply(this, arguments);
-      }
-    };
-  }
-
   function enterFunctionScope(next) {
     return function() {
       ++this.O_function;
@@ -62,7 +54,7 @@ export default function(acorn) {
   function parseMaybeViewExpression() {
     if (this.isContextual("viewof")) {
       const node = this.startNode();
-      this.expectContextual("viewof");
+      this.next();
       node.id = this.parseIdent();
       return this.finishNode(node, "ViewExpression");
     }
@@ -102,7 +94,7 @@ export default function(acorn) {
         this.checkUnreserved(node.imported);
         node.local = node.imported;
       }
-      this.checkLVal(node.local, "import");
+      this.checkLVal(node.local, "let");
       nodes.push(this.finishNode(node, "ImportSpecifier"));
     }
     return nodes;
@@ -162,7 +154,6 @@ export default function(acorn) {
   }
 
   acorn.plugins.observable = function(that) {
-    that.extend("checkLVal", checkLVal);
     that.extend("enterFunctionScope", enterFunctionScope);
     that.extend("exitFunctionScope", exitFunctionScope);
     that.extend("isKeyword", isKeyword);
