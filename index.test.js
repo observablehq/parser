@@ -44,6 +44,7 @@ readdirSync(join("test", "input")).forEach(file => {
       if (error.code === "ENOENT") {
         console.warn(`generating ${outfile}…\n`);
         writeFileSync(outfile, JSON.stringify(actual, null, 2), "utf8");
+        return;
       } else {
         throw error;
       }

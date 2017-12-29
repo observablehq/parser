@@ -5,13 +5,16 @@
 // TODO Disallow top-level arguments references.
 // TODO Disallow simultaneous usage of yield and await.
 // TODO Allow deprecated generator blocks *{ … }?
-// TODO Allow import with clause.
 export default function(acorn) {
   const tt = acorn.tokTypes;
 
   function parseImport(node) {
     this.next();
     node.specifiers = this.parseImportSpecifiers();
+    if (this.type === tt._with) {
+      this.next();
+      node.injections = this.parseImportSpecifiers();
+    }
     this.expectContextual("from");
     node.source = this.type === tt.string ? this.parseExprAtom() : this.unexpected();
     this.semicolon();
