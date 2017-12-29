@@ -22,7 +22,7 @@ readdirSync(join("test", "input")).forEach(file => {
       test.deepEqual(actual, expected);
     } catch (error) {
       if (error.code === "ENOENT") {
-        console.warn(`generating ${outfile}`);
+        console.warn(`generating ${outfile}…\n`);
         writeFileSync(outfile, JSON.stringify(actual, null, 2), "utf8");
       }
     }
