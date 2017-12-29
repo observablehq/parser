@@ -105,6 +105,12 @@ It is currently an error for a cell to be both asynchronous and a generator.
 
 The view identifier: an Identifier.
 
+### ImportDeclaration
+
+<a href="#declaration_injections" name="declaration_injections">#</a> <i>declaration</i>.<b>injections</b>
+
+An array of ImportSpecifier nodes, if the import declaration has a `with` clause, and otherwise null.
+
 ### ImportSpecifier
 
 <a href="specifier_view" name="specifier_view">#</a> <i>specifier</i>.<b>view</b>
