@@ -1,0 +1,13 @@
+{
+  "type": "ImportDeclaration",
+  "start": 0,
+  "end": 23,
+  "specifiers": [],
+  "source": {
+    "type": "Literal",
+    "start": 15,
+    "end": 23,
+    "value": "module",
+    "raw": "\"module\""
+  }
+}
