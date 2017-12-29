@@ -5,20 +5,20 @@ export default function(acorn) {
   const tt = acorn.tokTypes;
   const pp = acorn.Parser.prototype;
 
-  pp.O_functionDepth = 0;
+  pp.O_function = 0;
   pp.O_async = false;
   pp.O_generator = false;
 
   function enterFunctionScope(next) {
     return function() {
-      ++this.O_functionDepth;
+      ++this.O_function;
       return next.apply(this, arguments);
     };
   }
 
   function exitFunctionScope(next) {
     return function() {
-      --this.O_functionDepth;
+      --this.O_function;
       return next.apply(this, arguments);
     };
   }
@@ -31,7 +31,7 @@ export default function(acorn) {
 
   function parseAwait(next) {
     return function() {
-      if (this.O_functionDepth === 1) {
+      if (this.O_function === 1) {
         if (this.O_generator) {
           this.raise(this.start, "async generators not allowed");
         }
@@ -170,7 +170,7 @@ export default function(acorn) {
 
   function parseYield(next) {
     return function() {
-      if (this.O_functionDepth === 1) {
+      if (this.O_function === 1) {
         if (this.O_async) {
           this.raise(this.start, "async generators not allowed");
         }
