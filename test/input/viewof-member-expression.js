@@ -1,3 +1,1 @@
-{
-  viewof foo.name;
-}
+viewof foo.name

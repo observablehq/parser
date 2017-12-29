@@ -103,13 +103,76 @@ It is currently an error for a cell to be both asynchronous and a generator.
 
 <a href="#view_id" name="view_id">#</a> <i>view</i>.<b>id</b>
 
-The view identifier: an Identifier.
+The view identifier: an Identifier. For example:
+
+```js
+viewof foo.name
+```
+
+```json
+{
+  "type": "MemberExpression",
+  "object": {
+    "type": "ViewExpression",
+    "id": {
+      "type": "Identifier",
+      "name": "foo"
+    }
+  },
+  "property": {
+    "type": "Identifier",
+    "name": "name"
+  },
+  "computed": false
+}
+```
 
 ### ImportDeclaration
 
 <a href="#declaration_injections" name="declaration_injections">#</a> <i>declaration</i>.<b>injections</b>
 
-An array of ImportSpecifier nodes, if the import declaration has a `with` clause, and otherwise null.
+An array of ImportSpecifier nodes, if the import declaration has a `with` clause, and otherwise null. For example:
+
+```js
+import {foo} with {bar} from "module"
+```
+
+```json
+{
+  "type": "ImportDeclaration",
+  "specifiers": [
+    {
+      "type": "ImportSpecifier",
+      "imported": {
+        "type": "Identifier",
+        "name": "foo"
+      },
+      "local": {
+        "type": "Identifier",
+        "name": "foo"
+      }
+    }
+  ],
+  "injections": [
+    {
+      "type": "ImportSpecifier",
+      "imported": {
+        "type": "Identifier",
+        "name": "bar"
+      },
+      "local": {
+        "type": "Identifier",
+        "name": "bar"
+      }
+    }
+  ],
+  "source": {
+    "type": "Literal",
+    "value": "module",
+    "raw": "\"module\""
+  }
+}
+```
 
 ### ImportSpecifier
 
