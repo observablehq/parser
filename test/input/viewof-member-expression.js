@@ -1,0 +1,3 @@
+{
+  viewof foo.name;
+}

@@ -1,6 +1,14 @@
 export default function(acorn) {
   const tt = acorn.tokTypes;
 
+  function checkLVal(next) {
+    return function(expr, bindingType) {
+      if (expr.type !== "ViewExpression" || bindingType !== "import") {
+        return next.apply(this, arguments);
+      }
+    };
+  }
+
   function enterFunctionScope(next) {
     return function() {
       ++this.O_function;
@@ -12,6 +20,12 @@ export default function(acorn) {
     return function() {
       --this.O_function;
       return next.apply(this, arguments);
+    };
+  }
+
+  function isKeyword(next) {
+    return function(name) {
+      return name === "viewof" || next.apply(this, arguments);
     };
   }
 
@@ -39,18 +53,19 @@ export default function(acorn) {
     };
   }
 
-  function parseIdent(next) {
+  function parseExprAtom(next) {
     return function() {
-      if (this.eatContextual("viewof")) {
-        return {
-          type: "ViewIdentifier",
-          start: this.lastTokStart,
-          end: this.lastTokEnd,
-          id: next.apply(this, arguments)
-        };
-      }
-      return next.apply(this, arguments);
+      return this.parseMaybeViewExpression() || next.apply(this, arguments);
     };
+  }
+
+  function parseMaybeViewExpression() {
+    if (this.isContextual("viewof")) {
+      const node = this.startNode();
+      this.expectContextual("viewof");
+      node.id = this.parseIdent();
+      return this.finishNode(node, "ViewExpression");
+    }
   }
 
   function parseImport(node) {
@@ -77,6 +92,9 @@ export default function(acorn) {
         if (this.afterTrailingComma(tt.braceR)) break;
       }
       const node = this.startNode();
+      if (this.eatContextual("viewof")) {
+        node.view = true;
+      }
       node.imported = this.parseIdent();
       if (this.eatContextual("as")) {
         node.local = this.parseIdent();
@@ -84,7 +102,7 @@ export default function(acorn) {
         this.checkUnreserved(node.imported);
         node.local = node.imported;
       }
-      this.checkLVal(node.local, "let");
+      this.checkLVal(node.local, "import");
       nodes.push(this.finishNode(node, "ImportSpecifier"));
     }
     return nodes;
@@ -122,7 +140,7 @@ export default function(acorn) {
       }
       token = lookahead.getToken();
       if (token.type === tt.eq) {
-        node.id = this.parseIdent();
+        node.id = this.parseMaybeViewExpression() || this.parseIdent();
         token = lookahead.getToken();
         this.expect(tt.eq);
       }
@@ -144,14 +162,17 @@ export default function(acorn) {
   }
 
   acorn.plugins.observable = function(that) {
+    that.extend("checkLVal", checkLVal);
     that.extend("enterFunctionScope", enterFunctionScope);
     that.extend("exitFunctionScope", exitFunctionScope);
+    that.extend("isKeyword", isKeyword);
     that.extend("parseAwait", parseAwait);
     that.extend("parseYield", parseYield);
-    that.extend("parseIdent", parseIdent);
     that.extend("parseImport", () => parseImport);
     that.extend("parseImportSpecifiers", () => parseImportSpecifiers);
+    that.extend("parseExprAtom", parseExprAtom);
     that.extend("parseTopLevel", () => parseTopLevel);
+    that.parseMaybeViewExpression = parseMaybeViewExpression;
     that.O_function = 0;
     that.O_async = false;
     that.O_generator = false;

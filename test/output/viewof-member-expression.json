@@ -1,0 +1,43 @@
+{
+  "type": "Cell",
+  "start": 0,
+  "end": 23,
+  "id": null,
+  "async": false,
+  "generator": false,
+  "body": {
+    "type": "BlockStatement",
+    "start": 0,
+    "end": 22,
+    "body": [
+      {
+        "type": "ExpressionStatement",
+        "start": 4,
+        "end": 20,
+        "expression": {
+          "type": "MemberExpression",
+          "start": 4,
+          "end": 19,
+          "object": {
+            "type": "ViewExpression",
+            "start": 4,
+            "end": 14,
+            "id": {
+              "type": "Identifier",
+              "start": 11,
+              "end": 14,
+              "name": "foo"
+            }
+          },
+          "property": {
+            "type": "Identifier",
+            "start": 15,
+            "end": 19,
+            "name": "name"
+          },
+          "computed": false
+        }
+      }
+    ]
+  }
+}
