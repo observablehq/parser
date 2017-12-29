@@ -83,12 +83,10 @@ export default function(acorn) {
     return nodes;
   }
 
-  function parseTopLevel() {
-    const node = this.startNode();
+  function parseTopLevel(node) {
     const lookahead = acorn.tokenizer(this.input);
     let token = lookahead.getToken();
 
-    node.id = null;
     this.strict = true;
     this.inAsync = true;
     this.inGenerator = true;
@@ -101,12 +99,13 @@ export default function(acorn) {
 
     // An import?
     if (token.type === tt._import) {
-      const body = this.parseImport(this.startNode());
+      const body = this.parseImport(node);
       this.expect(tt.eof);
       return body;
     }
 
     // A named cell?
+    node.id = null;
     if (token.type === tt.name) {
       if (token.value === "viewof") {
         token = lookahead.getToken();
