@@ -1,27 +1,27 @@
 export default function(acorn) {
   const tt = acorn.tokTypes;
 
-  function enterFunctionScope(next) {
+  function extendEnterFunctionScope(next) {
     return function() {
       ++this.O_function;
       return next.apply(this, arguments);
     };
   }
 
-  function exitFunctionScope(next) {
+  function extendExitFunctionScope(next) {
     return function() {
       --this.O_function;
       return next.apply(this, arguments);
     };
   }
 
-  function isKeyword(next) {
+  function extendIsKeyword(next) {
     return function(name) {
       return name === "viewof" || next.apply(this, arguments);
     };
   }
 
-  function parseAwait(next) {
+  function extendParseAwait(next) {
     return function() {
       if (this.O_function === 1) {
         if (this.O_generator) {
@@ -33,7 +33,7 @@ export default function(acorn) {
     };
   }
 
-  function parseYield(next) {
+  function extendParseYield(next) {
     return function() {
       if (this.O_function === 1) {
         if (this.O_async) {
@@ -45,7 +45,7 @@ export default function(acorn) {
     };
   }
 
-  function parseExprAtom(next) {
+  function extendParseExprAtom(next) {
     return function() {
       return this.parseMaybeViewExpression() || next.apply(this, arguments);
     };
@@ -154,14 +154,14 @@ export default function(acorn) {
   }
 
   acorn.plugins.observable = function(that) {
-    that.extend("enterFunctionScope", enterFunctionScope);
-    that.extend("exitFunctionScope", exitFunctionScope);
-    that.extend("isKeyword", isKeyword);
-    that.extend("parseAwait", parseAwait);
-    that.extend("parseYield", parseYield);
+    that.extend("enterFunctionScope", extendEnterFunctionScope);
+    that.extend("exitFunctionScope", extendExitFunctionScope);
+    that.extend("isKeyword", extendIsKeyword);
+    that.extend("parseAwait", extendParseAwait);
+    that.extend("parseYield", extendParseYield);
     that.extend("parseImport", () => parseImport);
     that.extend("parseImportSpecifiers", () => parseImportSpecifiers);
-    that.extend("parseExprAtom", parseExprAtom);
+    that.extend("parseExprAtom", extendParseExprAtom);
     that.extend("parseTopLevel", () => parseTopLevel);
     that.parseMaybeViewExpression = parseMaybeViewExpression;
     that.O_function = 0;
