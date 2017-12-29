@@ -13,14 +13,14 @@ export default function(acorn) {
     instance.extend("parseTopLevel", function() {
       return function() {
         const lookahead = acorn.tokenizer(this.input);
-        let token0 = lookahead.getToken();
+        let token = lookahead.getToken();
         this.strict = true;
         this.inAsync = true;
         this.inGenerator = true;
         this.inFunction = true;
 
         // An empty cell?
-        if (token0.type === tt.eof) {
+        if (token.type === tt.eof) {
           return {
             type: "Cell",
             id: null,
@@ -29,18 +29,18 @@ export default function(acorn) {
         }
 
         // An import?
-        if (token0.type === tt._import) {
+        if (token.type === tt._import) {
           return this.parseImport(this.startNode());
         }
 
         // A named cell?
-        if (token0.type === tt.name) {
-          let token1 = lookahead.getToken();
-          if (token1.type === tt.eq) {
+        if (token.type === tt.name) {
+          token = lookahead.getToken();
+          if (token.type === tt.eq) {
             let id = this.parseIdent();
-            let token2 = lookahead.getToken();
+            token = lookahead.getToken();
             this.expect(tt.eq);
-            if (token2.type === tt.braceL) {
+            if (token.type === tt.braceL) {
               return {
                 type: "Cell",
                 id,
@@ -56,7 +56,7 @@ export default function(acorn) {
         }
 
         // An anonymous cell. A block?
-        if (token0.type === tt.braceL) {
+        if (token.type === tt.braceL) {
           return {
             type: "Cell",
             id: null,
