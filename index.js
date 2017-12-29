@@ -20,12 +20,6 @@ export default function(acorn) {
     };
   }
 
-  function isKeyword(next) {
-    return function(word) {
-      return word === "viewof" || next.apply(this, arguments);
-    };
-  }
-
   function parseAwait(next) {
     return function() {
       if (this.O_function === 1) {
@@ -158,7 +152,6 @@ export default function(acorn) {
   acorn.plugins.observable = function(instance) {
     instance.extend("enterFunctionScope", enterFunctionScope);
     instance.extend("exitFunctionScope", exitFunctionScope);
-    instance.extend("isKeyword", isKeyword);
     instance.extend("parseAwait", parseAwait);
     instance.extend("parseIdent", parseIdent);
     instance.extend("parseImport", () => parseImport);
