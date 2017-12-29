@@ -6,6 +6,8 @@
     "end": 9,
     "name": "Foo"
   },
+  "async": false,
+  "generator": false,
   "body": {
     "type": "ClassExpression",
     "start": 0,

@@ -1,10 +1,10 @@
 {
   "error": {
     "type": "SyntaxError",
-    "message": "Assigning to rvalue (2:2)",
-    "pos": 4,
+    "message": "async generators not allowed (3:2)",
+    "pos": 21,
     "loc": {
-      "line": 2,
+      "line": 3,
       "column": 2
     }
   }

@@ -11,6 +11,8 @@
       "name": "foo"
     }
   },
+  "async": false,
+  "generator": false,
   "body": {
     "type": "BlockStatement",
     "start": 13,

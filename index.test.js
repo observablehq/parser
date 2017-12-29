@@ -7,6 +7,7 @@ import observable from "./index";
 observable(acorn);
 
 const options = {
+  ecmaVersion: 8,
   plugins: {
     observable: true
   }
@@ -44,7 +45,7 @@ readdirSync(join("test", "input")).forEach(file => {
     } catch (error) {
       if (error.code === "ENOENT") {
         console.warn(`generating ${outfile}…\n`);
-        writeFileSync(outfile, JSON.stringify(actual, null, 2), "utf8");
+        writeFileSync(outfile, JSON.stringify(actual, null, 2) + "\n", "utf8");
         return;
       } else {
         throw error;

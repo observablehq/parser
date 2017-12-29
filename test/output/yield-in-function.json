@@ -1,0 +1,52 @@
+{
+  "type": "Cell",
+  "id": null,
+  "async": false,
+  "generator": false,
+  "body": {
+    "type": "BlockStatement",
+    "start": 0,
+    "end": 46,
+    "body": [
+      {
+        "type": "FunctionDeclaration",
+        "start": 4,
+        "end": 44,
+        "id": {
+          "type": "Identifier",
+          "start": 14,
+          "end": 19,
+          "name": "inner"
+        },
+        "generator": true,
+        "expression": false,
+        "async": false,
+        "params": [],
+        "body": {
+          "type": "BlockStatement",
+          "start": 22,
+          "end": 44,
+          "body": [
+            {
+              "type": "ExpressionStatement",
+              "start": 28,
+              "end": 40,
+              "expression": {
+                "type": "YieldExpression",
+                "start": 28,
+                "end": 39,
+                "delegate": false,
+                "argument": {
+                  "type": "Identifier",
+                  "start": 34,
+                  "end": 39,
+                  "name": "value"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

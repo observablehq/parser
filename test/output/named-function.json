@@ -6,6 +6,8 @@
     "end": 12,
     "name": "foo"
   },
+  "async": false,
+  "generator": false,
   "body": {
     "type": "FunctionExpression",
     "start": 0,
@@ -18,6 +20,7 @@
     },
     "generator": false,
     "expression": false,
+    "async": false,
     "params": [],
     "body": {
       "type": "BlockStatement",

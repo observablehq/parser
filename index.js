@@ -1,14 +1,43 @@
-// TODO Report locations if options.locations is true.
-// TODO Report whether a Cell is async or a generator.
 // TODO Disallow top-level arguments references.
-// TODO Disallow simultaneous usage of yield and await.
+// TODO Report locations if options.locations is true.
 // TODO Allow deprecated generator blocks *{ … }?
 export default function(acorn) {
   const tt = acorn.tokTypes;
+  const pp = acorn.Parser.prototype;
+
+  pp.O_functionDepth = 0;
+  pp.O_async = false;
+  pp.O_generator = false;
+
+  function enterFunctionScope(next) {
+    return function() {
+      ++this.O_functionDepth;
+      return next.apply(this, arguments);
+    };
+  }
+
+  function exitFunctionScope(next) {
+    return function() {
+      --this.O_functionDepth;
+      return next.apply(this, arguments);
+    };
+  }
 
   function isKeyword(next) {
     return function(word) {
       return word === "viewof" || next.apply(this, arguments);
+    };
+  }
+
+  function parseAwait(next) {
+    return function() {
+      if (this.O_functionDepth === 1) {
+        if (this.O_generator) {
+          this.raise(this.start, "async generators not allowed");
+        }
+        this.O_async = true;
+      }
+      return next.apply(this, arguments);
     };
   }
 
@@ -76,6 +105,8 @@ export default function(acorn) {
       return {
         type: "Cell",
         id: null,
+        async: false,
+        generator: false,
         body: null
       };
     }
@@ -105,6 +136,8 @@ export default function(acorn) {
         return {
           type: "Cell",
           id,
+          async: this.O_async,
+          generator: this.O_generator,
           body
         };
       }
@@ -117,6 +150,8 @@ export default function(acorn) {
       return {
         type: "Cell",
         id: null,
+        async: this.O_async,
+        generator: this.O_generator,
         body
       };
     }
@@ -126,18 +161,34 @@ export default function(acorn) {
     this.expect(tt.eof);
     return {
       type: "Cell",
-      id: body.type === "FunctionExpression"
-          || body.type === "ClassExpression"
-          ? body.id : null,
+      id: body.type === "FunctionExpression" || body.type === "ClassExpression" ? body.id : null,
+      async: this.O_async,
+      generator: this.O_generator,
       body
     };
   }
 
+  function parseYield(next) {
+    return function() {
+      if (this.O_functionDepth === 1) {
+        if (this.O_async) {
+          this.raise(this.start, "async generators not allowed");
+        }
+        this.O_generator = true;
+      }
+      return next.apply(this, arguments);
+    };
+  }
+
   acorn.plugins.observable = function(instance) {
+    instance.extend("enterFunctionScope", enterFunctionScope);
+    instance.extend("exitFunctionScope", exitFunctionScope);
     instance.extend("isKeyword", isKeyword);
+    instance.extend("parseAwait", parseAwait);
     instance.extend("parseIdent", parseIdent);
     instance.extend("parseImport", () => parseImport);
     instance.extend("parseImportSpecifiers", () => parseImportSpecifiers);
     instance.extend("parseTopLevel", () => parseTopLevel);
+    instance.extend("parseYield", parseYield);
   };
 }

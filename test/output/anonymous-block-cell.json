@@ -1,6 +1,8 @@
 {
   "type": "Cell",
   "id": null,
+  "async": false,
+  "generator": false,
   "body": {
     "type": "BlockStatement",
     "start": 0,

@@ -1,5 +1,7 @@
 {
   "type": "Cell",
   "id": null,
+  "async": false,
+  "generator": false,
   "body": null
 }
