@@ -91,6 +91,9 @@ export default function(acorn) {
     if (token.type === tt.name) {
       if (token.value === "viewof") {
         token = lookahead.getToken();
+        if (token.type !== tt.name) {
+          lookahead.unexpected();
+        }
       }
       token = lookahead.getToken();
       if (token.type === tt.eq) {
