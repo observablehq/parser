@@ -1,6 +1,4 @@
-// TODO Disallow top-level arguments references.
 // TODO Report locations if options.locations is true.
-// TODO Allow deprecated generator blocks *{ … }?
 export default function(acorn) {
   const tt = acorn.tokTypes;
   const pp = acorn.Parser.prototype;
