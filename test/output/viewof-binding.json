@@ -1,0 +1,11 @@
+{
+  "error": {
+    "type": "SyntaxError",
+    "message": "Binding rvalue (2:6)",
+    "pos": 8,
+    "loc": {
+      "line": 2,
+      "column": 6
+    }
+  }
+}

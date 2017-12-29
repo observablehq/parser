@@ -1,0 +1,27 @@
+{
+  "type": "Cell",
+  "id": null,
+  "body": {
+    "type": "MemberExpression",
+    "start": 0,
+    "end": 20,
+    "object": {
+      "type": "ViewIdentifier",
+      "start": 0,
+      "end": 6,
+      "id": {
+        "type": "Identifier",
+        "start": 7,
+        "end": 12,
+        "name": "input"
+      }
+    },
+    "property": {
+      "type": "Identifier",
+      "start": 13,
+      "end": 20,
+      "name": "tagName"
+    },
+    "computed": false
+  }
+}

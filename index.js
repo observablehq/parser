@@ -1,5 +1,3 @@
-// TODO Allow viewof definitions.
-// TODO Allow viewof references (but don’t allow local viewof declarations).
 // TODO Report locations if options.locations is true.
 // TODO Report whether a Cell is async or a generator.
 // TODO Disallow top-level arguments references.
@@ -7,6 +5,26 @@
 // TODO Allow deprecated generator blocks *{ … }?
 export default function(acorn) {
   const tt = acorn.tokTypes;
+
+  function isKeyword(next) {
+    return function(word) {
+      return word === "viewof" || next.apply(this, arguments);
+    };
+  }
+
+  function parseIdent(next) {
+    return function() {
+      if (this.eatContextual("viewof")) {
+        return {
+          type: "ViewIdentifier",
+          start: this.lastTokStart,
+          end: this.lastTokEnd,
+          id: next.apply(this, arguments)
+        };
+      }
+      return next.apply(this, arguments);
+    };
+  }
 
   function parseImport(node) {
     this.next();
@@ -71,6 +89,9 @@ export default function(acorn) {
 
     // A named cell?
     if (token.type === tt.name) {
+      if (token.value === "viewof") {
+        token = lookahead.getToken();
+      }
       token = lookahead.getToken();
       if (token.type === tt.eq) {
         let id = this.parseIdent();
@@ -110,6 +131,8 @@ export default function(acorn) {
   }
 
   acorn.plugins.observable = function(instance) {
+    instance.extend("isKeyword", isKeyword);
+    instance.extend("parseIdent", parseIdent);
     instance.extend("parseImport", () => parseImport);
     instance.extend("parseImportSpecifiers", () => parseImportSpecifiers);
     instance.extend("parseTopLevel", () => parseTopLevel);
