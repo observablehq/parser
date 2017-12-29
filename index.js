@@ -103,50 +103,55 @@ export default function(acorn) {
   function parseTopLevel(node) {
     const lookahead = acorn.tokenizer(this.input);
     let token = lookahead.getToken();
+    let body = null;
+    let id = null;
 
     this.strict = true;
     this.inAsync = true;
     this.inGenerator = true;
     this.inFunction = true;
 
-    // An empty cell?
-    if (token.type === tt.eof) {
-      return null;
-    }
-
     // An import?
     if (token.type === tt._import) {
-      const body = this.parseImport(node);
-      this.expect(tt.eof);
-      return body;
+      body = this.parseImport(this.startNode());
     }
 
-    // A named cell?
-    node.id = null;
-    if (token.type === tt.name) {
-      if (token.value === "viewof") {
+    // A non-empty cell?
+    else if (token.type !== tt.eof) {
+
+      // A named cell?
+      if (token.type === tt.name) {
+        if (token.value === "viewof") {
+          token = lookahead.getToken();
+          if (token.type !== tt.name) {
+            lookahead.unexpected();
+          }
+        }
         token = lookahead.getToken();
-        if (token.type !== tt.name) {
-          lookahead.unexpected();
+        if (token.type === tt.eq) {
+          id = this.parseMaybeViewExpression() || this.parseIdent();
+          token = lookahead.getToken();
+          this.expect(tt.eq);
         }
       }
-      token = lookahead.getToken();
-      if (token.type === tt.eq) {
-        node.id = this.parseMaybeViewExpression() || this.parseIdent();
-        token = lookahead.getToken();
-        this.expect(tt.eq);
+
+      // A block?
+      if (token.type === tt.braceL) {
+        body = this.parseBlock();
+      }
+
+      // An expression?
+      // Possibly a function or class declaration?
+      else {
+        body = this.parseExpression();
+        if (id === null && (body.type === "FunctionExpression" || body.type === "ClassExpression")) {
+          id = body.id;
+        }
       }
     }
 
-    // A block or expression?
-    const body = token.type === tt.braceL ? this.parseBlock() : this.parseExpression();
     this.expect(tt.eof);
-
-    // A function or class declaration?
-    if (node.id === null && (body.type === "FunctionExpression" || body.type === "ClassExpression")) {
-      node.id = body.id;
-    }
-
+    node.id = id;
     node.async = this.O_async;
     node.generator = this.O_generator;
     node.body = body;
