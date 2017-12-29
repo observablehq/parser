@@ -6,10 +6,16 @@
     "acorn": "^5.2.1"
   },
   "scripts": {
-    "test": "node -r @std/esm index.test"
+    "test": "tape -r @std/esm 'index.test.js'",
+    "precommit": "eslint . && yarn test"
   },
   "@std/esm": {
     "esm": "js",
     "cjs": true
+  },
+  "devDependencies": {
+    "@observablehq/tape": "^0.0.1",
+    "eslint": "^4.14.0",
+    "husky": "^0.14.3"
   }
 }

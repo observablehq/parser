@@ -1,0 +1,16 @@
+{
+  "type": "Cell",
+  "id": {
+    "type": "Identifier",
+    "start": 0,
+    "end": 3,
+    "name": "foo"
+  },
+  "body": {
+    "type": "Literal",
+    "start": 6,
+    "end": 8,
+    "value": 42,
+    "raw": "42"
+  }
+}

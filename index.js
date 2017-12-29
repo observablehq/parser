@@ -4,12 +4,13 @@
 // TODO Disallow arguments references.
 // TODO Disallow yield and await.
 // TODO Allow deprecated generator blocks *{ … }?
+// TODO Extract names from function expressions: function foo() { … }
+// TODO Extract names from class expressions: class Foo { … }
 // TODO Parse custom import statements.
 export default function(acorn) {
   const tt = acorn.tokTypes;
-  const options = {ecmaVersion: 8, plugins: {observable: true}};
   acorn.plugins.observable = function(instance) {
-    instance.extend("parseTopLevel", function(next) {
+    instance.extend("parseTopLevel", function() {
       return function() {
         const lookahead = acorn.tokenizer(this.input);
         let token0 = lookahead.getToken();
@@ -21,7 +22,9 @@ export default function(acorn) {
         // An empty cell?
         if (token0.type === tt.eof) {
           return {
-            type: "EmptyCell"
+            type: "Cell",
+            id: null,
+            body: null
           };
         }
 
@@ -34,13 +37,13 @@ export default function(acorn) {
             this.expect(tt.eq);
             if (token2.type === tt.braceL) {
               return {
-                type: "BlockCell",
+                type: "Cell",
                 id,
                 body: this.parseBlock()
               };
             }
             return {
-              type: "ExpressionCell",
+              type: "Cell",
               id,
               body: this.parseExpression()
             };
@@ -50,13 +53,15 @@ export default function(acorn) {
         // An anonymous cell. A block?
         if (token0.type === tt.braceL) {
           return {
-            type: "BlockCell",
+            type: "Cell",
+            id: null,
             body: this.parseBlock()
           };
         }
 
         return {
-          type: "ExpressionCell",
+          type: "Cell",
+          id: null,
           body: this.parseExpression()
         };
       };

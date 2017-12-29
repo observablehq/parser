@@ -1,0 +1,10 @@
+{
+  "type": "Cell",
+  "id": null,
+  "body": {
+    "type": "Identifier",
+    "start": 0,
+    "end": 3,
+    "name": "foo"
+  }
+}

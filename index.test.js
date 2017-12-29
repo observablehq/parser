@@ -1,38 +1,30 @@
+import tape from "@observablehq/tape";
 import acorn from "acorn";
+import {readdirSync, readFileSync, writeFileSync} from "fs";
+import {basename, extname, join} from "path";
 import observable from "./index";
 
 observable(acorn);
 
 const options = {
-  locations: true,
   plugins: {
     observable: true
   }
 };
 
-// NamedBlockCell
-console.log(JSON.stringify(acorn.parse(`
-foo = {
-  return 42;
-}
-`, options), null, 2));
-
-// NamedExpressionCell
-console.log(JSON.stringify(acorn.parse(`
-name = "value"
-`, options), null, 2));
-
-// BlockCell
-console.log(JSON.stringify(acorn.parse(`
-{
-  return 42;
-}
-`, options), null, 2));
-
-// ExpressionCell
-console.log(JSON.stringify(acorn.parse(`
-name + 42
-`, options), null, 2));
-
-// EmptyCell
-console.log(JSON.stringify(acorn.parse(``, options), null, 2));
+readdirSync(join("test", "input")).forEach(file => {
+  tape(`parse(${file})`, test => {
+    const infile = join("test", "input", file);
+    const outfile = join("test", "output", basename(file, extname(file)) + ".json");
+    const actual = acorn.parse(readFileSync(infile, "utf8"), options);
+    try {
+      const expected = JSON.parse(readFileSync(outfile, "utf8"));
+      test.deepEqual(actual, expected);
+    } catch (error) {
+      if (error.code === "ENOENT") {
+        console.warn(`generating ${outfile}`);
+        writeFileSync(outfile, JSON.stringify(actual, null, 2), "utf8");
+      }
+    }
+  });
+});
