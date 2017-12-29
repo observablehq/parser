@@ -100,13 +100,7 @@ export default function(acorn) {
 
     // An empty cell?
     if (token.type === tt.eof) {
-      return {
-        type: "Cell",
-        id: null,
-        async: false,
-        generator: false,
-        body: null
-      };
+      return null;
     }
 
     // An import?
