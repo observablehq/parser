@@ -87,6 +87,8 @@ await new Promise(resolve => {
 })
 ```
 
+It is currently an error for a cell to be both asynchronous and a generator.
+
 <a href="#cell_generator" name="cell_generator">#</a> <i>cell</i>.<b>generator</b>
 
 Whether or not the cell body is a generator (*i.e.*, whether it contains a `yield` statement). Always false for import and empty cells. For example, this expression cell is a generator:
@@ -94,6 +96,8 @@ Whether or not the cell body is a generator (*i.e.*, whether it contains a `yiel
 ```js
 yield* [1, 2, 3, 4]
 ```
+
+It is currently an error for a cell to be both asynchronous and a generator.
 
 ### ViewExpression
 
