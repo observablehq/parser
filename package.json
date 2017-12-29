@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "acorn-observable",
+  "name": "@observablehq/acorn-observable",
   "dependencies": {
     "@std/esm": "^0.16.0",
     "acorn": "^5.2.1"
