@@ -6,7 +6,8 @@
 // TODO Allow deprecated generator blocks *{ … }?
 // TODO Extract names from function expressions: function foo() { … }
 // TODO Extract names from class expressions: class Foo { … }
-// TODO Parse custom import statements.
+// TODO Allow import with clause.
+// TODO Disallow default imports.
 export default function(acorn) {
   const tt = acorn.tokTypes;
   acorn.plugins.observable = function(instance) {
@@ -26,6 +27,11 @@ export default function(acorn) {
             id: null,
             body: null
           };
+        }
+
+        // An import?
+        if (token0.type === tt._import) {
+          return this.parseImport(this.startNode());
         }
 
         // A named cell?
