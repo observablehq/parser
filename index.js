@@ -1,10 +1,5 @@
 export default function(acorn) {
   const tt = acorn.tokTypes;
-  const pp = acorn.Parser.prototype;
-
-  pp.O_function = 0;
-  pp.O_async = false;
-  pp.O_generator = false;
 
   function enterFunctionScope(next) {
     return function() {
@@ -27,6 +22,18 @@ export default function(acorn) {
           this.raise(this.start, "async generators not allowed");
         }
         this.O_async = true;
+      }
+      return next.apply(this, arguments);
+    };
+  }
+
+  function parseYield(next) {
+    return function() {
+      if (this.O_function === 1) {
+        if (this.O_async) {
+          this.raise(this.start, "async generators not allowed");
+        }
+        this.O_generator = true;
       }
       return next.apply(this, arguments);
     };
@@ -136,26 +143,17 @@ export default function(acorn) {
     return this.finishNode(node, "Cell");
   }
 
-  function parseYield(next) {
-    return function() {
-      if (this.O_function === 1) {
-        if (this.O_async) {
-          this.raise(this.start, "async generators not allowed");
-        }
-        this.O_generator = true;
-      }
-      return next.apply(this, arguments);
-    };
-  }
-
-  acorn.plugins.observable = function(instance) {
-    instance.extend("enterFunctionScope", enterFunctionScope);
-    instance.extend("exitFunctionScope", exitFunctionScope);
-    instance.extend("parseAwait", parseAwait);
-    instance.extend("parseIdent", parseIdent);
-    instance.extend("parseImport", () => parseImport);
-    instance.extend("parseImportSpecifiers", () => parseImportSpecifiers);
-    instance.extend("parseTopLevel", () => parseTopLevel);
-    instance.extend("parseYield", parseYield);
+  acorn.plugins.observable = function(that) {
+    that.extend("enterFunctionScope", enterFunctionScope);
+    that.extend("exitFunctionScope", exitFunctionScope);
+    that.extend("parseAwait", parseAwait);
+    that.extend("parseYield", parseYield);
+    that.extend("parseIdent", parseIdent);
+    that.extend("parseImport", () => parseImport);
+    that.extend("parseImportSpecifiers", () => parseImportSpecifiers);
+    that.extend("parseTopLevel", () => parseTopLevel);
+    that.O_function = 0;
+    that.O_async = false;
+    that.O_generator = false;
   };
 }
