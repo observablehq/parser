@@ -4,8 +4,6 @@
 // TODO Disallow arguments references.
 // TODO Disallow yield and await.
 // TODO Allow deprecated generator blocks *{ … }?
-// TODO Extract names from function expressions: function foo() { … }
-// TODO Extract names from class expressions: class Foo { … }
 // TODO Allow import with clause.
 // TODO Disallow default imports.
 export default function(acorn) {
@@ -65,10 +63,14 @@ export default function(acorn) {
           };
         }
 
+        // An expression. Possibly a function or class declaration.
+        const body = this.parseExpression();
         return {
           type: "Cell",
-          id: null,
-          body: this.parseExpression()
+          id: body.type === "FunctionExpression"
+              || body.type === "ClassExpression"
+              ? body.id : null,
+          body
         };
       };
     });
