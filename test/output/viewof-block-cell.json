@@ -1,5 +1,7 @@
 {
   "type": "Cell",
+  "start": 0,
+  "end": 39,
   "id": {
     "type": "ViewIdentifier",
     "start": 0,
@@ -11,8 +13,6 @@
       "name": "foo"
     }
   },
-  "start": 0,
-  "end": 39,
   "async": false,
   "generator": false,
   "body": {

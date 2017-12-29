@@ -1,4 +1,3 @@
-// TODO Report locations if options.locations is true.
 export default function(acorn) {
   const tt = acorn.tokTypes;
   const pp = acorn.Parser.prototype;
@@ -91,10 +90,11 @@ export default function(acorn) {
   }
 
   function parseTopLevel() {
+    const node = this.startNode();
     const lookahead = acorn.tokenizer(this.input);
     let token = lookahead.getToken();
-    let id = null;
 
+    node.id = null;
     this.strict = true;
     this.inAsync = true;
     this.inGenerator = true;
@@ -122,7 +122,7 @@ export default function(acorn) {
       }
       token = lookahead.getToken();
       if (token.type === tt.eq) {
-        id = this.parseIdent();
+        node.id = this.parseIdent();
         token = lookahead.getToken();
         this.expect(tt.eq);
       }
@@ -133,19 +133,14 @@ export default function(acorn) {
     this.expect(tt.eof);
 
     // A function or class declaration?
-    if (id === null && (body.type === "FunctionExpression" || body.type === "ClassExpression")) {
-      id = body.id;
+    if (node.id === null && (body.type === "FunctionExpression" || body.type === "ClassExpression")) {
+      node.id = body.id;
     }
 
-    return {
-      type: "Cell",
-      id,
-      start: 0,
-      end: this.input.length,
-      async: this.O_async,
-      generator: this.O_generator,
-      body
-    };
+    node.async = this.O_async;
+    node.generator = this.O_generator;
+    node.body = body;
+    return this.finishNode(node, "Cell");
   }
 
   function parseYield(next) {

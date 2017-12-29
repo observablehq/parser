@@ -1,13 +1,13 @@
 {
   "type": "Cell",
+  "start": 0,
+  "end": 30,
   "id": {
     "type": "Identifier",
     "start": 9,
     "end": 12,
     "name": "foo"
   },
-  "start": 0,
-  "end": 30,
   "async": false,
   "generator": false,
   "body": {
