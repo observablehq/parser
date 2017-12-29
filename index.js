@@ -17,7 +17,6 @@ export default function(acorn) {
     }
     this.expectContextual("from");
     node.source = this.type === tt.string ? this.parseExprAtom() : this.unexpected();
-    this.semicolon();
     return this.finishNode(node, "ImportDeclaration");
   }
 
@@ -65,7 +64,9 @@ export default function(acorn) {
 
     // An import?
     if (token.type === tt._import) {
-      return this.parseImport(this.startNode());
+      const body = this.parseImport(this.startNode());
+      this.expect(tt.eof);
+      return body;
     }
 
     // A named cell?
@@ -75,32 +76,30 @@ export default function(acorn) {
         let id = this.parseIdent();
         token = lookahead.getToken();
         this.expect(tt.eq);
-        if (token.type === tt.braceL) {
-          return {
-            type: "Cell",
-            id,
-            body: this.parseBlock()
-          };
-        }
+        const body = token.type === tt.braceL ? this.parseBlock() : this.parseExpression();
+        this.expect(tt.eof);
         return {
           type: "Cell",
           id,
-          body: this.parseExpression()
+          body
         };
       }
     }
 
     // An anonymous cell. A block?
     if (token.type === tt.braceL) {
+      const body = this.parseBlock();
+      this.expect(tt.eof);
       return {
         type: "Cell",
         id: null,
-        body: this.parseBlock()
+        body
       };
     }
 
     // An expression. Possibly a function or class declaration.
     const body = this.parseExpression();
+    this.expect(tt.eof);
     return {
       type: "Cell",
       id: body.type === "FunctionExpression"

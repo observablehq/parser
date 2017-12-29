@@ -13,9 +13,10 @@ const options = {
 };
 
 readdirSync(join("test", "input")).forEach(file => {
+  if (extname(file) !== ".js") return;
   tape(`parse ${file}`, test => {
     const infile = join("test", "input", file);
-    const outfile = join("test", "output", basename(file, extname(file)) + ".json");
+    const outfile = join("test", "output", basename(file, ".js") + ".json");
     let actual, expected;
 
     try {
