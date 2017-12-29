@@ -114,3 +114,18 @@ True if the imported specifier is a view. For example:
 ```js
 import {viewof foo} from "module"
 ```
+
+```json
+{
+  "type": "ImportSpecifier",
+  "view": true,
+  "imported": {
+    "type": "Identifier",
+    "name": "foo"
+  },
+  "local": {
+    "type": "Identifier",
+    "name": "foo"
+  }
+}
+```
