@@ -140,6 +140,8 @@ export default function(acorn) {
     return {
       type: "Cell",
       id,
+      start: 0,
+      end: this.input.length,
       async: this.O_async,
       generator: this.O_generator,
       body

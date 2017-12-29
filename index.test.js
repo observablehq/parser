@@ -44,7 +44,7 @@ readdirSync(join("test", "input")).forEach(file => {
       expected = JSON.parse(readFileSync(outfile, "utf8"));
     } catch (error) {
       if (error.code === "ENOENT") {
-        console.warn(`generating ${outfile}…\n`);
+        console.warn(`! generating ${outfile}`);
         writeFileSync(outfile, JSON.stringify(actual, null, 2) + "\n", "utf8");
         return;
       } else {

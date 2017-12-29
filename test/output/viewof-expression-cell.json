@@ -11,6 +11,8 @@
       "name": "foo"
     }
   },
+  "start": 0,
+  "end": 25,
   "async": false,
   "generator": false,
   "body": {
