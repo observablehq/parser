@@ -1,8 +1,9 @@
 // TODO Allow viewof definitions.
-// TODO Allow viewof references.
+// TODO Allow viewof references (but don’t allow local viewof declarations).
 // TODO Report locations if options.locations is true.
-// TODO Disallow arguments references.
-// TODO Disallow yield and await.
+// TODO Report whether a Cell is async or a generator.
+// TODO Disallow top-level arguments references.
+// TODO Disallow simultaneous usage of yield and await.
 // TODO Allow deprecated generator blocks *{ … }?
 // TODO Allow import with clause.
 // TODO Disallow default imports.
