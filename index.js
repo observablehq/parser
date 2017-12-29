@@ -93,6 +93,8 @@ export default function(acorn) {
   function parseTopLevel() {
     const lookahead = acorn.tokenizer(this.input);
     let token = lookahead.getToken();
+    let id = null;
+
     this.strict = true;
     this.inAsync = true;
     this.inGenerator = true;
@@ -120,40 +122,24 @@ export default function(acorn) {
       }
       token = lookahead.getToken();
       if (token.type === tt.eq) {
-        let id = this.parseIdent();
+        id = this.parseIdent();
         token = lookahead.getToken();
         this.expect(tt.eq);
-        const body = token.type === tt.braceL ? this.parseBlock() : this.parseExpression();
-        this.expect(tt.eof);
-        return {
-          type: "Cell",
-          id,
-          async: this.O_async,
-          generator: this.O_generator,
-          body
-        };
       }
     }
 
-    // An anonymous cell. A block?
-    if (token.type === tt.braceL) {
-      const body = this.parseBlock();
-      this.expect(tt.eof);
-      return {
-        type: "Cell",
-        id: null,
-        async: this.O_async,
-        generator: this.O_generator,
-        body
-      };
+    // A block or expression?
+    const body = token.type === tt.braceL ? this.parseBlock() : this.parseExpression();
+    this.expect(tt.eof);
+
+    // A function or class declaration?
+    if (id === null && (body.type === "FunctionExpression" || body.type === "ClassExpression")) {
+      id = body.id;
     }
 
-    // An expression. Possibly a function or class declaration.
-    const body = this.parseExpression();
-    this.expect(tt.eof);
     return {
       type: "Cell",
-      id: body.type === "FunctionExpression" || body.type === "ClassExpression" ? body.id : null,
+      id,
       async: this.O_async,
       generator: this.O_generator,
       body
