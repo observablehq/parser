@@ -2,7 +2,7 @@
 
 ## API Reference
 
-### Cells
+### Cell
 
 <a href="#cell_id" name="cell_id">#</a> <i>cell</i>.<b>id</b>
 
