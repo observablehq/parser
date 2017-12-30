@@ -308,6 +308,7 @@ import {foo} from "module"
     "specifiers": [
       {
         "type": "ImportSpecifier",
+        "view": false,
         "imported": {
           "type": "Identifier",
           "name": "foo"
@@ -383,6 +384,7 @@ import {chart} with {sales as data} from "@mbostock/d3-bar-chart"
     "specifiers": [
       {
         "type": "ImportSpecifier",
+        "view": false,
         "imported": {
           "type": "Identifier",
           "name": "chart"
@@ -396,6 +398,7 @@ import {chart} with {sales as data} from "@mbostock/d3-bar-chart"
     "injections": [
       {
         "type": "ImportSpecifier",
+        "view": false,
         "imported": {
           "type": "Identifier",
           "name": "sales"

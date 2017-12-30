@@ -84,9 +84,7 @@ export default function(acorn) {
         if (this.afterTrailingComma(tt.braceR)) break;
       }
       const node = this.startNode();
-      if (this.eatContextual("viewof")) {
-        node.view = true;
-      }
+      node.view = this.eatContextual("viewof");
       node.imported = this.parseIdent();
       if (this.eatContextual("as")) {
         node.local = this.parseIdent();
