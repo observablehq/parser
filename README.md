@@ -37,7 +37,7 @@ viewof foo = DOM.range()
 
 <a href="#cell_body" name="cell_body">#</a> <i>cell</i>.<b>body</b>
 
-The body of the cell; null for an empty cell; an ImportDeclaration for an import cell; otherwise a BlockStatement or an expression node. For example, a block cell:
+The body of the cell: null for an empty cell; an ImportDeclaration for an import cell; otherwise a BlockStatement or an expression node. For example, a block cell:
 
 ```js
 {
