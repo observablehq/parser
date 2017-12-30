@@ -291,7 +291,7 @@ viewof x.tagName
 }
 ```
 
-An import cell (where [*cell*.body](#cell_body) is an [ImportDeclaration](#importdeclaration); also note the lack of trailing semicolon):
+An import cell (where [*cell*.body](#cell_body) is an [ImportDeclaration](#importdeclaration)):
 
 ```js
 import {foo} from "module"
