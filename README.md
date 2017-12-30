@@ -364,6 +364,8 @@ import {viewof foo} from "module"
 }
 ```
 
+Importing a view imports both the view symbol (`viewof foo`) and the value symbol (`foo`). Likewise, if the specified view is renamed during import (*e.g.*, `viewof foo as bar`), both the view symbol and the value symbol are renamed (*e.g.*, `viewof bar` and `bar`).
+
 Importing with injection (where [*declaration*.injections](#declaration_injections) is present):
 
 ```js
@@ -414,6 +416,8 @@ import {chart} with {sales as data} from "@mbostock/d3-bar-chart"
 ```
 
 For an injection, *specifier*.imported and *specifier*.local are “reversed” compared to a normal specifier: they are from the perspective of the imported module rather than the importing module. So in the example above, the importing module’s variable *sales* is injected into the imported module as the variable *data*.
+
+Injecting a view injects both the view symbol (`viewof foo`) and the value symbol (`foo`). Likewise, if the specified view is renamed during injection (*e.g.*, `viewof foo as bar`), both the view symbol and the value symbol are renamed (*e.g.*, `viewof bar` and `bar`).
 
 ## API Reference
 
