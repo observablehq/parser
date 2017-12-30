@@ -440,11 +440,11 @@ The body of the cell: null for an empty cell; an ImportDeclaration for an import
 
 <a href="#cell_async" name="cell_async">#</a> <i>cell</i>.<b>async</b>
 
-Whether or not the cell body is asynchronous (*i.e.*, whether it contains an `await` statement). Always false for import and empty cells. It is an error for a cell to be both asynchronous and a generator.
+A boolean indicating whether the cell body is asynchronous (*i.e.*, whether it contains an `await` statement). False for import and empty cells. It is an error for a cell to be both asynchronous and a generator.
 
 <a href="#cell_generator" name="cell_generator">#</a> <i>cell</i>.<b>generator</b>
 
-Whether or not the cell body is a generator (*i.e.*, whether it contains a `yield` statement). Always false for import and empty cells. It is an error for a cell to be both asynchronous and a generator.
+A boolean indicating whether the cell body is a generator (*i.e.*, whether it contains a `yield` statement). False for import and empty cells. It is an error for a cell to be both asynchronous and a generator.
 
 ### ViewExpression
 
@@ -462,4 +462,4 @@ An array of ImportSpecifier nodes, if the import declaration has a `with` clause
 
 <a href="specifier_view" name="specifier_view">#</a> <i>specifier</i>.<b>view</b>
 
-True if the imported specifier is a view.
+A boolean indicating whether the import specifies a view.
