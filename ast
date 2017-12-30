@@ -1,0 +1,22 @@
+#!/usr/bin/env node -r @std/esm
+
+import acorn from "acorn";
+import observable from "./";
+
+observable(acorn);
+
+(async () => {
+  const input = await new Promise((resolve, reject) => {
+    const data = [];
+    process.stdin
+        .on("data", d => data.push(d))
+        .on("end", () => resolve(Buffer.concat(data).toString("utf8")))
+        .on("error", reject);
+  });
+  try {
+    const output = acorn.parse(input, {plugins: {observable: true}});
+    process.stdout.write(`${JSON.stringify(output, null, 2)}\n`);
+  } catch (error) {
+    process.stderr.write(`${error.constructor.name}: ${error.message}\n`);
+  }
+})();

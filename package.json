@@ -9,6 +9,9 @@
     "test": "tape -r @std/esm 'index.test.js'",
     "precommit": "eslint . && yarn test"
   },
+  "bin": {
+    "observable-ast": "ast"
+  },
   "@std/esm": {
     "esm": "js",
     "cjs": true
