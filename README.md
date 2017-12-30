@@ -83,6 +83,21 @@ A block cell:
 }
 ```
 
+An empty cell:
+
+```js
+```
+
+```json
+{
+  "type": "Cell",
+  "id": null,
+  "async": false,
+  "generator": false,
+  "body": null
+}
+```
+
 A named expression cell:
 
 ```js
