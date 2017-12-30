@@ -15,7 +15,7 @@ const cell = acorn.parse(input, {plugins: {observable: true}});
 
 (In these examples, the *node*.start and *node*.end indexes into the *input* string are not shown for brevity. If *options*.locations is true, *node*.loc will also be populated with the line and column numbers.)
 
-An expression cell:
+An expression cell (where [*cell*.body](#cell_body) is a type of expression):
 
 ```js
 1 + 2
@@ -44,7 +44,7 @@ An expression cell:
 }
 ```
 
-A block cell:
+A block cell (where [*cell*.body](#cell_body) is a BlockStatement):
 
 ```js
 {
@@ -83,7 +83,7 @@ A block cell:
 }
 ```
 
-An empty cell:
+An empty cell (where [*cell*.body](#cell_body) is null):
 
 ```js
 ```
@@ -98,7 +98,7 @@ An empty cell:
 }
 ```
 
-A named expression cell:
+A named expression cell (where [*cell*.id](#cell_id) is an Identifier):
 
 ```js
 foo = 42
@@ -121,7 +121,7 @@ foo = 42
 }
 ```
 
-A named block cell:
+A named block cell (where [*cell*.id](#cell_id) is an Identifier):
 
 ```js
 foo = {
@@ -154,7 +154,7 @@ foo = {
 }
 ```
 
-An asynchronous expression cell:
+An asynchronous expression cell (where [*cell*.async](#cell_async) is true):
 
 ```js
 2 * await value
@@ -185,7 +185,7 @@ An asynchronous expression cell:
 }
 ```
 
-A generator expression cell:
+A generator expression cell (where [*cell*.generator](#cell_generator) is true):
 
 ```js
 yield* [1, 2, 3]
@@ -224,7 +224,7 @@ yield* [1, 2, 3]
 }
 ```
 
-A viewof expression cell:
+A viewof expression cell (where [*cell*.id](#cell_id) is a [ViewExpression](#viewexpression)):
 
 ```js
 viewof x = DOM.range()
@@ -261,7 +261,7 @@ viewof x = DOM.range()
 }
 ```
 
-A viewof reference within an expression cell:
+A viewof reference within an expression cell (where [*cell*.body](#cell_body) contains a [ViewExpression](#viewexpression)):
 
 ```js
 viewof x.tagName
@@ -291,7 +291,7 @@ viewof x.tagName
 }
 ```
 
-An import cell (note the lack of trailing semicolon):
+An import cell (where [*cell*.body](#cell_body) is an [ImportDeclaration](#importdeclaration); also note the lack of trailing semicolon):
 
 ```js
 import {foo} from "module"
@@ -364,7 +364,7 @@ import {viewof foo} from "module"
 }
 ```
 
-Importing with injection (where *declaration*.injections is present):
+Importing with injection (where [*declaration*.injections](#declaration_injections) is present):
 
 ```js
 import {chart} with {sales as data} from "@mbostock/d3-bar-chart"
