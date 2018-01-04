@@ -156,6 +156,10 @@ export default function(acorn) {
     return this.finishNode(node, "Cell");
   }
 
+  function unexpected(pos) {
+    this.raise(pos != null ? pos : this.start, this.type === tt.eof ? "Unexpected end of input" : "Unexpected token");
+  }
+
   acorn.plugins.observable = function(that) {
     that.extend("enterFunctionScope", extendEnterFunctionScope);
     that.extend("exitFunctionScope", extendExitFunctionScope);
@@ -166,6 +170,7 @@ export default function(acorn) {
     that.extend("parseImportSpecifiers", () => parseImportSpecifiers);
     that.extend("parseExprAtom", extendParseExprAtom);
     that.extend("parseTopLevel", () => parseTopLevel);
+    that.extend("unexpected", () => unexpected);
     that.parseMaybeViewExpression = parseMaybeViewExpression;
     that.O_function = 0;
     that.O_async = false;
