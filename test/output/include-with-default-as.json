@@ -1,0 +1,11 @@
+{
+  "error": {
+    "type": "SyntaxError",
+    "message": "Unexpected keyword 'default' (1:27)",
+    "pos": 27,
+    "loc": {
+      "line": 1,
+      "column": 27
+    }
+  }
+}

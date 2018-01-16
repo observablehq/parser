@@ -1,7 +1,7 @@
 {
   "error": {
     "type": "SyntaxError",
-    "message": "Unexpected keyword 'default' (1:8)",
+    "message": "Unexpected token (1:8)",
     "pos": 8,
     "loc": {
       "line": 1,

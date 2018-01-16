@@ -1,5 +1,17 @@
 export default function(acorn) {
   const tt = acorn.tokTypes;
+  const kw = acorn.keywordTypes;
+
+  tt._include = kw.include = new acorn.TokenType("include");
+  tt._viewof = kw.viewof = new acorn.TokenType("viewof");
+
+  function extendKeywords(keywords) {
+    return {
+      test: function(word) {
+        return keywords.test(word) || /^(include|viewof)$/.test(word);
+      }
+    };
+  }
 
   function extendEnterFunctionScope(next) {
     return function() {
@@ -12,12 +24,6 @@ export default function(acorn) {
     return function() {
       --this.O_function;
       return next.apply(this, arguments);
-    };
-  }
-
-  function extendIsKeyword(next) {
-    return function(name) {
-      return name === "viewof" || next.apply(this, arguments);
     };
   }
 
@@ -52,7 +58,7 @@ export default function(acorn) {
   }
 
   function parseMaybeViewExpression() {
-    if (this.isContextual("viewof")) {
+    if (this.type === tt._viewof) {
       const node = this.startNode();
       this.next();
       node.id = this.parseIdent();
@@ -60,19 +66,19 @@ export default function(acorn) {
     }
   }
 
-  function parseImport(node) {
+  function parseInclude(node) {
     this.next();
-    node.specifiers = this.parseImportSpecifiers();
+    node.specifiers = this.parseIncludeSpecifiers();
     if (this.type === tt._with) {
       this.next();
-      node.injections = this.parseImportSpecifiers();
+      node.injections = this.parseIncludeSpecifiers();
     }
     this.expectContextual("from");
     node.source = this.type === tt.string ? this.parseExprAtom() : this.unexpected();
-    return this.finishNode(node, "ImportDeclaration");
+    return this.finishNode(node, "IncludeDeclaration");
   }
 
-  function parseImportSpecifiers() {
+  function parseIncludeSpecifiers() {
     const nodes = [];
     let first = true;
     this.expect(tt.braceL);
@@ -84,22 +90,22 @@ export default function(acorn) {
         if (this.afterTrailingComma(tt.braceR)) break;
       }
       const node = this.startNode();
-      node.view = this.eatContextual("viewof");
-      node.imported = this.parseIdent();
+      node.view = this.type === tt._viewof ? (this.next(), true) : false;
+      node.included = this.parseIdent();
       if (this.eatContextual("as")) {
         node.local = this.parseIdent();
       } else {
-        this.checkUnreserved(node.imported);
-        node.local = node.imported;
+        this.checkUnreserved(node.included);
+        node.local = node.included;
       }
       this.checkLVal(node.local, "let");
-      nodes.push(this.finishNode(node, "ImportSpecifier"));
+      nodes.push(this.finishNode(node, "IncludeSpecifier"));
     }
     return nodes;
   }
 
   function parseTopLevel(node) {
-    const lookahead = acorn.tokenizer(this.input);
+    const lookahead = acorn.tokenizer(this.input, this.options);
     let token = lookahead.getToken();
     let body = null;
     let id = null;
@@ -114,17 +120,24 @@ export default function(acorn) {
       body = this.parseImport(this.startNode());
     }
 
+    // An include?
+    else if (token.type === tt._include) {
+      body = this.parseInclude(this.startNode());
+    }
+
     // A non-empty cell?
     else if (token.type !== tt.eof) {
 
-      // A named cell?
-      if (token.type === tt.name) {
-        if (token.value === "viewof") {
-          token = lookahead.getToken();
-          if (token.type !== tt.name) {
-            lookahead.unexpected();
-          }
+      // A viewof cell?
+      if (token.type === tt._viewof) {
+        token = lookahead.getToken();
+        if (token.type !== tt.name) {
+          lookahead.unexpected();
         }
+      }
+
+      // A named (or viewof) cell?
+      if (token.type === tt.name) {
         token = lookahead.getToken();
         if (token.type === tt.eq) {
           id = this.parseMaybeViewExpression() || this.parseIdent();
@@ -161,13 +174,13 @@ export default function(acorn) {
   }
 
   acorn.plugins.observable = function(that) {
+    that.keywords = extendKeywords(that.keywords);
+    that.parseInclude = parseInclude;
+    that.parseIncludeSpecifiers = parseIncludeSpecifiers;
     that.extend("enterFunctionScope", extendEnterFunctionScope);
     that.extend("exitFunctionScope", extendExitFunctionScope);
-    that.extend("isKeyword", extendIsKeyword);
     that.extend("parseAwait", extendParseAwait);
     that.extend("parseYield", extendParseYield);
-    that.extend("parseImport", () => parseImport);
-    that.extend("parseImportSpecifiers", () => parseImportSpecifiers);
     that.extend("parseExprAtom", extendParseExprAtom);
     that.extend("parseTopLevel", () => parseTopLevel);
     that.extend("unexpected", () => unexpected);
