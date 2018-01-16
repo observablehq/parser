@@ -1,0 +1,33 @@
+{
+  "type": "Cell",
+  "start": 0,
+  "end": 25,
+  "id": null,
+  "async": false,
+  "generator": false,
+  "body": {
+    "type": "ImportDeclaration",
+    "start": 0,
+    "end": 24,
+    "specifiers": [
+      {
+        "type": "ImportDefaultSpecifier",
+        "start": 7,
+        "end": 10,
+        "local": {
+          "type": "Identifier",
+          "start": 7,
+          "end": 10,
+          "name": "foo"
+        }
+      }
+    ],
+    "source": {
+      "type": "Literal",
+      "start": 16,
+      "end": 24,
+      "value": "module",
+      "raw": "\"module\""
+    }
+  }
+}

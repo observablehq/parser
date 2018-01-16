@@ -66,6 +66,20 @@ export default function(acorn) {
     }
   }
 
+  // A normal import, except disallowing a trailing semicolon.
+  function parseImport(node) {
+    this.next();
+    if (this.type === tt.string) {
+      node.specifiers = [];
+      node.source = this.parseExprAtom();
+    } else {
+      node.specifiers = this.parseImportSpecifiers();
+      this.expectContextual("from");
+      node.source = this.type === tt.string ? this.parseExprAtom() : this.unexpected();
+    }
+    return this.finishNode(node, "ImportDeclaration");
+  }
+
   function parseInclude(node) {
     this.next();
     node.specifiers = this.parseIncludeSpecifiers();
@@ -183,6 +197,7 @@ export default function(acorn) {
     that.extend("parseYield", extendParseYield);
     that.extend("parseExprAtom", extendParseExprAtom);
     that.extend("parseTopLevel", () => parseTopLevel);
+    that.extend("parseImport", () => parseImport);
     that.extend("unexpected", () => unexpected);
     that.parseMaybeViewExpression = parseMaybeViewExpression;
     that.O_function = 0;

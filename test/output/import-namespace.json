@@ -1,0 +1,33 @@
+{
+  "type": "Cell",
+  "start": 0,
+  "end": 25,
+  "id": null,
+  "async": false,
+  "generator": false,
+  "body": {
+    "type": "ImportDeclaration",
+    "start": 0,
+    "end": 24,
+    "specifiers": [
+      {
+        "type": "ImportNamespaceSpecifier",
+        "start": 7,
+        "end": 14,
+        "local": {
+          "type": "Identifier",
+          "start": 12,
+          "end": 14,
+          "name": "d3"
+        }
+      }
+    ],
+    "source": {
+      "type": "Literal",
+      "start": 20,
+      "end": 24,
+      "value": "d3",
+      "raw": "\"d3\""
+    }
+  }
+}

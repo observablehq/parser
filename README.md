@@ -291,10 +291,46 @@ viewof x.tagName
 }
 ```
 
+An import cell (where [*cell*.body](#cell_body) is an ImportDeclaration:
+
+```js
+import {range} from "d3-array"
+```
+
+```json
+{
+  "type": "Cell",
+  "id": null,
+  "async": false,
+  "generator": false,
+  "body": {
+    "type": "ImportDeclaration",
+    "specifiers": [
+      {
+        "type": "ImportSpecifier",
+        "imported": {
+          "type": "Identifier",
+          "name": "range"
+        },
+        "local": {
+          "type": "Identifier",
+          "name": "range"
+        }
+      }
+    ],
+    "source": {
+      "type": "Literal",
+      "value": "d3-array",
+      "raw": "\"d3-array\""
+    }
+  }
+}
+```
+
 An include cell (where [*cell*.body](#cell_body) is an [IncludeDeclaration](#includedeclaration)):
 
 ```js
-include {foo} from "module"
+include {foo} from "@mbostock/example"
 ```
 
 ```json
@@ -321,8 +357,8 @@ include {foo} from "module"
     ],
     "source": {
       "type": "Literal",
-      "value": "module",
-      "raw": "\"module\""
+      "value": "@mbostock/example",
+      "raw": "\"@mbostock/example\""
     }
   }
 }
@@ -331,7 +367,7 @@ include {foo} from "module"
 Including a view (where [*specifier*.view](#specifier_view) is true):
 
 ```js
-include {viewof foo} from "module"
+include {viewof foo} from "@mbostock/example"
 ```
 
 ```json
@@ -358,8 +394,8 @@ include {viewof foo} from "module"
     ],
     "source": {
       "type": "Literal",
-      "value": "module",
-      "raw": "\"module\""
+      "value": "@mbostock/example",
+      "raw": "\"@mbostock/example\""
     }
   }
 }
