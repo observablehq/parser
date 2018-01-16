@@ -11,23 +11,23 @@
     "end": 24,
     "specifiers": [
       {
-        "type": "ImportDefaultSpecifier",
+        "type": "ImportNamespaceSpecifier",
         "start": 7,
-        "end": 10,
+        "end": 14,
         "local": {
           "type": "Identifier",
-          "start": 7,
-          "end": 10,
-          "name": "foo"
+          "start": 12,
+          "end": 14,
+          "name": "d3"
         }
       }
     ],
     "source": {
       "type": "Literal",
-      "start": 16,
+      "start": 20,
       "end": 24,
-      "value": "module",
-      "raw": "\"module\""
+      "value": "d3",
+      "raw": "\"d3\""
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "error": {
     "type": "SyntaxError",
-    "message": "Unexpected keyword 'viewof' (2:6)",
+    "message": "Unexpected token (2:6)",
     "pos": 8,
     "loc": {
       "line": 2,
