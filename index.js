@@ -21,6 +21,13 @@ export default function(acorn) {
     };
   }
 
+  function extendParseForIn(next) {
+    return function(node) {
+      if (this.O_function === 1 && node.await) this.O_async = true;
+      return next.apply(this, arguments);
+    };
+  }
+
   function extendParseAwait(next) {
     return function() {
       if (this.O_function === 1) this.O_async = true;
@@ -154,6 +161,7 @@ export default function(acorn) {
     that.extend("enterFunctionScope", extendEnterFunctionScope);
     that.extend("exitFunctionScope", extendExitFunctionScope);
     that.extend("isKeyword", extendIsKeyword);
+    that.extend("parseForIn", extendParseForIn);
     that.extend("parseAwait", extendParseAwait);
     that.extend("parseYield", extendParseYield);
     that.extend("parseImport", () => parseImport);

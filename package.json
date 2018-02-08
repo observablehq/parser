@@ -4,7 +4,7 @@
   "name": "acorn-observable",
   "dependencies": {
     "@std/esm": "^0.16.0",
-    "acorn": "^5.4.0"
+    "acorn": "^5.4.1"
   },
   "scripts": {
     "test": "tape -r @std/esm 'index.test.js'",

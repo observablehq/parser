@@ -7,7 +7,7 @@ import observable from "./index";
 observable(acorn);
 
 const options = {
-  ecmaVersion: 8,
+  ecmaVersion: 9,
   plugins: {
     observable: true
   }
