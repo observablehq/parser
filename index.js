@@ -23,24 +23,14 @@ export default function(acorn) {
 
   function extendParseAwait(next) {
     return function() {
-      if (this.O_function === 1) {
-        if (this.O_generator) {
-          this.raise(this.start, "async generators not allowed");
-        }
-        this.O_async = true;
-      }
+      if (this.O_function === 1) this.O_async = true;
       return next.apply(this, arguments);
     };
   }
 
   function extendParseYield(next) {
     return function() {
-      if (this.O_function === 1) {
-        if (this.O_async) {
-          this.raise(this.start, "async generators not allowed");
-        }
-        this.O_generator = true;
-      }
+      if (this.O_function === 1) this.O_generator = true;
       return next.apply(this, arguments);
     };
   }

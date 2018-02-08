@@ -440,11 +440,11 @@ The body of the cell: null for an empty cell; an ImportDeclaration for an import
 
 <a href="#cell_async" name="cell_async">#</a> <i>cell</i>.<b>async</b>
 
-A boolean indicating whether the cell body is asynchronous (*i.e.*, whether it contains an `await` statement). False for import and empty cells. It is an error for a cell to be both asynchronous and a generator.
+A boolean indicating whether the cell body is asynchronous (*i.e.*, whether it contains an `await` statement). False for import and empty cells.
 
 <a href="#cell_generator" name="cell_generator">#</a> <i>cell</i>.<b>generator</b>
 
-A boolean indicating whether the cell body is a generator (*i.e.*, whether it contains a `yield` statement). False for import and empty cells. It is an error for a cell to be both asynchronous and a generator.
+A boolean indicating whether the cell body is a generator (*i.e.*, whether it contains a `yield` statement). False for import and empty cells.
 
 ### ViewExpression
 
