@@ -17,7 +17,7 @@ export default function(acorn) {
 
   function extendIsKeyword(next) {
     return function(name) {
-      return name === "viewof" || next.apply(this, arguments);
+      return name === "viewof" || name === "mutable" || next.apply(this, arguments);
     };
   }
 
@@ -44,7 +44,21 @@ export default function(acorn) {
 
   function extendParseExprAtom(next) {
     return function() {
-      return this.parseMaybeViewExpression() || next.apply(this, arguments);
+      return this.parseMaybeViewExpression() || this.parseMaybeMutableExpression() || next.apply(this, arguments);
+    };
+  }
+
+  function extendToAssignable(next) {
+    return function(node) {
+      if (node.type === "MutableExpression") return node;
+      return next.apply(this, arguments);
+    };
+  }
+
+  function extendCheckLVal(next) {
+    return function(expr, bindingType, checkClashes) {
+      if (expr.type === "MutableExpression") return next.call(this, expr.id, bindingType, checkClashes);
+      return next.apply(this, arguments);
     };
   }
 
@@ -54,6 +68,15 @@ export default function(acorn) {
       this.next();
       node.id = this.parseIdent();
       return this.finishNode(node, "ViewExpression");
+    }
+  }
+
+  function parseMaybeMutableExpression() {
+    if (this.isContextual("mutable")) {
+      const node = this.startNode();
+      this.next();
+      node.id = this.parseIdent();
+      return this.finishNode(node, "MutableExpression");
     }
   }
 
@@ -116,7 +139,7 @@ export default function(acorn) {
 
       // A named cell?
       if (token.type === tt.name) {
-        if (token.value === "viewof") {
+        if (token.value === "viewof" || token.value === "mutable") {
           token = lookahead.getToken();
           if (token.type !== tt.name) {
             lookahead.unexpected();
@@ -124,7 +147,7 @@ export default function(acorn) {
         }
         token = lookahead.getToken();
         if (token.type === tt.eq) {
-          id = this.parseMaybeViewExpression() || this.parseIdent();
+          id = this.parseMaybeViewExpression() || this.parseMaybeMutableExpression() || this.parseIdent();
           token = lookahead.getToken();
           this.expect(tt.eq);
         }
@@ -168,8 +191,11 @@ export default function(acorn) {
     that.extend("parseImportSpecifiers", () => parseImportSpecifiers);
     that.extend("parseExprAtom", extendParseExprAtom);
     that.extend("parseTopLevel", () => parseTopLevel);
+    that.extend("toAssignable", extendToAssignable);
+    that.extend("checkLVal", extendCheckLVal);
     that.extend("unexpected", () => unexpected);
     that.parseMaybeViewExpression = parseMaybeViewExpression;
+    that.parseMaybeMutableExpression = parseMaybeMutableExpression;
     that.O_function = 0;
     that.O_async = false;
     that.O_generator = false;

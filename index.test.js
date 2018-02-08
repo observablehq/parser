@@ -13,7 +13,11 @@ const options = {
   }
 };
 
-readdirSync(join("test", "input")).forEach(file => {
+let testFiles = process.argv.slice(process.argv.indexOf("index.test.js") + 1);
+if (!testFiles.length) testFiles = readdirSync(join("test", "input"));
+testFiles.forEach(test);
+
+function test(file) {
   if (extname(file) !== ".js") return;
   tape(`parse ${file}`, test => {
     const infile = join("test", "input", file);
@@ -54,4 +58,4 @@ readdirSync(join("test", "input")).forEach(file => {
 
     test.deepEqual(actual, expected);
   });
-});
+}
