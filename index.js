@@ -44,7 +44,9 @@ export default function(acorn) {
 
   function extendParseExprAtom(next) {
     return function() {
-      return this.parseMaybeViewExpression() || this.parseMaybeMutableExpression() || next.apply(this, arguments);
+      return this.parseMaybeKeywordExpression("viewof", "ViewExpression") ||
+             this.parseMaybeKeywordExpression("mutable", "MutableExpression") ||
+             next.apply(this, arguments);
     };
   }
 
@@ -62,21 +64,12 @@ export default function(acorn) {
     };
   }
 
-  function parseMaybeViewExpression() {
-    if (this.isContextual("viewof")) {
+  function parseMaybeKeywordExpression(keyword, expressionName) {
+    if (this.isContextual(keyword)) {
       const node = this.startNode();
       this.next();
       node.id = this.parseIdent();
-      return this.finishNode(node, "ViewExpression");
-    }
-  }
-
-  function parseMaybeMutableExpression() {
-    if (this.isContextual("mutable")) {
-      const node = this.startNode();
-      this.next();
-      node.id = this.parseIdent();
-      return this.finishNode(node, "MutableExpression");
+      return this.finishNode(node, expressionName);
     }
   }
 
@@ -147,7 +140,9 @@ export default function(acorn) {
         }
         token = lookahead.getToken();
         if (token.type === tt.eq) {
-          id = this.parseMaybeViewExpression() || this.parseMaybeMutableExpression() || this.parseIdent();
+          id = this.parseMaybeKeywordExpression("viewof", "ViewExpression") ||
+               this.parseMaybeKeywordExpression("mutable", "MutableExpression") ||
+               this.parseIdent();
           token = lookahead.getToken();
           this.expect(tt.eq);
         }
@@ -194,8 +189,7 @@ export default function(acorn) {
     that.extend("toAssignable", extendToAssignable);
     that.extend("checkLVal", extendCheckLVal);
     that.extend("unexpected", () => unexpected);
-    that.parseMaybeViewExpression = parseMaybeViewExpression;
-    that.parseMaybeMutableExpression = parseMaybeMutableExpression;
+    that.parseMaybeKeywordExpression = parseMaybeKeywordExpression;
     that.O_function = 0;
     that.O_async = false;
     that.O_generator = false;
