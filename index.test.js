@@ -13,11 +13,7 @@ const options = {
   }
 };
 
-let testFiles = process.argv.slice(process.argv.indexOf("index.test.js") + 1);
-if (!testFiles.length) testFiles = readdirSync(join("test", "input"));
-testFiles.forEach(test);
-
-function test(file) {
+readdirSync(join("test", "input")).forEach(file => {
   if (extname(file) !== ".js") return;
   tape(`parse ${file}`, test => {
     const infile = join("test", "input", file);
@@ -58,4 +54,4 @@ function test(file) {
 
     test.deepEqual(actual, expected);
   });
-}
+});

@@ -44,32 +44,32 @@ export default function(acorn) {
 
   function extendParseExprAtom(next) {
     return function() {
-      return this.parseMaybeKeywordExpression("viewof", "ViewExpression") ||
-             this.parseMaybeKeywordExpression("mutable", "MutableExpression") ||
-             next.apply(this, arguments);
+      return this.parseMaybeKeywordExpression("viewof", "ViewExpression")
+          || this.parseMaybeKeywordExpression("mutable", "MutableExpression")
+          || next.apply(this, arguments);
     };
   }
 
   function extendToAssignable(next) {
     return function(node) {
-      if (node.type === "MutableExpression") return node;
-      return next.apply(this, arguments);
+      return node.type === "MutableExpression" ? node : next.apply(this, arguments);
     };
   }
 
   function extendCheckLVal(next) {
     return function(expr, bindingType, checkClashes) {
-      if (expr.type === "MutableExpression") return next.call(this, expr.id, bindingType, checkClashes);
-      return next.apply(this, arguments);
+      return expr.type === "MutableExpression"
+          ? next.call(this, expr.id, bindingType, checkClashes)
+          : next.apply(this, arguments);
     };
   }
 
-  function parseMaybeKeywordExpression(keyword, expressionName) {
+  function parseMaybeKeywordExpression(keyword, type) {
     if (this.isContextual(keyword)) {
       const node = this.startNode();
       this.next();
       node.id = this.parseIdent();
-      return this.finishNode(node, expressionName);
+      return this.finishNode(node, type);
     }
   }
 
@@ -140,9 +140,9 @@ export default function(acorn) {
         }
         token = lookahead.getToken();
         if (token.type === tt.eq) {
-          id = this.parseMaybeKeywordExpression("viewof", "ViewExpression") ||
-               this.parseMaybeKeywordExpression("mutable", "MutableExpression") ||
-               this.parseIdent();
+          id = this.parseMaybeKeywordExpression("viewof", "ViewExpression")
+              || this.parseMaybeKeywordExpression("mutable", "MutableExpression")
+              || this.parseIdent();
           token = lookahead.getToken();
           this.expect(tt.eq);
         }
