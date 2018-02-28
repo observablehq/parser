@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8.9.4
+    steps:
+      - checkout
+      - run:
+          name: install
+          command: yarn --frozen-lockfile
+      - run:
+          name: test
+          command: yarn test
