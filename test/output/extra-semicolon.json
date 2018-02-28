@@ -1,11 +1,11 @@
 {
   "error": {
     "type": "SyntaxError",
-    "message": "Unexpected token (1:8)",
-    "pos": 8,
+    "message": "Unexpected semicolon (;) at the end of a cell. Hint: cells don’t need to end with semicolons. (2:0)",
+    "pos": 10,
     "loc": {
-      "line": 1,
-      "column": 8
+      "line": 2,
+      "column": 0
     }
   }
 }

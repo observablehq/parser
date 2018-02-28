@@ -163,7 +163,19 @@ export default function(acorn) {
       }
     }
 
-    this.expect(tt.eof);
+    if (!this.eat(tt.eof)) {
+      if (this.type.label == ";") {
+        this.next();
+        if (this.eat(tt.eof)) {
+          this.raise(this.start, "Unexpected semicolon (;) at the end of a cell. Hint: cells don’t need to end with semicolons.");
+        } else {
+          this.raise(this.start, "Unexpected semicolon (;) in a non-block cell. Hint: to write multiple expressions in a cell, make it a block with { and }.");
+        }
+      } else {
+        this.unexpected();
+      }
+    }
+
     node.id = id;
     node.async = this.O_async;
     node.generator = this.O_generator;
@@ -172,7 +184,12 @@ export default function(acorn) {
   }
 
   function unexpected(pos) {
-    this.raise(pos != null ? pos : this.start, this.type === tt.eof ? "Unexpected end of input" : "Unexpected token");
+    const position = pos != null ? pos : this.start;
+    if (this.start === 0 && this.type && (this.type.keyword === "var" || this.type.keyword === "const")) {
+      this.raise(position, "Unexpected " + this.type.keyword + " statement at the beginning of a cell. Hint: named cells don’t need var or const keywords before their names");
+    } else {
+      this.raise(position, this.type === tt.eof ? "Unexpected end of input" : "Unexpected token");
+    }
   }
 
   acorn.plugins.observable = function(that) {
