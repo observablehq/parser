@@ -186,7 +186,7 @@ export default function(acorn) {
   function unexpected(pos) {
     const position = pos != null ? pos : this.start;
     if (this.start === 0 && this.type && (this.type.keyword === "var" || this.type.keyword === "const")) {
-      this.raise(position, "Unexpected " + this.type.keyword + " statement at the beginning of a cell. Hint: named cells don’t need var or const keywords before their names");
+      this.raise(position, "Unexpected " + this.type.keyword + " statement at the beginning of a cell. Hint: named cells don’t need var or const keywords before their names.");
     } else {
       this.raise(position, this.type === tt.eof ? "Unexpected end of input" : "Unexpected token");
     }
