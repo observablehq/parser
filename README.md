@@ -1,5 +1,7 @@
 # acorn-observable
 
+[![CircleCI](https://circleci.com/gh/observablehq/acorn-observable/tree/master.svg?style=svg&circle-token=c7004fecc8765b1b34f0be42ced4772038eb3910)](https://circleci.com/gh/observablehq/acorn-observable/tree/master)
+
 To register and use the plugin:
 
 ```js
