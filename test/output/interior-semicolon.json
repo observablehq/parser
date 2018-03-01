@@ -1,7 +1,7 @@
 {
   "error": {
     "type": "SyntaxError",
-    "message": "Unexpected semicolon (;) in a non-block cell. Hint: to write multiple expressions in a cell, make it a block with { and }. (2:0)",
+    "message": "Unexpected \";\". Hint: to write more than one expression, wrap it with { and }. (2:0)",
     "pos": 10,
     "loc": {
       "line": 2,

@@ -167,9 +167,9 @@ export default function(acorn) {
       if (this.type.label == ";") {
         this.next();
         if (this.eat(tt.eof)) {
-          this.raise(this.start, "Unexpected semicolon (;) at the end of a cell. Hint: cells don’t need to end with semicolons.");
+          this.raise(this.start, "Unexpected \";\" at the end of a cell. Hint: cells don’t end with semicolons.");
         } else {
-          this.raise(this.start, "Unexpected semicolon (;) in a non-block cell. Hint: to write multiple expressions in a cell, make it a block with { and }.");
+          this.raise(this.start, "Unexpected \";\". Hint: to write more than one expression, wrap it with { and }.");
         }
       } else {
         this.unexpected();
@@ -186,7 +186,7 @@ export default function(acorn) {
   function unexpected(pos) {
     const position = pos != null ? pos : this.start;
     if (this.start === 0 && this.type && (this.type.keyword === "var" || this.type.keyword === "const")) {
-      this.raise(position, "Unexpected " + this.type.keyword + " statement at the beginning of a cell. Hint: named cells don’t need var or const keywords before their names.");
+      this.raise(position, "Unexpected " + this.type.keyword + ". Hint: cell names don’t use " + this.type.keyword + ".");
     } else {
       this.raise(position, this.type === tt.eof ? "Unexpected end of input" : "Unexpected token");
     }
