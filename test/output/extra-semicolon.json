@@ -1,11 +1,12 @@
 {
   "error": {
     "type": "SyntaxError",
-    "message": "Unexpected \";\" at the end of a cell. Hint: cells don’t end with semicolons. (2:0)",
+    "message": "Unexpected \";\" at the end of a cell. (2:0)",
     "pos": 10,
     "loc": {
       "line": 2,
       "column": 0
-    }
+    },
+    "hint": "cells don’t end with semicolons."
   }
 }

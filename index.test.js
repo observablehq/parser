@@ -35,6 +35,7 @@ readdirSync(join("test", "input")).forEach(file => {
             }
           }
         };
+        if (error.hint) actual.error.hint = error.hint;
       } else {
         throw error;
       }

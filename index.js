@@ -167,9 +167,9 @@ export default function(acorn) {
       if (this.type.label == ";") {
         this.next();
         if (this.eat(tt.eof)) {
-          this.raise(this.start, "Unexpected \";\" at the end of a cell. Hint: cells don’t end with semicolons.");
+          this.raiseWithHint(this.start, "Unexpected \";\" at the end of a cell.", "cells don’t end with semicolons.");
         } else {
-          this.raise(this.start, "Unexpected \";\". Hint: to write more than one expression, wrap it with { and }.");
+          this.raiseWithHint(this.start, "Unexpected \";\".", "to write more than one expression, wrap it with { and }.");
         }
       } else {
         this.unexpected();
@@ -183,10 +183,19 @@ export default function(acorn) {
     return this.finishNode(node, "Cell");
   }
 
+  function raiseWithHint(pos, message, hint) {
+    try {
+      this.raise(pos, message);
+    } catch (e) {
+      e.hint = hint;
+      throw e;
+    }
+  }
+
   function unexpected(pos) {
     const position = pos != null ? pos : this.start;
     if (this.start === 0 && this.type && (this.type.keyword === "var" || this.type.keyword === "const")) {
-      this.raise(position, "Unexpected " + this.type.keyword + ". Hint: cell names don’t use " + this.type.keyword + ".");
+      this.raiseWithHint(position, "Unexpected " + this.type.keyword + ".", "cell names don’t use " + this.type.keyword + ".");
     } else {
       this.raise(position, this.type === tt.eof ? "Unexpected end of input" : "Unexpected token");
     }
@@ -206,6 +215,7 @@ export default function(acorn) {
     that.extend("toAssignable", extendToAssignable);
     that.extend("checkLVal", extendCheckLVal);
     that.extend("unexpected", () => unexpected);
+    that.raiseWithHint = raiseWithHint;
     that.parseMaybeKeywordExpression = parseMaybeKeywordExpression;
     that.O_function = 0;
     that.O_async = false;

@@ -1,11 +1,12 @@
 {
   "error": {
     "type": "SyntaxError",
-    "message": "Unexpected \";\". Hint: to write more than one expression, wrap it with { and }. (2:0)",
+    "message": "Unexpected \";\". (2:0)",
     "pos": 10,
     "loc": {
       "line": 2,
       "column": 0
-    }
+    },
+    "hint": "to write more than one expression, wrap it with { and }."
   }
 }
