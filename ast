@@ -1,4 +1,4 @@
-#!/usr/bin/env node -r @std/esm
+#!/usr/bin/env node -r esm
 
 import acorn from "acorn";
 import observable from "./";
