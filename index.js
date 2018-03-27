@@ -98,6 +98,7 @@ export default function(acorn) {
       }
       const node = this.startNode();
       node.view = this.eatContextual("viewof");
+      if (!node.view) node.mutable = this.eatContextual("mutable");
       node.imported = this.parseIdent();
       if (this.eatContextual("as")) {
         node.local = this.parseIdent();
