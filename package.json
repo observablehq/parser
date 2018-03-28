@@ -3,18 +3,18 @@
   "version": "0.0.0",
   "name": "acorn-observable",
   "dependencies": {
-    "@std/esm": "^0.16.0",
+    "esm": "^3.0.5",
     "acorn": "^5.4.1"
   },
   "scripts": {
-    "test": "tape -r @std/esm 'index.test.js'",
+    "test": "tape -r esm 'index.test.js'",
     "precommit": "eslint . && yarn test"
   },
   "bin": {
     "observable-ast": "ast"
   },
-  "@std/esm": {
-    "esm": "js",
+  "esm": {
+    "mode": "all",
     "cjs": true
   },
   "devDependencies": {
