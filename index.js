@@ -113,7 +113,7 @@ export default function(acorn) {
   }
 
   function parseTopLevel(node) {
-    const lookahead = acorn.tokenizer(this.input);
+    const lookahead = acorn.tokenizer(this.input, { plugins: acorn.plugins });
     let token = lookahead.getToken();
     let body = null;
     let id = null;
