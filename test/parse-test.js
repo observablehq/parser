@@ -2,8 +2,8 @@ import {simple} from "acorn-walk";
 import tape from "tape-await";
 import {readdirSync, readFileSync, writeFileSync} from "fs";
 import {basename, extname, join} from "path";
-import {parseCell} from "../index.js";
-import walk from "../walk.js";
+import {parseCell} from "../src/index.js";
+import walk from "../src/walk.js";
 
 readdirSync(join("test", "input")).forEach(file => {
   if (extname(file) !== ".js") return;

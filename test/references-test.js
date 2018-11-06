@@ -1,5 +1,5 @@
 import tape from "tape-await";
-import {parseCell, findReferences} from "../index.js";
+import {parseCell, findReferences} from "../src/index.js";
 
 tape("finds references in expressions", test => {
   test.deepEqual(findReferences(parseCell(`foo + bar`)), [

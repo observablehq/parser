@@ -7,7 +7,7 @@
     "precommit": "eslint . && yarn test"
   },
   "bin": {
-    "observable-ast": "ast"
+    "observable-ast": "bin/ast"
   },
   "esm": {
     "mode": "all",
