@@ -5,7 +5,7 @@
 To parse a cell:
 
 ```js
-import {parseCell} from "notebook-parser";
+import {parseCell} from "@observablehq/notebook-parser";
 
 const cell = parseCell(`hello = "world"`);
 ```

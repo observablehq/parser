@@ -1,7 +1,7 @@
 {
   "private": true,
   "version": "0.0.0",
-  "name": "acorn-observable",
+  "name": "@observablehq/notebook-parser",
   "scripts": {
     "test": "tape -r esm 'test/**/*-test.js'",
     "precommit": "eslint . && yarn test"
