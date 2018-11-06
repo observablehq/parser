@@ -17,7 +17,7 @@
     "cjs": true
   },
   "dependencies": {
-    "acorn": "^5.7.3"
+    "acorn": "^6.0.4"
   },
   "devDependencies": {
     "eslint": "^4.14.0",
