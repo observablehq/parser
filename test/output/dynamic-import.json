@@ -1,0 +1,32 @@
+{
+  "type": "Cell",
+  "start": 0,
+  "end": 20,
+  "id": {
+    "type": "Identifier",
+    "start": 0,
+    "end": 3,
+    "name": "foo"
+  },
+  "async": false,
+  "generator": false,
+  "body": {
+    "type": "CallExpression",
+    "start": 6,
+    "end": 19,
+    "callee": {
+      "type": "Import",
+      "start": 6,
+      "end": 12
+    },
+    "arguments": [
+      {
+        "type": "Literal",
+        "start": 13,
+        "end": 18,
+        "value": "bar",
+        "raw": "\"bar\""
+      }
+    ]
+  }
+}
