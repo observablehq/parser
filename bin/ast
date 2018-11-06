@@ -1,6 +1,6 @@
 #!/usr/bin/env node -r esm
 
-import {parseCell} from "./";
+import {parseCell} from "../src/index.js";
 
 (async () => {
   const input = await new Promise((resolve, reject) => {
