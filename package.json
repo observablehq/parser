@@ -2,10 +2,6 @@
   "private": true,
   "version": "0.0.0",
   "name": "acorn-observable",
-  "dependencies": {
-    "esm": "^3.0.5",
-    "acorn": "^5.4.1"
-  },
   "scripts": {
     "test": "tape -r esm 'index.test.js'",
     "precommit": "eslint . && yarn test"
@@ -15,11 +11,19 @@
   },
   "esm": {
     "mode": "all",
+    "mainFields": [
+      "module"
+    ],
     "cjs": true
   },
+  "dependencies": {
+    "acorn": "^5.7.3"
+  },
   "devDependencies": {
-    "@observablehq/tape": "^0.0.1",
     "eslint": "^4.14.0",
-    "husky": "^0.14.3"
+    "esm": "^3.0.84",
+    "husky": "^0.14.3",
+    "tape": "^4.9.1",
+    "tape-await": "^0.1.1"
   }
 }

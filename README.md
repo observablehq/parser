@@ -1,16 +1,13 @@
-# acorn-observable
+# notebook-parser
 
 [![CircleCI](https://circleci.com/gh/observablehq/acorn-observable/tree/master.svg?style=svg&circle-token=c7004fecc8765b1b34f0be42ced4772038eb3910)](https://circleci.com/gh/observablehq/acorn-observable/tree/master)
 
-To register and use the plugin:
+To parse a cell:
 
 ```js
-import acorn from "acorn";
-import observable from "acorn-observable";
+import {parseCell} from "notebook-parser";
 
-observable(acorn);
-
-const cell = acorn.parse(input, {plugins: {observable: true}});
+const cell = parseCell(`hello = "world"`);
 ```
 
 ## Examples
@@ -426,7 +423,7 @@ Injecting a view injects both the view symbol (`viewof foo`) and the value symbo
 
 ## API Reference
 
-<a href="#acorn_parse" name="acorn_parse">#</a> acorn.<b>parse</b>(<i>input</i>[, <i>options</i>])
+<a href="#parseCell" name="parseCell">#</a> <b>parseCell</b>(<i>input</i>[, <i>options</i>])
 
 Returns a [Cell](#cell).
 

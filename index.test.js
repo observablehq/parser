@@ -1,17 +1,7 @@
-import tape from "@observablehq/tape";
-import acorn from "acorn";
+import tape from "tape-await";
 import {readdirSync, readFileSync, writeFileSync} from "fs";
 import {basename, extname, join} from "path";
-import observable from "./index";
-
-observable(acorn);
-
-const options = {
-  ecmaVersion: 9,
-  plugins: {
-    observable: true
-  }
-};
+import {parseCell} from "./index";
 
 readdirSync(join("test", "input")).forEach(file => {
   if (extname(file) !== ".js") return;
@@ -21,7 +11,7 @@ readdirSync(join("test", "input")).forEach(file => {
     let actual, expected;
 
     try {
-      actual = acorn.parse(readFileSync(infile, "utf8"), options);
+      actual = parseCell(readFileSync(infile, "utf8"));
     } catch (error) {
       if (error instanceof SyntaxError) {
         actual = {
