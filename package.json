@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "acorn": "^6.0.4",
+    "acorn-bigint": "^0.3.1",
     "acorn-walk": "^6.1.0"
   },
   "devDependencies": {

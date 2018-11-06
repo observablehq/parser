@@ -1,9 +1,10 @@
 import {tokTypes as tt, Parser} from "acorn";
+import bigInt from "acorn-bigint";
 
 const SCOPE_FUNCTION = 2;
 const SCOPE_ASYNC = 4;
 const SCOPE_GENERATOR = 8;
-const CellParser = Parser.extend(observable);
+const CellParser = Parser.extend(bigInt, observable);
 
 export function parseCell(input) {
   return CellParser.parse(input);

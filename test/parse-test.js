@@ -1,7 +1,9 @@
+import {simple} from "acorn-walk";
 import tape from "tape-await";
 import {readdirSync, readFileSync, writeFileSync} from "fs";
 import {basename, extname, join} from "path";
 import {parseCell} from "../index.js";
+import walk from "../walk.js";
 
 readdirSync(join("test", "input")).forEach(file => {
   if (extname(file) !== ".js") return;
@@ -35,13 +37,35 @@ readdirSync(join("test", "input")).forEach(file => {
     } catch (error) {
       if (error.code === "ENOENT") {
         console.warn(`! generating ${outfile}`);
-        writeFileSync(outfile, JSON.stringify(actual, null, 2) + "\n", "utf8");
+        writeFileSync(outfile, JSON.stringify(actual, replacer, 2) + "\n", "utf8");
         return;
       } else {
         throw error;
       }
     }
 
+    // Treat BigInt as Number for test purposes.
+    if (actual.body) {
+      simple(
+        actual.body,
+        {
+          Literal(node) {
+            if (node.bigint) {
+              node.value = Number(node.value);
+            }
+          }
+        },
+        walk
+      );
+    }
+
     test.deepEqual(actual, expected);
   });
 });
+
+function replacer(key, value) {
+  if (typeof value === "bigint") {
+    return Number(value);
+  }
+  return value;
+}
