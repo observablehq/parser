@@ -1,6 +1,6 @@
 #!/usr/bin/env node -r esm
 
-import {parseCell} from "../src/index.js";
+import {parseNotebook} from "../src/index.js";
 
 (async () => {
   const input = await new Promise((resolve, reject) => {
@@ -11,7 +11,7 @@ import {parseCell} from "../src/index.js";
         .on("error", reject);
   });
   try {
-    const output = parseCell(input);
+    const output = parseNotebook(input);
     process.stdout.write(`${JSON.stringify(output, null, 2)}\n`);
   } catch (error) {
     process.stderr.write(`${error.constructor.name}: ${error.message}\n`);

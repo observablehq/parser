@@ -7,7 +7,12 @@ import dynamicImport from "./dynamic-import.js";
 const SCOPE_FUNCTION = 2;
 const SCOPE_ASYNC = 4;
 const SCOPE_GENERATOR = 8;
-const CellParser = Parser.extend(bigInt, dynamicImport, observable);
+const CellParser = Parser.extend(bigInt, dynamicImport, cellParser);
+const NotebookParser = Parser.extend(bigInt, dynamicImport, cellParser, notebookParser);
+
+export function parseNotebook(input) {
+  return NotebookParser.parse(input);
+}
 
 export function parseCell(input) {
   const cell = CellParser.parse(input);
@@ -53,7 +58,7 @@ export function parseCell(input) {
 //   return name === "arguments";
 // }
 
-function observable(Parser) {
+function cellParser(Parser) {
   return class extends Parser {
     constructor(...options) {
       super(...options);
@@ -123,7 +128,7 @@ function observable(Parser) {
           || this.parseMaybeKeywordExpression("mutable", "MutableExpression")
           || super.parseExprAtom.apply(this, arguments);
     }
-    parseTopLevel(node) {
+    parseCell(node, eof) {
       const lookahead = CellParser.tokenizer(this.input);
       let token = lookahead.getToken();
       let body = null;
@@ -173,12 +178,16 @@ function observable(Parser) {
         }
       }
 
-      this.expect(tt.eof);
+      if (eof) this.expect(tt.eof); // TODO
+
       node.id = id;
       node.async = this.O_async;
       node.generator = this.O_generator;
       node.body = body;
       return this.finishNode(node, "Cell");
+    }
+    parseTopLevel(node) {
+      return this.parseCell(node, true);
     }
     toAssignable(node) {
       return node.type === "MutableExpression" ? node : super.toAssignable.apply(this, arguments);
@@ -204,6 +213,20 @@ function observable(Parser) {
         node.id = this.parseIdent();
         return this.finishNode(node, type);
       }
+    }
+  };
+}
+
+function notebookParser(Parser) {
+  return class extends Parser {
+    parseTopLevel(node) {
+      if (!node.cells) node.cells = [];
+      while (this.type !== tt.eof) {
+        node.cells.push(this.parseCell(this.startNode()));
+        this.semicolon();
+      }
+      this.next();
+      return this.finishNode(node, "Program");
     }
   };
 }
