@@ -22,7 +22,7 @@ function observable(Parser) {
       return super.enterScope.apply(this, arguments);
     }
     exitScope() {
-      if (this.scopeStack[this.scopeStack.length - 1] & SCOPE_FUNCTION) --this.O_function;
+      if (this.currentScope() & SCOPE_FUNCTION) --this.O_function;
       return super.exitScope.apply(this, arguments);
     }
     parseForIn(node) {
