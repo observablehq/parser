@@ -128,5 +128,13 @@
         }
       }
     ]
-  }
+  },
+  "references": [
+    {
+      "type": "Identifier",
+      "start": 51,
+      "end": 54,
+      "name": "foo"
+    }
+  ]
 }

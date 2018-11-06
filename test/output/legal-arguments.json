@@ -1,14 +1,14 @@
 {
   "type": "Cell",
   "start": 0,
-  "end": 26,
+  "end": 40,
   "id": null,
   "async": false,
   "generator": false,
   "body": {
     "type": "FunctionExpression",
     "start": 0,
-    "end": 25,
+    "end": 39,
     "id": null,
     "expression": false,
     "generator": false,
@@ -17,18 +17,29 @@
     "body": {
       "type": "BlockStatement",
       "start": 11,
-      "end": 25,
+      "end": 39,
       "body": [
         {
           "type": "ReturnStatement",
           "start": 13,
-          "end": 23,
+          "end": 37,
           "argument": {
-            "type": "Literal",
+            "type": "MemberExpression",
             "start": 20,
-            "end": 22,
-            "value": 42,
-            "raw": "42"
+            "end": 36,
+            "object": {
+              "type": "Identifier",
+              "start": 20,
+              "end": 29,
+              "name": "arguments"
+            },
+            "property": {
+              "type": "Identifier",
+              "start": 30,
+              "end": 36,
+              "name": "length"
+            },
+            "computed": false
           }
         }
       ]

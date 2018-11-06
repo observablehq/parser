@@ -38,5 +38,13 @@
       "computed": false
     },
     "arguments": []
-  }
+  },
+  "references": [
+    {
+      "type": "Identifier",
+      "start": 13,
+      "end": 16,
+      "name": "DOM"
+    }
+  ]
 }

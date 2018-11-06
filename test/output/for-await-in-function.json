@@ -20,8 +20,8 @@
       "end": 18,
       "name": "bar"
     },
-    "generator": false,
     "expression": false,
+    "generator": false,
     "async": true,
     "params": [],
     "body": {
@@ -148,5 +148,13 @@
         }
       ]
     }
-  }
+  },
+  "references": [
+    {
+      "type": "Identifier",
+      "start": 72,
+      "end": 75,
+      "name": "foo"
+    }
+  ]
 }

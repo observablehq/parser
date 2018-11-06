@@ -1,8 +1,8 @@
-import {/*getLineInfo,*/ tokTypes as tt, Parser} from "acorn";
+import {getLineInfo, tokTypes as tt, Parser} from "acorn";
 import bigInt from "acorn-bigint";
 // import constSafe from "./const-safe.js";
 import dynamicImport from "./dynamic-import.js";
-// import findReferences from "./references.js";
+import findReferences from "./references.js";
 
 const SCOPE_FUNCTION = 2;
 const SCOPE_ASYNC = 4;
@@ -15,46 +15,47 @@ export function parseNotebook(input) {
 export function parseCell(input) {
   const cell = CellParser.parse(input);
 
-  // // Empty?
-  // if (cell.body === null) return cell;
+  // Find references.
+  // Check for illegal references to arguments.
+  // TODO Check for illegal assignments to global references.
+  if (cell.body && cell.body.type !== "ImportDeclaration") {
+    try {
+      cell.references = findReferences(cell);
+    } catch (node) {
+      let message;
+      switch (node.type) {
+        case "ViewExpression":
+        case "MutableExpression":
+          message = `${node.type === "ViewExpression" ? "viewof" : "mutable"} ${node.id.name} is not defined`;
+          break;
+        case "Identifier":
+          message = `${node.name} is not allowed`;
+          break;
+        default:
+          throw node;
+      }
+      const loc = getLineInfo(input, node.start);
+      const error = new ReferenceError(`${message} (${loc.line}:${loc.column})`);
+      error.pos = node.start;
+      error.loc = loc;
+      throw error;
+    }
 
-  // // ImportExpression? import {node} from "module"
-  // if (cell.body.type === "ImportDeclaration") return cell;
+    // TODO
+    // for (const node of cell.references) {
+    //   node.location = getLineInfo(input, node.start);
+    // }
 
-  // // Extract global references and compute their locations.
-  // // Also check for illegal references to shadowed views.
-  // try {
-  //   cell.references = findReferences(cell);
-  // } catch (node) {
-  //   const {line, column} = getLineInfo(input, node.start);
-  //   const keyword = node.type === "ViewExpression" ? "viewof" : "mutable";
-  //   throw new ReferenceError(`${keyword} ${node.id.name} is not defined (${line}:${column})`);
-  // }
-  // for (const node of cell.references) {
-  //   node.location = getLineInfo(input, node.start);
-  // }
-
-  // // Check for illegal references to arguments.
-  // const argumentsReference = cell.references.find(isarguments);
-  // if (argumentsReference) {
-  //   const {line, column} = argumentsReference.location;
-  //   throw new ReferenceError(`arguments is not allowed (${line}:${column})`);
-  // }
-
-  // // Check for illegal assignments to global references.
-  // try {
-  //   constSafe(cell);
-  // } catch (node) {
-  //   const {line, column} = getLineInfo(input, node.start);
-  //   throw new TypeError(`Assignment to constant variable ${node.name} (${line}:${column})`);
-  // }
+    // try {
+    //   constSafe(cell);
+    // } catch (node) {
+    //   const {line, column} = getLineInfo(input, node.start);
+    //   throw new TypeError(`Assignment to constant variable ${node.name} (${line}:${column})`);
+    // }
+  }
 
   return cell;
 }
-
-// function isarguments({name}) {
-//   return name === "arguments";
-// }
 
 class CellParser extends Parser.extend(bigInt, dynamicImport) {
   constructor(...options) {

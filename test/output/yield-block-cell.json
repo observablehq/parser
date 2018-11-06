@@ -28,5 +28,13 @@
         }
       }
     ]
-  }
+  },
+  "references": [
+    {
+      "type": "Identifier",
+      "start": 10,
+      "end": 15,
+      "name": "value"
+    }
+  ]
 }

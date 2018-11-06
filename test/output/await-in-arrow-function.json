@@ -30,8 +30,8 @@
               "start": 18,
               "end": 54,
               "id": null,
-              "generator": false,
               "expression": false,
+              "generator": false,
               "async": true,
               "params": [],
               "body": {
@@ -63,5 +63,13 @@
         "kind": "const"
       }
     ]
-  }
+  },
+  "references": [
+    {
+      "type": "Identifier",
+      "start": 42,
+      "end": 49,
+      "name": "promise"
+    }
+  ]
 }

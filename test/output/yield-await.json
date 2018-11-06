@@ -44,5 +44,19 @@
         }
       }
     ]
-  }
+  },
+  "references": [
+    {
+      "type": "Identifier",
+      "start": 10,
+      "end": 15,
+      "name": "value"
+    },
+    {
+      "type": "Identifier",
+      "start": 25,
+      "end": 32,
+      "name": "promise"
+    }
+  ]
 }

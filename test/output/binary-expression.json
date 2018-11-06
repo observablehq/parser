@@ -23,5 +23,13 @@
       "value": 42,
       "raw": "42"
     }
-  }
+  },
+  "references": [
+    {
+      "type": "Identifier",
+      "start": 0,
+      "end": 3,
+      "name": "foo"
+    }
+  ]
 }

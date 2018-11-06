@@ -50,5 +50,19 @@
         }
       ]
     }
-  }
+  },
+  "references": [
+    {
+      "type": "Identifier",
+      "start": 22,
+      "end": 29,
+      "name": "Service"
+    },
+    {
+      "type": "Identifier",
+      "start": 36,
+      "end": 42,
+      "name": "config"
+    }
+  ]
 }

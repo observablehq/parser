@@ -50,5 +50,13 @@
         }
       }
     ]
-  }
+  },
+  "references": [
+    {
+      "type": "Identifier",
+      "start": 24,
+      "end": 27,
+      "name": "DOM"
+    }
+  ]
 }

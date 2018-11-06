@@ -40,5 +40,24 @@
       "value": 2,
       "raw": "2"
     }
-  }
+  },
+  "references": [
+    {
+      "type": "Identifier",
+      "start": 0,
+      "end": 6,
+      "name": "object"
+    },
+    {
+      "type": "ViewExpression",
+      "start": 7,
+      "end": 17,
+      "id": {
+        "type": "Identifier",
+        "start": 14,
+        "end": 17,
+        "name": "foo"
+      }
+    }
+  ]
 }

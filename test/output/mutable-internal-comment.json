@@ -15,5 +15,18 @@
       "end": 27,
       "name": "value"
     }
-  }
+  },
+  "references": [
+    {
+      "type": "MutableExpression",
+      "start": 0,
+      "end": 27,
+      "id": {
+        "type": "Identifier",
+        "start": 22,
+        "end": 27,
+        "name": "value"
+      }
+    }
+  ]
 }

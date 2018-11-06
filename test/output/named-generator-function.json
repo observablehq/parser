@@ -20,8 +20,8 @@
       "end": 13,
       "name": "foo"
     },
-    "generator": true,
     "expression": false,
+    "generator": true,
     "async": false,
     "params": [],
     "body": {
@@ -49,5 +49,6 @@
         }
       ]
     }
-  }
+  },
+  "references": []
 }

@@ -24,5 +24,13 @@
       "raw": "42n",
       "bigint": "42n"
     }
-  }
+  },
+  "references": [
+    {
+      "type": "Identifier",
+      "start": 0,
+      "end": 3,
+      "name": "foo"
+    }
+  ]
 }

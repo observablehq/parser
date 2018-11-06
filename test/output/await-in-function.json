@@ -20,8 +20,8 @@
           "end": 24,
           "name": "inner"
         },
-        "generator": false,
         "expression": false,
+        "generator": false,
         "async": true,
         "params": [],
         "body": {
@@ -49,5 +49,13 @@
         }
       }
     ]
-  }
+  },
+  "references": [
+    {
+      "type": "Identifier",
+      "start": 39,
+      "end": 46,
+      "name": "promise"
+    }
+  ]
 }

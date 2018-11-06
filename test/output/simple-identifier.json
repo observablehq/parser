@@ -10,5 +10,13 @@
     "start": 0,
     "end": 3,
     "name": "foo"
-  }
+  },
+  "references": [
+    {
+      "type": "Identifier",
+      "start": 0,
+      "end": 3,
+      "name": "foo"
+    }
+  ]
 }

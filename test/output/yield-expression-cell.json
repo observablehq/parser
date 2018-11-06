@@ -16,5 +16,13 @@
       "end": 11,
       "name": "value"
     }
-  }
+  },
+  "references": [
+    {
+      "type": "Identifier",
+      "start": 6,
+      "end": 11,
+      "name": "value"
+    }
+  ]
 }

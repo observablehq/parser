@@ -71,5 +71,24 @@
         }
       ]
     }
-  }
+  },
+  "references": [
+    {
+      "type": "MutableExpression",
+      "start": 12,
+      "end": 21,
+      "id": {
+        "type": "Identifier",
+        "start": 20,
+        "end": 21,
+        "name": "x"
+      }
+    },
+    {
+      "type": "Identifier",
+      "start": 36,
+      "end": 41,
+      "name": "value"
+    }
+  ]
 }

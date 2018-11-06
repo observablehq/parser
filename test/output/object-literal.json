@@ -33,5 +33,6 @@
         "kind": "init"
       }
     ]
-  }
+  },
+  "references": []
 }

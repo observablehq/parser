@@ -35,5 +35,13 @@
         }
       }
     ]
-  }
+  },
+  "references": [
+    {
+      "type": "Identifier",
+      "start": 4,
+      "end": 7,
+      "name": "foo"
+    }
+  ]
 }
