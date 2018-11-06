@@ -1,6 +1,5 @@
 import {getLineInfo, tokTypes as tt, Parser} from "acorn";
 import bigInt from "acorn-bigint";
-// import constSafe from "./const-safe.js";
 import dynamicImport from "./dynamic-import.js";
 import findReferences from "./references.js";
 
@@ -17,41 +16,20 @@ export function parseCell(input) {
 
   // Find references.
   // Check for illegal references to arguments.
-  // TODO Check for illegal assignments to global references.
+  // Check for illegal assignments to global references.
   if (cell.body && cell.body.type !== "ImportDeclaration") {
     try {
       cell.references = findReferences(cell);
-    } catch (node) {
-      let message;
-      switch (node.type) {
-        case "ViewExpression":
-        case "MutableExpression":
-          message = `${node.type === "ViewExpression" ? "viewof" : "mutable"} ${node.id.name} is not defined`;
-          break;
-        case "Identifier":
-          message = `${node.name} is not allowed`;
-          break;
-        default:
-          throw node;
+    } catch (error) {
+      if (error.node) {
+        const loc = getLineInfo(input, error.node.start);
+        error.message += ` (${loc.line}:${loc.column})`;
+        error.pos = error.node.start;
+        error.loc = loc;
+        delete error.node;
       }
-      const loc = getLineInfo(input, node.start);
-      const error = new ReferenceError(`${message} (${loc.line}:${loc.column})`);
-      error.pos = node.start;
-      error.loc = loc;
       throw error;
     }
-
-    // TODO
-    // for (const node of cell.references) {
-    //   node.location = getLineInfo(input, node.start);
-    // }
-
-    // try {
-    //   constSafe(cell);
-    // } catch (node) {
-    //   const {line, column} = getLineInfo(input, node.start);
-    //   throw new TypeError(`Assignment to constant variable ${node.name} (${line}:${column})`);
-    // }
   }
 
   return cell;

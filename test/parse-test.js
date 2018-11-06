@@ -15,7 +15,9 @@ readdirSync(join("test", "input")).forEach(file => {
     try {
       actual = parseCell(readFileSync(infile, "utf8"));
     } catch (error) {
-      if (error instanceof SyntaxError || error instanceof ReferenceError) {
+      if (error instanceof ReferenceError
+          || error instanceof SyntaxError
+          || error instanceof TypeError) {
         actual = {
           error: {
             type: error.constructor.name,

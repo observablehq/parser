@@ -1,47 +1,11 @@
 {
-  "type": "Cell",
-  "start": 0,
-  "end": 16,
-  "id": null,
-  "async": false,
-  "generator": false,
-  "body": {
-    "type": "BlockStatement",
-    "start": 0,
-    "end": 15,
-    "body": [
-      {
-        "type": "ExpressionStatement",
-        "start": 4,
-        "end": 13,
-        "expression": {
-          "type": "AssignmentExpression",
-          "start": 4,
-          "end": 12,
-          "operator": "=",
-          "left": {
-            "type": "Identifier",
-            "start": 4,
-            "end": 7,
-            "name": "foo"
-          },
-          "right": {
-            "type": "Literal",
-            "start": 10,
-            "end": 12,
-            "value": 42,
-            "raw": "42"
-          }
-        }
-      }
-    ]
-  },
-  "references": [
-    {
-      "type": "Identifier",
-      "start": 4,
-      "end": 7,
-      "name": "foo"
+  "error": {
+    "type": "TypeError",
+    "message": "Assignment to constant variable foo (2:2)",
+    "pos": 4,
+    "loc": {
+      "line": 2,
+      "column": 2
     }
-  ]
+  }
 }

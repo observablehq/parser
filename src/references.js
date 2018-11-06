@@ -147,7 +147,9 @@ export default function findReferences(cell, globals) {
       }
     }
     if (!referenceSet.has(name)) {
-      if (name === "arguments") throw node;
+      if (name === "arguments") {
+        throw Object.assign(new ReferenceError(`arguments is not allowed`), {node});
+      }
       referenceSet.add(name);
       references.push(node);
     }
@@ -158,6 +160,58 @@ export default function findReferences(cell, globals) {
     {
       VariablePattern: identifier,
       Identifier: identifier
+    },
+    walk
+  );
+
+  function checkConst(node, parents) {
+    switch (node.type) {
+      case "Identifier":
+      case "VariablePattern": {
+        identifier(node, parents);
+        break;
+      }
+      case "ArrayPattern":
+      case "ObjectPattern": {
+        ancestor(
+          node,
+          {
+            Identifier: identifier,
+            VariablePattern: identifier
+          },
+          walk
+        );
+        break;
+      }
+    }
+    function identifier(node, nodeParents) {
+      for (const parent of parents) {
+        if (hasLocal(parent, node.name)) {
+          return;
+        }
+      }
+      if (nodeParents[nodeParents.length - 2].type === "MutableExpression") {
+        return;
+      }
+      throw Object.assign(new TypeError(`Assignment to constant variable ${node.name}`), {node});
+    }
+  }
+
+  function checkConstArgument(node, parents) {
+    checkConst(node.argument, parents);
+  }
+
+  function checkConstLeft(node, parents) {
+    checkConst(node.left, parents);
+  }
+
+  ancestor(
+    ast,
+    {
+      AssignmentExpression: checkConstLeft,
+      UpdateExpression: checkConstArgument,
+      ForOfStatement: checkConstLeft,
+      ForInStatement: checkConstLeft
     },
     walk
   );
