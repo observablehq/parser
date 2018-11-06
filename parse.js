@@ -1,6 +1,8 @@
-import {tokTypes as tt, Parser} from "acorn";
+import {/*getLineInfo,*/ tokTypes as tt, Parser} from "acorn";
 import bigInt from "acorn-bigint";
+// import constSafe from "./const-safe.js";
 import dynamicImport from "./dynamic-import.js";
+// import findReferences from "./references.js";
 
 const SCOPE_FUNCTION = 2;
 const SCOPE_ASYNC = 4;
@@ -8,8 +10,48 @@ const SCOPE_GENERATOR = 8;
 const CellParser = Parser.extend(bigInt, dynamicImport, observable);
 
 export function parseCell(input) {
-  return CellParser.parse(input);
+  const cell = CellParser.parse(input);
+
+  // // Empty?
+  // if (cell.body === null) return cell;
+
+  // // ImportExpression? import {node} from "module"
+  // if (cell.body.type === "ImportDeclaration") return cell;
+
+  // // Extract global references and compute their locations.
+  // // Also check for illegal references to shadowed views.
+  // try {
+  //   cell.references = findReferences(cell);
+  // } catch (node) {
+  //   const {line, column} = getLineInfo(input, node.start);
+  //   const keyword = node.type === "ViewExpression" ? "viewof" : "mutable";
+  //   throw new ReferenceError(`${keyword} ${node.id.name} is not defined (${line}:${column})`);
+  // }
+  // for (const node of cell.references) {
+  //   node.location = getLineInfo(input, node.start);
+  // }
+
+  // // Check for illegal references to arguments.
+  // const argumentsReference = cell.references.find(isarguments);
+  // if (argumentsReference) {
+  //   const {line, column} = argumentsReference.location;
+  //   throw new ReferenceError(`arguments is not allowed (${line}:${column})`);
+  // }
+
+  // // Check for illegal assignments to global references.
+  // try {
+  //   constSafe(cell);
+  // } catch (node) {
+  //   const {line, column} = getLineInfo(input, node.start);
+  //   throw new TypeError(`Assignment to constant variable ${node.name} (${line}:${column})`);
+  // }
+
+  return cell;
 }
+
+// function isarguments({name}) {
+//   return name === "arguments";
+// }
 
 function observable(Parser) {
   return class extends Parser {

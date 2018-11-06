@@ -1,2 +1,2 @@
 export {parseCell} from "./parse.js";
-export {findReferences} from "./references.js";
+export {default as findReferences} from "./references.js";

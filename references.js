@@ -5,7 +5,7 @@
 import {ancestor} from "acorn-walk";
 import walk from "./walk.js";
 
-export function isScope(node) {
+function isScope(node) {
   return (
     node.type === "FunctionExpression" ||
     node.type === "FunctionDeclaration" ||
@@ -30,7 +30,7 @@ function declaresArguments(node) {
   );
 }
 
-export function findReferences(cell, globals) {
+export default function findReferences(cell, globals) {
   const ast = {type: "Program", body: [cell.body]};
   const referenceSet = new Set(globals);
   const references = [];
@@ -151,8 +151,9 @@ export function findReferences(cell, globals) {
         return;
       }
       if (parents[i].locals && parents[i].locals.has(name)) {
-        if (node.type === "ViewExpression" || node.type === "MutableExpression")
+        if (node.type === "ViewExpression" || node.type === "MutableExpression") {
           throw node;
+        }
         return;
       }
       if (parents[i].type === "ViewExpression") {
