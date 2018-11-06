@@ -1,9 +1,6 @@
 #!/usr/bin/env node -r esm
 
-import acorn from "acorn";
-import observable from "./";
-
-observable(acorn);
+import {parseCell} from "./";
 
 (async () => {
   const input = await new Promise((resolve, reject) => {
@@ -14,7 +11,7 @@ observable(acorn);
         .on("error", reject);
   });
   try {
-    const output = acorn.parse(input, {plugins: {observable: true}});
+    const output = parseCell(input);
     process.stdout.write(`${JSON.stringify(output, null, 2)}\n`);
   } catch (error) {
     process.stderr.write(`${error.constructor.name}: ${error.message}\n`);
