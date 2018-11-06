@@ -1,7 +1,7 @@
 import tape from "tape-await";
 import {readdirSync, readFileSync, writeFileSync} from "fs";
 import {basename, extname, join} from "path";
-import {parseCell} from "./index";
+import {parseCell} from "../index.js";
 
 readdirSync(join("test", "input")).forEach(file => {
   if (extname(file) !== ".js") return;

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "name": "acorn-observable",
   "scripts": {
-    "test": "tape -r esm 'index.test.js'",
+    "test": "tape -r esm 'test/**/*-test.js'",
     "precommit": "eslint . && yarn test"
   },
   "bin": {
@@ -17,7 +17,8 @@
     "cjs": true
   },
   "dependencies": {
-    "acorn": "^6.0.4"
+    "acorn": "^6.0.4",
+    "acorn-walk": "^6.1.0"
   },
   "devDependencies": {
     "eslint": "^4.14.0",
