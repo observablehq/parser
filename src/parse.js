@@ -71,7 +71,7 @@ function cellParser(Parser) {
       return super.enterScope.apply(this, arguments);
     }
     exitScope() {
-      if (this.currentScope() & SCOPE_FUNCTION) --this.O_function;
+      if (this.currentScope().flags & SCOPE_FUNCTION) --this.O_function;
       return super.exitScope.apply(this, arguments);
     }
     parseForIn(node) {
@@ -129,7 +129,7 @@ function cellParser(Parser) {
           || super.parseExprAtom.apply(this, arguments);
     }
     parseCell(node, eof) {
-      const lookahead = CellParser.tokenizer(this.input);
+      const lookahead = new CellParser(this.options, this.input, this.start);
       let token = lookahead.getToken();
       let body = null;
       let id = null;
@@ -184,6 +184,7 @@ function cellParser(Parser) {
       node.async = this.O_async;
       node.generator = this.O_generator;
       node.body = body;
+      this.exitScope();
       return this.finishNode(node, "Cell");
     }
     parseTopLevel(node) {
