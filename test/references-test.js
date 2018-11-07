@@ -71,3 +71,9 @@ tape("destructured rest variables can mask references", test => {
     {type: "Identifier", start: 29, end: 32, name: "bar"}
   ]);
 });
+
+tape("ignores globals", test => {
+  test.deepEqual(parseCell(`foo + bar`, {globals: ["foo"]}).references, [
+    {type: "Identifier", start: 6, end: 9, name: "bar"}
+  ]);
+});

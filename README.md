@@ -423,7 +423,7 @@ Injecting a view injects both the view symbol (`viewof foo`) and the value symbo
 
 ## API Reference
 
-<a href="#parseCell" name="parseCell">#</a> <b>parseCell</b>(<i>input</i>[, <i>options</i>])
+<a href="#parseCell" name="parseCell">#</a> <b>parseCell</b>(<i>input</i>[, <i>options</i>]) [<>](https://github.com/observablehq/notebook-parser/blob/master/src/parse.js "Source")
 
 Returns a [Cell](#cell).
 

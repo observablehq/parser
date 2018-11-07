@@ -7,7 +7,7 @@ const SCOPE_FUNCTION = 2;
 const SCOPE_ASYNC = 4;
 const SCOPE_GENERATOR = 8;
 
-export function parseCell(input, globals) {
+export function parseCell(input, {globals} = {}) {
   const cell = CellParser.parse(input);
 
   // Find references.
