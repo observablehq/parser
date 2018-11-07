@@ -11,7 +11,7 @@ export function parseNotebook(input) {
   return NotebookParser.parse(input);
 }
 
-export function parseCell(input) {
+export function parseCell(input, globals) {
   const cell = CellParser.parse(input);
 
   // Find references.
@@ -19,7 +19,7 @@ export function parseCell(input) {
   // Check for illegal assignments to global references.
   if (cell.body && cell.body.type !== "ImportDeclaration") {
     try {
-      cell.references = findReferences(cell);
+      cell.references = findReferences(cell, globals);
     } catch (error) {
       if (error.node) {
         const loc = getLineInfo(input, error.node.start);
