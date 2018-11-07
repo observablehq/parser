@@ -16,6 +16,7 @@
     ],
     "cjs": true
   },
+  "module": "src/index.js",
   "dependencies": {
     "acorn": "^6.0.4",
     "acorn-bigint": "^0.3.1",
