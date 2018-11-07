@@ -1,7 +1,16 @@
 {
-  "private": true,
-  "version": "0.0.0",
   "name": "@observablehq/notebook-parser",
+  "version": "0.0.0",
+  "license": "ISC",
+  "module": "src/index.js",
+  "author": {
+    "name": "Observable, Inc.",
+    "url": "https://observablehq.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/observablehq/notebook-parser.git"
+  },
   "scripts": {
     "test": "tape -r esm 'test/**/*-test.js'",
     "precommit": "eslint . && yarn test"
@@ -13,7 +22,6 @@
     ],
     "cjs": true
   },
-  "module": "src/index.js",
   "dependencies": {
     "acorn": "^6.0.4",
     "acorn-bigint": "^0.3.1",
