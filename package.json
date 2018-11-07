@@ -6,9 +6,6 @@
     "test": "tape -r esm 'test/**/*-test.js'",
     "precommit": "eslint . && yarn test"
   },
-  "bin": {
-    "observable-ast": "bin/ast"
-  },
   "esm": {
     "mode": "all",
     "mainFields": [
