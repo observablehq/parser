@@ -7,10 +7,6 @@ const SCOPE_FUNCTION = 2;
 const SCOPE_ASYNC = 4;
 const SCOPE_GENERATOR = 8;
 
-export function parseNotebook(input) {
-  return NotebookParser.parse(input);
-}
-
 export function parseCell(input, globals) {
   const cell = CellParser.parse(input);
 
@@ -35,7 +31,7 @@ export function parseCell(input, globals) {
   return cell;
 }
 
-class CellParser extends Parser.extend(bigInt, dynamicImport) {
+export class CellParser extends Parser.extend(bigInt, dynamicImport) {
   constructor(...options) {
     super(...options);
     this.O_function = 0;
@@ -190,17 +186,5 @@ class CellParser extends Parser.extend(bigInt, dynamicImport) {
       node.id = this.parseIdent();
       return this.finishNode(node, type);
     }
-  }
-}
-
-class NotebookParser extends CellParser {
-  parseTopLevel(node) {
-    if (!node.cells) node.cells = [];
-    while (this.type !== tt.eof) {
-      node.cells.push(this.parseCell(this.startNode()));
-      this.semicolon();
-    }
-    this.next();
-    return this.finishNode(node, "Program");
   }
 }
