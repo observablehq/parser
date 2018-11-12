@@ -101,7 +101,7 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
         || super.parseExprAtom.apply(this, arguments);
   }
   parseCell(node, eof) {
-    const lookahead = new CellParser(this.options, this.input, this.start);
+    const lookahead = new CellParser({}, this.input, this.start);
     let token = lookahead.getToken();
     let body = null;
     let id = null;
