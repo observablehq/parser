@@ -1,6 +1,6 @@
 # notebook-parser
 
-[![CircleCI](https://circleci.com/gh/observablehq/acorn-observable/tree/master.svg?style=svg&circle-token=c7004fecc8765b1b34f0be42ced4772038eb3910)](https://circleci.com/gh/observablehq/acorn-observable/tree/master)
+[![CircleCI](https://circleci.com/gh/observablehq/notebook-parser.svg?style=svg&circle-token=c7004fecc8765b1b34f0be42ced4772038eb3910)](https://circleci.com/gh/observablehq/notebook-parser)
 
 To parse a cell:
 
