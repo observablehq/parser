@@ -1,6 +1,6 @@
 {
   "name": "@observablehq/notebook-parser",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "ISC",
   "module": "src/index.js",
   "author": {
