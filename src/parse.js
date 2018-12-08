@@ -34,9 +34,6 @@ export function parseCell(input, {globals} = {}) {
 export class CellParser extends Parser.extend(bigInt, dynamicImport) {
   constructor(...options) {
     super(...options);
-    this.O_function = 0;
-    this.O_async = false;
-    this.O_generator = false;
   }
   enterScope(flags) {
     if (flags & SCOPE_FUNCTION) ++this.O_function;
@@ -106,6 +103,9 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
     let body = null;
     let id = null;
 
+    this.O_function = 0;
+    this.O_async = false;
+    this.O_generator = false;
     this.strict = true;
     this.enterScope(SCOPE_FUNCTION | SCOPE_ASYNC | SCOPE_GENERATOR);
 
