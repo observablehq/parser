@@ -1,11 +1,11 @@
-# notebook-parser
+# parser
 
-[![CircleCI](https://circleci.com/gh/observablehq/notebook-parser.svg?style=svg&circle-token=c7004fecc8765b1b34f0be42ced4772038eb3910)](https://circleci.com/gh/observablehq/notebook-parser)
+[![CircleCI](https://circleci.com/gh/observablehq/parser.svg?style=svg&circle-token=c7004fecc8765b1b34f0be42ced4772038eb3910)](https://circleci.com/gh/observablehq/parser)
 
 To parse a cell:
 
 ```js
-import {parseCell} from "@observablehq/notebook-parser";
+import {parseCell} from "@observablehq/parser";
 
 const cell = parseCell(`hello = "world"`);
 ```
@@ -423,7 +423,7 @@ Injecting a view injects both the view symbol (`viewof foo`) and the value symbo
 
 ## API Reference
 
-<a href="#parseCell" name="parseCell">#</a> <b>parseCell</b>(<i>input</i>[, <i>options</i>]) [<>](https://github.com/observablehq/notebook-parser/blob/master/src/parse.js "Source")
+<a href="#parseCell" name="parseCell">#</a> <b>parseCell</b>(<i>input</i>[, <i>options</i>]) [<>](https://github.com/observablehq/parser/blob/master/src/parse.js "Source")
 
 Returns a [Cell](#cell).
 
