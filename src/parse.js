@@ -8,27 +8,7 @@ const SCOPE_ASYNC = 4;
 const SCOPE_GENERATOR = 8;
 
 export function parseCell(input, {globals} = {}) {
-  const cell = CellParser.parse(input);
-
-  // Find references.
-  // Check for illegal references to arguments.
-  // Check for illegal assignments to global references.
-  if (cell.body && cell.body.type !== "ImportDeclaration") {
-    try {
-      cell.references = findReferences(cell, globals);
-    } catch (error) {
-      if (error.node) {
-        const loc = getLineInfo(input, error.node.start);
-        error.message += ` (${loc.line}:${loc.column})`;
-        error.pos = error.node.start;
-        error.loc = loc;
-        delete error.node;
-      }
-      throw error;
-    }
-  }
-
-  return cell;
+  return parseReferences(CellParser.parse(input), input, globals);
 }
 
 export class CellParser extends Parser.extend(bigInt, dynamicImport) {
@@ -187,4 +167,48 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
       return this.finishNode(node, type);
     }
   }
+}
+
+export function parseModule(input, {globals} = {}) {
+  const program = ModuleParser.parse(input);
+  for (const cell of program.cells) {
+    parseReferences(input, cell, globals);
+  }
+  return program;
+}
+
+export class ModuleParser extends CellParser {
+  parseTopLevel(node) {
+    if (!node.cells) node.cells = [];
+    while (this.type !== tt.eof) {
+      if (this.eat(tt.semi)) continue;
+      const cell = this.parseCell(this.startNode());
+      cell.input = this.input;
+      node.cells.push(cell);
+      this.semicolon();
+    }
+    this.next();
+    return this.finishNode(node, "Program");
+  }
+}
+
+// Find references.
+// Check for illegal references to arguments.
+// Check for illegal assignments to global references.
+function parseReferences(cell, input, globals) {
+  if (cell.body && cell.body.type !== "ImportDeclaration") {
+    try {
+      cell.references = findReferences(cell, globals);
+    } catch (error) {
+      if (error.node) {
+        const loc = getLineInfo(input, error.node.start);
+        error.message += ` (${loc.line}:${loc.column})`;
+        error.pos = error.node.start;
+        error.loc = loc;
+        delete error.node;
+      }
+      throw error;
+    }
+  }
+  return cell;
 }
