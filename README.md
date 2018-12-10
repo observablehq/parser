@@ -425,7 +425,11 @@ Injecting a view injects both the view symbol (`viewof foo`) and the value symbo
 
 <a href="#parseCell" name="parseCell">#</a> <b>parseCell</b>(<i>input</i>[, <i>options</i>]) [<>](https://github.com/observablehq/parser/blob/master/src/parse.js "Source")
 
-Returns a [Cell](#cell).
+Returns a [cell](#cell).
+
+<a href="#parseModule" name="parseModule">#</a> <b>parseModule</b>(<i>input</i>[, <i>options</i>]) [<>](https://github.com/observablehq/parser/blob/master/src/parse.js "Source")
+
+Returns a [program](#program).
 
 ### Cell
 
@@ -462,3 +466,9 @@ An array of ImportSpecifier nodes, if the import declaration has a `with` clause
 <a href="specifier_view" name="specifier_view">#</a> <i>specifier</i>.<b>view</b>
 
 A boolean indicating whether the import specifies a view.
+
+### Program
+
+<a href="#program_cells" name="program_cells">#</a> <i>program</i>.<b>cells</b>
+
+An array of [cells](#cell).
