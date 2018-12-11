@@ -12,7 +12,8 @@
     "url": "https://github.com/observablehq/parser.git"
   },
   "scripts": {
-    "test": "tape -r esm 'test/**/*-test.js'"
+    "test": "tape -r esm 'test/**/*-test.js'",
+    "postpublish": "git push && git push --tags"
   },
   "husky": {
     "hooks": {
