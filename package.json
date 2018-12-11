@@ -40,6 +40,6 @@
     "tape-await": "^0.1.1"
   },
   "files": [
-    "src/"
+    "src/**.js"
   ]
 }
