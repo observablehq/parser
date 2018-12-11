@@ -173,7 +173,7 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
 export function parseModule(input, {globals} = {}) {
   const program = ModuleParser.parse(input);
   for (const cell of program.cells) {
-    parseReferences(input, cell, globals);
+    parseReferences(cell, input, globals);
   }
   return program;
 }
