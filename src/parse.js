@@ -1,6 +1,7 @@
 import {getLineInfo, tokTypes as tt, Parser} from "acorn";
 import bigInt from "acorn-bigint";
 import dynamicImport from "./dynamic-import.js";
+import defaultGlobals from "./globals.js";
 import findReferences from "./references.js";
 
 const SCOPE_FUNCTION = 2;
@@ -195,7 +196,7 @@ export class ModuleParser extends CellParser {
 // Find references.
 // Check for illegal references to arguments.
 // Check for illegal assignments to global references.
-function parseReferences(cell, input, globals) {
+function parseReferences(cell, input, globals = defaultGlobals) {
   if (cell.body && cell.body.type !== "ImportDeclaration") {
     try {
       cell.references = findReferences(cell, globals);

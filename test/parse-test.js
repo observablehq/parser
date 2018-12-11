@@ -13,7 +13,7 @@ readdirSync(join("test", "input")).forEach(file => {
     let actual, expected;
 
     try {
-      actual = parseCell(readFileSync(infile, "utf8"));
+      actual = parseCell(readFileSync(infile, "utf8"), {globals: null});
     } catch (error) {
       if (error instanceof ReferenceError
           || error instanceof SyntaxError
