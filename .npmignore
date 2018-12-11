@@ -1,6 +1,0 @@
-*.sublime-*
-.DS_Store
-.circleci/
-.esm-cache/
-dist/*.zip
-test/
