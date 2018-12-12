@@ -96,7 +96,7 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
     }
 
     // A non-empty cell?
-    else if (token.type !== tt.eof) {
+    else if (token.type !== tt.eof && token.type !== tt.semi) {
 
       // A named cell?
       if (token.type === tt.name) {
