@@ -92,11 +92,14 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
 
     // An import?
     if (token.type === tt._import) {
-      body = this.parseImport(this.startNode());
+      const {type} = lookahead.getToken();
+      if (type !== tt.parenL) {
+        body = this.parseImport(this.startNode());
+      }
     }
 
     // A non-empty cell?
-    else if (token.type !== tt.eof) {
+    if (body === null && token.type !== tt.eof) {
 
       // A named cell?
       if (token.type === tt.name) {

@@ -1,0 +1,28 @@
+{
+  "type": "Cell",
+  "start": 0,
+  "end": 14,
+  "id": null,
+  "async": false,
+  "generator": false,
+  "body": {
+    "type": "CallExpression",
+    "start": 0,
+    "end": 13,
+    "callee": {
+      "type": "Import",
+      "start": 0,
+      "end": 6
+    },
+    "arguments": [
+      {
+        "type": "Literal",
+        "start": 7,
+        "end": 12,
+        "value": "bar",
+        "raw": "\"bar\""
+      }
+    ]
+  },
+  "references": []
+}
