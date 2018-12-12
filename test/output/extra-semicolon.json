@@ -1,11 +1,21 @@
 {
-  "error": {
-    "type": "SyntaxError",
-    "message": "Unexpected token (1:8)",
-    "pos": 8,
-    "loc": {
-      "line": 1,
-      "column": 8
-    }
-  }
+  "type": "Cell",
+  "start": 0,
+  "end": 10,
+  "id": {
+    "type": "Identifier",
+    "start": 0,
+    "end": 3,
+    "name": "foo"
+  },
+  "async": false,
+  "generator": false,
+  "body": {
+    "type": "Literal",
+    "start": 6,
+    "end": 8,
+    "value": 42,
+    "raw": "42"
+  },
+  "references": []
 }

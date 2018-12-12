@@ -131,6 +131,7 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
       }
     }
 
+    this.semicolon();
     if (eof) this.expect(tt.eof); // TODO
 
     node.id = id;
@@ -182,11 +183,9 @@ export class ModuleParser extends CellParser {
   parseTopLevel(node) {
     if (!node.cells) node.cells = [];
     while (this.type !== tt.eof) {
-      if (this.eat(tt.semi)) continue;
       const cell = this.parseCell(this.startNode());
       cell.input = this.input;
       node.cells.push(cell);
-      this.semicolon();
     }
     this.next();
     return this.finishNode(node, "Program");
