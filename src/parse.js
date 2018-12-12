@@ -13,9 +13,6 @@ export function parseCell(input, {globals} = {}) {
 }
 
 export class CellParser extends Parser.extend(bigInt, dynamicImport) {
-  constructor(...options) {
-    super(...options);
-  }
   enterScope(flags) {
     if (flags & SCOPE_FUNCTION) ++this.O_function;
     return super.enterScope(flags);
