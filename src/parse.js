@@ -16,25 +16,25 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
   constructor(...options) {
     super(...options);
   }
-  enterScope(flags, ...rest) {
+  enterScope(flags) {
     if (flags & SCOPE_FUNCTION) ++this.O_function;
-    return super.enterScope(flags, ...rest);
+    return super.enterScope(flags);
   }
-  exitScope(...args) {
+  exitScope() {
     if (this.currentScope().flags & SCOPE_FUNCTION) --this.O_function;
-    return super.exitScope(...args);
+    return super.exitScope();
   }
-  parseForIn(node, ...rest) {
+  parseForIn(node, init) {
     if (this.O_function === 1 && node.await) this.O_async = true;
-    return super.parseForIn(node, ...rest);
+    return super.parseForIn(node, init);
   }
-  parseAwait(...args) {
+  parseAwait() {
     if (this.O_function === 1) this.O_async = true;
-    return super.parseAwait(...args);
+    return super.parseAwait();
   }
-  parseYield(...args) {
+  parseYield() {
     if (this.O_function === 1) this.O_generator = true;
-    return super.parseYield(...args);
+    return super.parseYield();
   }
   parseImport(node) {
     this.next();
@@ -73,10 +73,10 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
     }
     return nodes;
   }
-  parseExprAtom(...args) {
+  parseExprAtom() {
     return this.parseMaybeKeywordExpression("viewof", "ViewExpression")
         || this.parseMaybeKeywordExpression("mutable", "MutableExpression")
-        || super.parseExprAtom(...args);
+        || super.parseExprAtom();
   }
   parseCell(node, eof) {
     const lookahead = new CellParser({}, this.input, this.start);
@@ -144,8 +144,8 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
   parseTopLevel(node) {
     return this.parseCell(node, true);
   }
-  toAssignable(node, ...rest) {
-    return node.type === "MutableExpression" ? node : super.toAssignable(node, ...rest);
+  toAssignable(node, binding, errors) {
+    return node.type === "MutableExpression" ? node : super.toAssignable(node, binding, errors);
   }
   checkUnreserved(node) {
     if (node.name ==="viewof" || node.name === "mutable") {
@@ -153,10 +153,8 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
     }
     return super.checkUnreserved(node);
   }
-  checkLVal(expr, bindingType, checkClashes, ...rest) {
-    return expr.type === "MutableExpression"
-        ? super.checkLVal(expr.id, bindingType, checkClashes)
-        : super.checkLVal(expr, bindingType, checkClashes, ...rest);
+  checkLVal(expr, bindingType, checkClashes) {
+    return super.checkLVal(expr.type === "MutableExpression" ? expr.id : expr, bindingType, checkClashes);
   }
   unexpected(pos) {
     this.raise(pos != null ? pos : this.start, this.type === tt.eof ? "Unexpected end of input" : "Unexpected token");
