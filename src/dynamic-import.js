@@ -39,20 +39,20 @@ export default function(Parser) {
   }
 
   return class extends Parser {
-    parseExprAtom() {
+    parseExprAtom(...args) {
       if (this.type === tt._import) {
         const {type} = lookahead(this);
         if (type === tt.parenL) return parseImportCallAtom(this);
         this.unexpected();
       }
-      return super.parseExprAtom.apply(this, arguments);
+      return super.parseExprAtom(...args);
     }
-    parseStatement() {
+    parseStatement(...args) {
       if (this.type === tt._import) {
         const {type} = lookahead(this);
         if (type === tt.parenL) return parseImportCall(this);
       }
-      return super.parseStatement.apply(this, arguments);
+      return super.parseStatement(...args);
     }
   };
 }

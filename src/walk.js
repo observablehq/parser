@@ -7,8 +7,7 @@ export default make({
   },
   ObjectPattern(node, st, c) {
     const list = node.properties;
-    for (let i = 0; i < list.length; ++i) {
-      const prop = list[i];
+    for (const prop of list) {
       c(prop.value || prop.argument, st, "Pattern");
     }
   },

@@ -16,25 +16,25 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
   constructor(...options) {
     super(...options);
   }
-  enterScope(flags) {
+  enterScope(flags, ...rest) {
     if (flags & SCOPE_FUNCTION) ++this.O_function;
-    return super.enterScope.apply(this, arguments);
+    return super.enterScope(flags, ...rest);
   }
-  exitScope() {
+  exitScope(...args) {
     if (this.currentScope().flags & SCOPE_FUNCTION) --this.O_function;
-    return super.exitScope.apply(this, arguments);
+    return super.exitScope(...args);
   }
-  parseForIn(node) {
+  parseForIn(node, ...rest) {
     if (this.O_function === 1 && node.await) this.O_async = true;
-    return super.parseForIn.apply(this, arguments);
+    return super.parseForIn(node, ...rest);
   }
-  parseAwait() {
+  parseAwait(...args) {
     if (this.O_function === 1) this.O_async = true;
-    return super.parseAwait.apply(this, arguments);
+    return super.parseAwait(...args);
   }
-  parseYield() {
+  parseYield(...args) {
     if (this.O_function === 1) this.O_generator = true;
-    return super.parseYield.apply(this, arguments);
+    return super.parseYield(...args);
   }
   parseImport(node) {
     this.next();
@@ -73,10 +73,10 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
     }
     return nodes;
   }
-  parseExprAtom() {
+  parseExprAtom(...args) {
     return this.parseMaybeKeywordExpression("viewof", "ViewExpression")
         || this.parseMaybeKeywordExpression("mutable", "MutableExpression")
-        || super.parseExprAtom.apply(this, arguments);
+        || super.parseExprAtom(...args);
   }
   parseCell(node, eof) {
     const lookahead = new CellParser({}, this.input, this.start);
@@ -144,8 +144,8 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
   parseTopLevel(node) {
     return this.parseCell(node, true);
   }
-  toAssignable(node) {
-    return node.type === "MutableExpression" ? node : super.toAssignable.apply(this, arguments);
+  toAssignable(node, ...rest) {
+    return node.type === "MutableExpression" ? node : super.toAssignable(node, ...rest);
   }
   checkUnreserved(node) {
     if (node.name ==="viewof" || node.name === "mutable") {
@@ -153,10 +153,10 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
     }
     return super.checkUnreserved(node);
   }
-  checkLVal(expr, bindingType, checkClashes) {
+  checkLVal(expr, bindingType, checkClashes, ...rest) {
     return expr.type === "MutableExpression"
-        ? super.checkLVal.call(this, expr.id, bindingType, checkClashes)
-        : super.checkLVal.apply(this, arguments);
+        ? super.checkLVal(expr.id, bindingType, checkClashes)
+        : super.checkLVal(expr, bindingType, checkClashes, ...rest);
   }
   unexpected(pos) {
     this.raise(pos != null ? pos : this.start, this.type === tt.eof ? "Unexpected end of input" : "Unexpected token");
