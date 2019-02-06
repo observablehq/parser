@@ -2,6 +2,7 @@
   "name": "@observablehq/parser",
   "version": "1.0.1",
   "license": "ISC",
+  "main": "dist/parser.js",
   "module": "src/index.js",
   "author": {
     "name": "Observable, Inc.",
