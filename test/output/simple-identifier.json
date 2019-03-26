@@ -18,5 +18,7 @@
       "end": 3,
       "name": "foo"
     }
-  ]
+  ],
+  "importedModules": [],
+  "importedNotebooks": []
 }

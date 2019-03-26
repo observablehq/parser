@@ -24,5 +24,15 @@
       }
     ]
   },
-  "references": []
+  "references": [],
+  "importedModules": [
+    {
+      "type": "Literal",
+      "start": 7,
+      "end": 12,
+      "value": "bar",
+      "raw": "\"bar\""
+    }
+  ],
+  "importedNotebooks": []
 }

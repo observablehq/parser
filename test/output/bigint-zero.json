@@ -13,5 +13,7 @@
     "raw": "0n",
     "bigint": "0n"
   },
-  "references": []
+  "references": [],
+  "importedModules": [],
+  "importedNotebooks": []
 }

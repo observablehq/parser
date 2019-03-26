@@ -36,5 +36,16 @@
       "value": "module",
       "raw": "\"module\""
     }
-  }
+  },
+  "references": [],
+  "importedModules": [],
+  "importedNotebooks": [
+    {
+      "type": "Literal",
+      "start": 32,
+      "end": 40,
+      "value": "module",
+      "raw": "\"module\""
+    }
+  ]
 }
