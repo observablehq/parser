@@ -133,6 +133,9 @@ export default function findReferences(cell, globals) {
       Import: (node, parents) => {
         importModule(parents[parents.length - 2]);
       },
+      ImportDeclaration: (node) => {
+        importedNotebooks.push(node.source);
+      },
       ImportDefaultSpecifier: declareModuleSpecifier,
       ImportSpecifier: declareModuleSpecifier,
       ImportNamespaceSpecifier: declareModuleSpecifier
