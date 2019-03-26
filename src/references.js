@@ -87,7 +87,7 @@ export default function findReferences(cell, globals) {
   }
 
   function importModule(call) {
-    if (call.type === "CallExpression") {
+    if (call && call.type === "CallExpression") {
       for (let node of call.arguments) {
         if (node.type === "Literal") {
           importedModules.push(node);
