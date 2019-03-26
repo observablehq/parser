@@ -94,15 +94,56 @@ tape("allows multiple required specifiers", test => {
     {type: "Literal", start: 19, end: 22, value: "b", raw: '"b"'},
     {type: "Literal", start: 24, end: 34, value: "c@latest", raw: '"c@latest"'}
   ]);
-})
+});
 
-tape("allows deep requires", test => {
+tape("finds deep requires", test => {
   test.deepEqual(parseCell(`
     (function() {
       return (function() {
         return require("a@101");
       })()
     })()`).importedModules, [
-      {type: "Literal", start: 69, end: 76, value: "a@101", raw: '"a@101"' }
-    ]);
-})
+    {type: "Literal", start: 69, end: 76, value: "a@101", raw: '"a@101"' }
+  ]);
+});
+
+tape("finds dynamic imports", test => {
+  test.deepEqual(parseCell(`import("d3")`).importedModules, [
+    {type: "Literal", start: 7, end: 11, value: "d3", raw: '"d3"'}
+  ]);
+});
+
+tape("finds deep dynamic imports", test => {
+  test.deepEqual(parseCell(`
+    (function() {
+      return (function() {
+        return import("a@101");
+      })()
+    })()`).importedModules, [
+    {type: "Literal", start: 68, end: 75, value: "a@101", raw: '"a@101"' }
+  ]);
+});
+
+tape("finds mixed requires and dynamic imports", test => {
+  test.deepEqual(parseCell(`library = {
+  return {
+    a: await require("a@10"),
+    b: await import("b@20")
+  }
+}`).importedModules, [
+    {type: "Literal", start: 73, end: 79, value: "b@20", raw: '"b@20"'},
+    {type: "Literal", start: 44, end: 50, value: "a@10", raw: '"a@10"'}
+  ]);
+});
+
+tape("finds notebook imports", test => {
+  test.deepEqual(parseCell(`import {a} from "b"`).importedNotebooks, [
+    {type: "Literal", start: 16, end: 19, value: "b", raw: '"b"'}
+  ]);
+});
+
+tape("finds complex notebook imports", test => {
+  test.deepEqual(parseCell(`import {a as b} with {c as d, e as f} from "notebook"`).importedNotebooks, [
+    {type: "Literal", start: 43, end: 53, value: "notebook", raw: '"notebook"'}
+  ]);
+});
