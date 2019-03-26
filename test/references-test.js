@@ -77,3 +77,32 @@ tape("ignores globals", test => {
     {type: "Identifier", start: 6, end: 9, name: "bar"}
   ]);
 });
+
+tape("finds required modules", test => {
+  test.deepEqual(parseCell(`require("d3")`).importedModules, [
+    {type: "Literal", start: 8, end: 12, value: "d3", raw: '"d3"'}
+  ]);
+});
+
+tape("ignores shadowed requires", test => {
+  test.deepEqual(parseCell(`{const require = window.require; require("d3");}`).importedModules, []);
+});
+
+tape("allows multiple required specifiers", test => {
+  test.deepEqual(parseCell(`require("a@1.2.6", "b", "c@latest")`).importedModules, [
+    {type: "Literal", start: 8, end: 17, value: "a@1.2.6", raw: '"a@1.2.6"'},
+    {type: "Literal", start: 19, end: 22, value: "b", raw: '"b"'},
+    {type: "Literal", start: 24, end: 34, value: "c@latest", raw: '"c@latest"'}
+  ]);
+})
+
+tape("allows deep requires", test => {
+  test.deepEqual(parseCell(`
+    (function() {
+      return (function() {
+        return require("a@101");
+      })()
+    })()`).importedModules, [
+      {type: "Literal", start: 69, end: 76, value: "a@101", raw: '"a@101"' }
+    ]);
+})
