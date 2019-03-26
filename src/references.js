@@ -86,6 +86,16 @@ export default function findReferences(cell, globals) {
     declareLocal(ast, node.local);
   }
 
+  function importModule(call) {
+    if (call.type === "CallExpression") {
+      for (let node of call.arguments) {
+        if (node.type === "Literal") {
+          importedModules.push(node);
+        }
+      }
+    }
+  }
+
   ancestor(
     ast,
     {
@@ -120,6 +130,9 @@ export default function findReferences(cell, globals) {
       },
       Class: declareClass,
       CatchClause: declareCatchClause,
+      Import: (node, parents) => {
+        importModule(parents[parents.length - 2]);
+      },
       ImportDefaultSpecifier: declareModuleSpecifier,
       ImportSpecifier: declareModuleSpecifier,
       ImportNamespaceSpecifier: declareModuleSpecifier
@@ -149,14 +162,7 @@ export default function findReferences(cell, globals) {
       }
     }
     if (name === "require") {
-      const parent = parents[parents.length - 2];
-      if (parent.type === "CallExpression") {
-        for (let node of parent.arguments) {
-          if (node.type === "Literal") {
-            importedModules.push(node);
-          }
-        }
-      }
+      importModule(parents[parents.length - 2]);
     }
     if (!referenceSet.has(name)) {
       if (name === "arguments") {
