@@ -1,0 +1,245 @@
+{
+  "type": "Cell",
+  "start": 0,
+  "end": 182,
+  "id": {
+    "type": "Identifier",
+    "start": 0,
+    "end": 9,
+    "name": "libraries"
+  },
+  "async": true,
+  "generator": false,
+  "body": {
+    "type": "BlockStatement",
+    "start": 12,
+    "end": 181,
+    "body": [
+      {
+        "type": "FunctionDeclaration",
+        "start": 16,
+        "end": 156,
+        "id": {
+          "type": "Identifier",
+          "start": 31,
+          "end": 35,
+          "name": "load"
+        },
+        "expression": false,
+        "generator": false,
+        "async": true,
+        "params": [],
+        "body": {
+          "type": "BlockStatement",
+          "start": 38,
+          "end": 156,
+          "body": [
+            {
+              "type": "VariableDeclaration",
+              "start": 44,
+              "end": 76,
+              "declarations": [
+                {
+                  "type": "VariableDeclarator",
+                  "start": 50,
+                  "end": 75,
+                  "id": {
+                    "type": "Identifier",
+                    "start": 50,
+                    "end": 51,
+                    "name": "a"
+                  },
+                  "init": {
+                    "type": "AwaitExpression",
+                    "start": 54,
+                    "end": 75,
+                    "argument": {
+                      "type": "CallExpression",
+                      "start": 60,
+                      "end": 75,
+                      "callee": {
+                        "type": "Identifier",
+                        "start": 60,
+                        "end": 67,
+                        "name": "require"
+                      },
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "start": 68,
+                          "end": 74,
+                          "value": "d3@5",
+                          "raw": "\"d3@5\""
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "kind": "const"
+            },
+            {
+              "type": "VariableDeclaration",
+              "start": 81,
+              "end": 133,
+              "declarations": [
+                {
+                  "type": "VariableDeclarator",
+                  "start": 87,
+                  "end": 132,
+                  "id": {
+                    "type": "Identifier",
+                    "start": 87,
+                    "end": 88,
+                    "name": "b"
+                  },
+                  "init": {
+                    "type": "AwaitExpression",
+                    "start": 91,
+                    "end": 132,
+                    "argument": {
+                      "type": "CallExpression",
+                      "start": 97,
+                      "end": 132,
+                      "callee": {
+                        "type": "Identifier",
+                        "start": 97,
+                        "end": 104,
+                        "name": "require"
+                      },
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "start": 105,
+                          "end": 117,
+                          "value": "underscore",
+                          "raw": "\"underscore\""
+                        },
+                        {
+                          "type": "Literal",
+                          "start": 119,
+                          "end": 131,
+                          "value": "topojson@1",
+                          "raw": "\"topojson@1\""
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "kind": "const"
+            },
+            {
+              "type": "ReturnStatement",
+              "start": 138,
+              "end": 152,
+              "argument": {
+                "type": "ObjectExpression",
+                "start": 145,
+                "end": 151,
+                "properties": [
+                  {
+                    "type": "Property",
+                    "start": 146,
+                    "end": 147,
+                    "method": false,
+                    "shorthand": true,
+                    "computed": false,
+                    "key": {
+                      "type": "Identifier",
+                      "start": 146,
+                      "end": 147,
+                      "name": "a"
+                    },
+                    "kind": "init",
+                    "value": {
+                      "type": "Identifier",
+                      "start": 146,
+                      "end": 147,
+                      "name": "a"
+                    }
+                  },
+                  {
+                    "type": "Property",
+                    "start": 149,
+                    "end": 150,
+                    "method": false,
+                    "shorthand": true,
+                    "computed": false,
+                    "key": {
+                      "type": "Identifier",
+                      "start": 149,
+                      "end": 150,
+                      "name": "b"
+                    },
+                    "kind": "init",
+                    "value": {
+                      "type": "Identifier",
+                      "start": 149,
+                      "end": 150,
+                      "name": "b"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "ReturnStatement",
+        "start": 159,
+        "end": 179,
+        "argument": {
+          "type": "AwaitExpression",
+          "start": 166,
+          "end": 178,
+          "argument": {
+            "type": "CallExpression",
+            "start": 172,
+            "end": 178,
+            "callee": {
+              "type": "Identifier",
+              "start": 172,
+              "end": 176,
+              "name": "load"
+            },
+            "arguments": []
+          }
+        }
+      }
+    ]
+  },
+  "references": [
+    {
+      "type": "Identifier",
+      "start": 60,
+      "end": 67,
+      "name": "require"
+    }
+  ],
+  "importedModules": [
+    {
+      "type": "Literal",
+      "start": 68,
+      "end": 74,
+      "value": "d3@5",
+      "raw": "\"d3@5\""
+    },
+    {
+      "type": "Literal",
+      "start": 105,
+      "end": 117,
+      "value": "underscore",
+      "raw": "\"underscore\""
+    },
+    {
+      "type": "Literal",
+      "start": 119,
+      "end": 131,
+      "value": "topojson@1",
+      "raw": "\"topojson@1\""
+    }
+  ],
+  "importedNotebooks": []
+}
