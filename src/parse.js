@@ -193,7 +193,10 @@ export class ModuleParser extends CellParser {
 function parseReferences(cell, input, globals = defaultGlobals) {
   if (cell.body && cell.body.type !== "ImportDeclaration") {
     try {
-      cell.references = findReferences(cell, globals);
+      const refs = findReferences(cell, globals);
+      cell.references = refs.references;
+      cell.importedModules = refs.importedModules;
+      cell.importedNotebooks = refs.importedNotebooks;
     } catch (error) {
       if (error.node) {
         const loc = getLineInfo(input, error.node.start);

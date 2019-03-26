@@ -1,0 +1,51 @@
+{
+  "type": "Cell",
+  "start": 0,
+  "end": 19,
+  "id": {
+    "type": "Identifier",
+    "start": 0,
+    "end": 2,
+    "name": "d3"
+  },
+  "async": false,
+  "generator": false,
+  "body": {
+    "type": "CallExpression",
+    "start": 5,
+    "end": 18,
+    "callee": {
+      "type": "Identifier",
+      "start": 5,
+      "end": 12,
+      "name": "require"
+    },
+    "arguments": [
+      {
+        "type": "Literal",
+        "start": 13,
+        "end": 17,
+        "value": "d3",
+        "raw": "\"d3\""
+      }
+    ]
+  },
+  "references": [
+    {
+      "type": "Identifier",
+      "start": 5,
+      "end": 12,
+      "name": "require"
+    }
+  ],
+  "importedModules": [
+    {
+      "type": "Literal",
+      "start": 13,
+      "end": 17,
+      "value": "d3",
+      "raw": "\"d3\""
+    }
+  ],
+  "importedNotebooks": []
+}

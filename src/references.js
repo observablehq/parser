@@ -30,6 +30,8 @@ export default function findReferences(cell, globals) {
   const locals = new Map;
   const referenceSet = new Set(globals);
   const references = [];
+  const importedModules = [];
+  const importedNotebooks = [];
 
   function hasLocal(node, name) {
     const l = locals.get(node);
@@ -146,6 +148,16 @@ export default function findReferences(cell, globals) {
         name = `mutable ${node.id.name}`;
       }
     }
+    if (name === "require") {
+      const parent = parents[parents.length - 2];
+      if (parent.type === "CallExpression") {
+        for (let node of parent.arguments) {
+          if (node.type === "Literal") {
+            importedModules.push(node);
+          }
+        }
+      }
+    }
     if (!referenceSet.has(name)) {
       if (name === "arguments") {
         throw Object.assign(new ReferenceError(`arguments is not allowed`), {node});
@@ -216,5 +228,5 @@ export default function findReferences(cell, globals) {
     walk
   );
 
-  return references;
+  return {references, importedModules, importedNotebooks};
 }
