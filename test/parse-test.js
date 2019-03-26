@@ -6,7 +6,7 @@ import {parseCell} from "../src/index.js";
 import walk from "../src/walk.js";
 
 readdirSync(join("test", "input")).forEach(file => {
-  if (file !== "dynamic-import.js") return; // TK TK TK
+  if (file !== "shadowed-require.js") return; // TK TK TK
   if (extname(file) !== ".js") return;
   tape(`parse ${file}`, test => {
     const infile = join("test", "input", file);

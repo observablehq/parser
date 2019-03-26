@@ -1,0 +1,92 @@
+{
+  "type": "Cell",
+  "start": 0,
+  "end": 71,
+  "id": {
+    "type": "Identifier",
+    "start": 0,
+    "end": 2,
+    "name": "d3"
+  },
+  "async": false,
+  "generator": false,
+  "body": {
+    "type": "BlockStatement",
+    "start": 5,
+    "end": 70,
+    "body": [
+      {
+        "type": "VariableDeclaration",
+        "start": 9,
+        "end": 44,
+        "declarations": [
+          {
+            "type": "VariableDeclarator",
+            "start": 15,
+            "end": 43,
+            "id": {
+              "type": "Identifier",
+              "start": 15,
+              "end": 22,
+              "name": "require"
+            },
+            "init": {
+              "type": "MemberExpression",
+              "start": 25,
+              "end": 43,
+              "object": {
+                "type": "Identifier",
+                "start": 25,
+                "end": 31,
+                "name": "window"
+              },
+              "property": {
+                "type": "Identifier",
+                "start": 32,
+                "end": 43,
+                "name": "globalValue"
+              },
+              "computed": false
+            }
+          }
+        ],
+        "kind": "const"
+      },
+      {
+        "type": "ReturnStatement",
+        "start": 47,
+        "end": 68,
+        "argument": {
+          "type": "CallExpression",
+          "start": 54,
+          "end": 67,
+          "callee": {
+            "type": "Identifier",
+            "start": 54,
+            "end": 61,
+            "name": "require"
+          },
+          "arguments": [
+            {
+              "type": "Literal",
+              "start": 62,
+              "end": 66,
+              "value": "d3",
+              "raw": "\"d3\""
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "references": [
+    {
+      "type": "Identifier",
+      "start": 25,
+      "end": 31,
+      "name": "window"
+    }
+  ],
+  "importedModules": [],
+  "importedNotebooks": []
+}
