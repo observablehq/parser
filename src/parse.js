@@ -12,6 +12,30 @@ export function parseCell(input, {globals} = {}) {
   return parseReferences(CellParser.parse(input), input, globals);
 }
 
+export function peepId(input) {
+  let tokens = Array.from(Parser.tokenizer(input));
+
+  // Remove the * in generator functions
+  tokens = tokens.filter(tok => tok.type.label !== "*");
+
+  if (tokens[0].value === "viewof" || tokens[0].value === "mutable" || tokens[0].value === "async") {
+    tokens.shift();
+  }
+
+  // a =
+  if (tokens[0].type.label === "name" && tokens[1].type.label === "=") {
+    return tokens[0].value;
+  }
+
+  // function a
+  // class A
+  if (tokens[0].type.keyword === "function" || tokens[0].type.keyword === "class") {
+    if (tokens[1].type.label === "name") {
+      return tokens[1].value;
+    }
+  }
+}
+
 export class CellParser extends Parser.extend(bigInt, dynamicImport) {
   enterScope(flags) {
     if (flags & SCOPE_FUNCTION) ++this.O_function;

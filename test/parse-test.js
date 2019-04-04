@@ -2,8 +2,19 @@ import {simple} from "acorn-walk";
 import tape from "tape-await";
 import {readdirSync, readFileSync, writeFileSync} from "fs";
 import {basename, extname, join} from "path";
-import {parseCell} from "../src/index.js";
+import {parseCell, peepId} from "../src/index.js";
 import walk from "../src/walk.js";
+
+tape('peepId', t => {
+  t.equal(peepId('a = 1'), 'a');
+  t.equal(peepId('viewof a = 1'), 'a');
+  t.equal(peepId('mutable a = 1'), 'a');
+  t.equal(peepId('class A {'), 'A');
+  t.equal(peepId('function a'), 'a');
+  t.equal(peepId('async function a'), 'a');
+  t.equal(peepId('function* a'), 'a');
+  t.equal(peepId('function /* yeah */ a'), 'a');
+});
 
 readdirSync(join("test", "input")).forEach(file => {
   if (extname(file) !== ".js") return;
