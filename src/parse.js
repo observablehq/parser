@@ -13,14 +13,23 @@ export function parseCell(input, {globals} = {}) {
 }
 
 export function peepId(input) {
-  let tokens = Array.from(Parser.tokenizer(input));
+  let tokens;
+  try {
+    tokens = Array.from(Parser.tokenizer(input));
+  } catch (e) {
+    return;
+  }
 
   // Remove the * in generator functions
   tokens = tokens.filter(tok => tok.type.label !== "*");
 
+  if (!tokens.length) return;
+
   if (tokens[0].value === "viewof" || tokens[0].value === "mutable" || tokens[0].value === "async") {
     tokens.shift();
   }
+
+  if (tokens.length < 2) return;
 
   // a =
   if (tokens[0].type.label === "name" && tokens[1].type.label === "=") {
