@@ -1,8 +1,8 @@
-import { simple } from "acorn-walk";
+import {simple} from "acorn-walk";
 import tape from "tape-await";
-import { readdirSync, readFileSync, writeFileSync } from "fs";
-import { basename, extname, join } from "path";
-import { parseCell, peepId } from "../src/index.js";
+import {readdirSync, readFileSync, writeFileSync} from "fs";
+import {basename, extname, join} from "path";
+import {parseCell, peepId} from "../src/index.js";
 import walk from "../src/walk.js";
 
 tape("peepId", t => {
@@ -29,13 +29,11 @@ readdirSync(join("test", "input")).forEach(file => {
     let actual, expected;
 
     try {
-      actual = parseCell(readFileSync(infile, "utf8"), { globals: null });
+      actual = parseCell(readFileSync(infile, "utf8"), {globals: null});
     } catch (error) {
-      if (
-        error instanceof ReferenceError ||
-        error instanceof SyntaxError ||
-        error instanceof TypeError
-      ) {
+      if (error instanceof ReferenceError
+          || error instanceof SyntaxError
+          || error instanceof TypeError) {
         actual = {
           error: {
             type: error.constructor.name,
@@ -57,11 +55,7 @@ readdirSync(join("test", "input")).forEach(file => {
     } catch (error) {
       if (error.code === "ENOENT") {
         console.warn(`! generating ${outfile}`);
-        writeFileSync(
-          outfile,
-          JSON.stringify(actual, replacer, 2) + "\n",
-          "utf8"
-        );
+        writeFileSync(outfile, JSON.stringify(actual, replacer, 2) + "\n", "utf8");
         return;
       } else {
         throw error;
