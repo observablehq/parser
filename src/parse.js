@@ -23,7 +23,7 @@ export function peepId(input) {
   }
 
   // Remove the * in generator functions
-  tokens = tokens.filter(tok => tok.type.label !== "*");
+  tokens = tokens.filter(tok => tok.type !== tt.star);
 
   if (!tokens.length) return;
 
@@ -38,17 +38,17 @@ export function peepId(input) {
   if (tokens.length < 2) return;
 
   // a =
-  if (tokens[0].type.label === "name" && tokens[1].type.label === "=") {
+  if (tokens[0].type === tt.name && tokens[1].type === tt.eq) {
     return tokens[0].value;
   }
 
   // function a
   // class A
   if (
-    tokens[0].type.keyword === "function" ||
-    tokens[0].type.keyword === "class"
+    tokens[0].type === tt._function ||
+    tokens[0].type === tt._class
   ) {
-    if (tokens[1].type.label === "name" && tokens[1].end < input.length) {
+    if (tokens[1].type === tt.name && tokens[1].end < input.length) {
       return tokens[1].value;
     }
   }
