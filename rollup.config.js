@@ -28,7 +28,7 @@ export default [
     format: "umd",
     extend: true,
     name: "observablehq",
-    file: "dist/parser.js"
+    file: "dist/parser.min.js"
   }
 }
 ];

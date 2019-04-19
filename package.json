@@ -2,7 +2,7 @@
   "name": "@observablehq/parser",
   "version": "1.1.2",
   "license": "ISC",
-  "main": "dist/parser.js",
+  "main": "dist/parser.min.js",
   "module": "src/index.js",
   "author": {
     "name": "Observable, Inc.",
@@ -14,7 +14,7 @@
   },
   "scripts": {
     "test": "tape -r esm 'test/**/*-test.js'",
-    "prepublishOnly": "rollup -c",
+    "prepublishOnly": "rm -rf dist && rollup -c",
     "postpublish": "git push && git push --tags"
   },
   "husky": {
