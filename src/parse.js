@@ -17,6 +17,30 @@ export function parseCell(input, {globals} = {}) {
   return parseReferences(CellParser.parse(input), input, globals);
 }
 
+/*
+                       ┌─────┐
+           ┌───────────│START│─function|class
+           │           └─────┘             │
+viewof|mutable|async      │                ▼
+           │              │           ┌────────┐     ┌─┐
+           ▼              │           │FUNCTION│◀───▶│*│
+      ┌────────┐          │           └────────┘     └─┘
+      │MODIFIER│          │                │
+      └────────┘        name             name
+           │              │                │
+           └──name─┐      │                ▼
+                   ▼      │         ┌─────────────┐
+              ┌────────┐  │         │FUNCTION_NAME│
+              │  NAME  │◀─┘         └─────────────┘
+              └────────┘
+                   │
+                   =
+                   ▼
+              ┌────────┐
+              │   EQ   │
+              └────────┘
+*/
+
 export function peepId(input) {
   let state = STATE_START;
   let name;
