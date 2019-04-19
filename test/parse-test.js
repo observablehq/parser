@@ -5,7 +5,7 @@ import {basename, extname, join} from "path";
 import {parseCell, peepId} from "../src/index.js";
 import walk from "../src/walk.js";
 
-tape.only("peepId", t => {
+tape("peepId", t => {
   t.equal(peepId("a = 1"), "a");
   t.equal(peepId("viewof a = 1"), "a");
   t.equal(peepId("mutable a = 1"), "a");
