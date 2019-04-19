@@ -28,9 +28,12 @@ export function peepId(input) {
   if (!tokens.length) return;
 
   if (
-    tokens[0].value === "viewof" ||
-    tokens[0].value === "mutable" ||
-    tokens[0].value === "async"
+    tokens[0].type === tt.name &&
+    (
+      tokens[0].value === "viewof" ||
+      tokens[0].value === "mutable" ||
+      tokens[0].value === "async"
+    )
   ) {
     tokens.shift();
   }
