@@ -48,7 +48,7 @@ export function peepId(input) {
     tokens[0].type.keyword === "function" ||
     tokens[0].type.keyword === "class"
   ) {
-    if (tokens[1].type.label === "name") {
+    if (tokens[1].type.label === "name" && tokens[1].end < input.length) {
       return tokens[1].value;
     }
   }

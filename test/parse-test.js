@@ -5,15 +5,21 @@ import {basename, extname, join} from "path";
 import {parseCell, peepId} from "../src/index.js";
 import walk from "../src/walk.js";
 
-tape("peepId", t => {
+tape.only("peepId", t => {
   t.equal(peepId("a = 1"), "a");
   t.equal(peepId("viewof a = 1"), "a");
   t.equal(peepId("mutable a = 1"), "a");
   t.equal(peepId("class A {"), "A");
-  t.equal(peepId("function a"), "a");
-  t.equal(peepId("async function a"), "a");
-  t.equal(peepId("function* a"), "a");
-  t.equal(peepId("function /* yeah */ a"), "a");
+  t.equal(peepId("class Z"), undefined);
+  t.equal(peepId("class Z "), "Z");
+  t.equal(peepId("function a"), undefined);
+  t.equal(peepId("function a()"), "a");
+  t.equal(peepId("async function a()"), "a");
+  t.equal(peepId("function* a"), undefined);
+  t.equal(peepId("function /* yeah */ a()"), "a");
+  t.equal(peepId("function"), undefined);
+  t.equal(peepId("1"), undefined);
+  t.equal(peepId("({ a: 1 })"), undefined);
   t.equal(
     peepId(`function queryAll(text, values) {
   return fetch("https://api.observable.localh`),
