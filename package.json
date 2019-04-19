@@ -46,6 +46,7 @@
     "tape-await": "^0.1.1"
   },
   "files": [
+    "dist/**/*.js",
     "src/**/*.js"
   ]
 }
