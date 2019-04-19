@@ -8,49 +8,83 @@ const SCOPE_FUNCTION = 2;
 const SCOPE_ASYNC = 4;
 const SCOPE_GENERATOR = 8;
 
+const STATE_START = Symbol("start");
+const STATE_MODIFIER = Symbol("modifier");
+const STATE_FUNCTION = Symbol("function");
+const STATE_NAME = Symbol("name");
+
 export function parseCell(input, {globals} = {}) {
   return parseReferences(CellParser.parse(input), input, globals);
 }
 
+/*
+                       ┌─────┐
+           ┌───────────│START│─function|class
+           │           └─────┘             │
+viewof|mutable|async      │                ▼
+           │              │           ┌────────┐     ┌─┐
+           ▼              │           │FUNCTION│◀───▶│*│
+      ┌────────┐          │           └────────┘     └─┘
+      │MODIFIER│          │                │
+      └────────┘        name             name
+           │              │                │
+           └──name─┐      │                ▼
+                   ▼      │         ┌─────────────┐
+              ┌────────┐  │         │FUNCTION_NAME│
+              │  NAME  │◀─┘         └─────────────┘
+              └────────┘
+                   │
+                   =
+                   ▼
+              ┌────────┐
+              │   EQ   │
+              └────────┘
+*/
+
 export function peepId(input) {
-  let tokens = [];
+  let state = STATE_START;
+  let name;
   try {
-    for (let token of Parser.tokenizer(input)) {
-      tokens.push(token);
+    for (const token of Parser.tokenizer(input)) {
+      switch (state) {
+        case STATE_START:
+        case STATE_MODIFIER: {
+          if (token.type === tt.name) {
+            if (
+              state === STATE_START &&
+              (
+                token.value === "viewof" ||
+                token.value === "mutable" ||
+                token.value === "async"
+              )
+            ) {
+              state = STATE_MODIFIER;
+              continue;
+            }
+            state = STATE_NAME;
+            name = token;
+            continue;
+          }
+          if (token.type === tt._function || token.type === tt._class) {
+            state = STATE_FUNCTION;
+            continue;
+          }
+          break;
+        }
+        case STATE_NAME: {
+          if (token.type === tt.eq) return name.value;
+          break;
+        }
+        case STATE_FUNCTION: {
+          if (token.type === tt.star) continue;
+          if (token.type === tt.name && token.end < input.length) return token.value;
+          break;
+        }
+      }
+      return;
     }
-  } catch (e) {
-    // Pass
-  }
-
-  // Remove the * in generator functions
-  tokens = tokens.filter(tok => tok.type.label !== "*");
-
-  if (!tokens.length) return;
-
-  if (
-    tokens[0].value === "viewof" ||
-    tokens[0].value === "mutable" ||
-    tokens[0].value === "async"
-  ) {
-    tokens.shift();
-  }
-
-  if (tokens.length < 2) return;
-
-  // a =
-  if (tokens[0].type.label === "name" && tokens[1].type.label === "=") {
-    return tokens[0].value;
-  }
-
-  // function a
-  // class A
-  if (
-    tokens[0].type.keyword === "function" ||
-    tokens[0].type.keyword === "class"
-  ) {
-    if (tokens[1].type.label === "name" && tokens[1].end < input.length) {
-      return tokens[1].value;
-    }
+  } catch (ignore) {
+    return;
   }
 }
 

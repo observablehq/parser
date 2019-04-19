@@ -9,6 +9,7 @@ tape("peepId", t => {
   t.equal(peepId("a = 1"), "a");
   t.equal(peepId("viewof a = 1"), "a");
   t.equal(peepId("mutable a = 1"), "a");
+  t.equal(peepId("mutable async = 1"), "async");
   t.equal(peepId("class A {"), "A");
   t.equal(peepId("class Z"), undefined);
   t.equal(peepId("class Z "), "Z");
