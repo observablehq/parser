@@ -16,7 +16,15 @@ export default [
       mangle: {reserved: ["RequireError"]}
     })
   ],
+  external: [
+    "acorn",
+    "acorn-walk"
+  ],
   output: {
+    globals: {
+      "acorn": "acorn",
+      "acorn-walk": "acorn.walk"
+    },
     format: "umd",
     extend: true,
     name: "observablehq",
