@@ -24,20 +24,19 @@ export function peepId(input) {
     for (const token of Parser.tokenizer(input)) {
       switch (state) {
         case STATE_START:
-          if (
-            token.type === tt.name &&
-            (
-              token.value === "viewof" ||
-              token.value === "mutable" ||
-              token.value === "async"
-            )
-          ) {
-            state = STATE_MODIFIER;
-            continue;
-          }
-          // eslint-disable-line no-fallthrough
         case STATE_MODIFIER: {
           if (token.type === tt.name) {
+            if (
+              state === STATE_START &&
+              (
+                token.value === "viewof" ||
+                token.value === "mutable" ||
+                token.value === "async"
+              )
+            ) {
+              state = STATE_MODIFIER;
+              continue;
+            }
             state = STATE_NAME;
             name = token;
             continue;
@@ -61,7 +60,7 @@ export function peepId(input) {
       return;
     }
   } catch (ignore) {
-    // eslint-disable-line no-empty
+    return;
   }
 }
 
