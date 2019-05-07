@@ -1,4 +1,4 @@
-import {getLineInfo, tokTypes as tt, Parser} from "acorn";
+import { getLineInfo, tokTypes as tt, Parser } from "acorn";
 import bigInt from "acorn-bigint";
 import dynamicImport from "./dynamic-import.js";
 import defaultGlobals from "./globals.js";
@@ -13,7 +13,7 @@ const STATE_MODIFIER = Symbol("modifier");
 const STATE_FUNCTION = Symbol("function");
 const STATE_NAME = Symbol("name");
 
-export function parseCell(input, {globals} = {}) {
+export function parseCell(input, { globals } = {}) {
   return parseReferences(CellParser.parse(input), input, globals);
 }
 
@@ -41,7 +41,7 @@ viewof|mutable|async      │                ▼
               └────────┘
 */
 
-export function peepId(input) {
+export function peekId(input) {
   let state = STATE_START;
   let name;
   try {
@@ -52,11 +52,9 @@ export function peepId(input) {
           if (token.type === tt.name) {
             if (
               state === STATE_START &&
-              (
-                token.value === "viewof" ||
+              (token.value === "viewof" ||
                 token.value === "mutable" ||
-                token.value === "async"
-              )
+                token.value === "async")
             ) {
               state = STATE_MODIFIER;
               continue;
@@ -77,7 +75,8 @@ export function peepId(input) {
         }
         case STATE_FUNCTION: {
           if (token.type === tt.star) continue;
-          if (token.type === tt.name && token.end < input.length) return token.value;
+          if (token.type === tt.name && token.end < input.length)
+            return token.value;
           break;
         }
       }
@@ -117,7 +116,8 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
       node.injections = this.parseImportSpecifiers();
     }
     this.expectContextual("from");
-    node.source = this.type === tt.string ? this.parseExprAtom() : this.unexpected();
+    node.source =
+      this.type === tt.string ? this.parseExprAtom() : this.unexpected();
     return this.finishNode(node, "ImportDeclaration");
   }
   parseImportSpecifiers() {
@@ -147,9 +147,11 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
     return nodes;
   }
   parseExprAtom() {
-    return this.parseMaybeKeywordExpression("viewof", "ViewExpression")
-        || this.parseMaybeKeywordExpression("mutable", "MutableExpression")
-        || super.parseExprAtom();
+    return (
+      this.parseMaybeKeywordExpression("viewof", "ViewExpression") ||
+      this.parseMaybeKeywordExpression("mutable", "MutableExpression") ||
+      super.parseExprAtom()
+    );
   }
   parseCell(node, eof) {
     const lookahead = new CellParser({}, this.input, this.start);
@@ -180,9 +182,10 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
         }
         token = lookahead.getToken();
         if (token.type === tt.eq) {
-          id = this.parseMaybeKeywordExpression("viewof", "ViewExpression")
-              || this.parseMaybeKeywordExpression("mutable", "MutableExpression")
-              || this.parseIdent();
+          id =
+            this.parseMaybeKeywordExpression("viewof", "ViewExpression") ||
+            this.parseMaybeKeywordExpression("mutable", "MutableExpression") ||
+            this.parseIdent();
           token = lookahead.getToken();
           this.expect(tt.eq);
         }
@@ -197,7 +200,11 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
       // Possibly a function or class declaration?
       else {
         body = this.parseExpression();
-        if (id === null && (body.type === "FunctionExpression" || body.type === "ClassExpression")) {
+        if (
+          id === null &&
+          (body.type === "FunctionExpression" ||
+            body.type === "ClassExpression")
+        ) {
           id = body.id;
         }
       }
@@ -217,7 +224,9 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
     return this.parseCell(node, true);
   }
   toAssignable(node, binding, errors) {
-    return node.type === "MutableExpression" ? node : super.toAssignable(node, binding, errors);
+    return node.type === "MutableExpression"
+      ? node
+      : super.toAssignable(node, binding, errors);
   }
   checkUnreserved(node) {
     if (node.name === "viewof" || node.name === "mutable") {
@@ -226,10 +235,17 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
     return super.checkUnreserved(node);
   }
   checkLVal(expr, bindingType, checkClashes) {
-    return super.checkLVal(expr.type === "MutableExpression" ? expr.id : expr, bindingType, checkClashes);
+    return super.checkLVal(
+      expr.type === "MutableExpression" ? expr.id : expr,
+      bindingType,
+      checkClashes
+    );
   }
   unexpected(pos) {
-    this.raise(pos != null ? pos : this.start, this.type === tt.eof ? "Unexpected end of input" : "Unexpected token");
+    this.raise(
+      pos != null ? pos : this.start,
+      this.type === tt.eof ? "Unexpected end of input" : "Unexpected token"
+    );
   }
   parseMaybeKeywordExpression(keyword, type) {
     if (this.isContextual(keyword)) {
@@ -241,7 +257,7 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
   }
 }
 
-export function parseModule(input, {globals} = {}) {
+export function parseModule(input, { globals } = {}) {
   const program = ModuleParser.parse(input);
   for (const cell of program.cells) {
     parseReferences(cell, input, globals);

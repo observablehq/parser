@@ -431,6 +431,10 @@ Returns a [cell](#cell).
 
 Returns a [program](#program).
 
+<a href="#peekId" name="peekId">#</a> <b>peekId</b>(<i>input</i>) [<>](https://github.com/observablehq/parser/blob/master/src/parse.js "Source")
+
+Tries to find the ID of a cell given a snippet of its contents, and returns it as a string if found.
+
 ### Cell
 
 <a href="#cell_id" name="cell_id">#</a> <i>cell</i>.<b>id</b>
