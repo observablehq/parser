@@ -1,9 +1,32 @@
-import {simple} from "acorn-walk";
+import { simple } from "acorn-walk";
 import tape from "tape-await";
-import {readdirSync, readFileSync, writeFileSync} from "fs";
-import {basename, extname, join} from "path";
-import {parseCell} from "../src/index.js";
+import { readdirSync, readFileSync, writeFileSync } from "fs";
+import { basename, extname, join } from "path";
+import { parseCell, peekId } from "../src/index.js";
 import walk from "../src/walk.js";
+
+tape("peekId", t => {
+  t.equal(peekId("a = 1"), "a");
+  t.equal(peekId("viewof a = 1"), "a");
+  t.equal(peekId("mutable a = 1"), "a");
+  t.equal(peekId("mutable async = 1"), "async");
+  t.equal(peekId("class A {"), "A");
+  t.equal(peekId("class Z"), undefined);
+  t.equal(peekId("class Z "), "Z");
+  t.equal(peekId("function a"), undefined);
+  t.equal(peekId("function a()"), "a");
+  t.equal(peekId("async function a()"), "a");
+  t.equal(peekId("function* a"), undefined);
+  t.equal(peekId("function /* yeah */ a()"), "a");
+  t.equal(peekId("function"), undefined);
+  t.equal(peekId("1"), undefined);
+  t.equal(peekId("({ a: 1 })"), undefined);
+  t.equal(
+    peekId(`function queryAll(text, values) {
+  return fetch("https://api.observable.localh`),
+    "queryAll"
+  );
+});
 
 readdirSync(join("test", "input")).forEach(file => {
   if (extname(file) !== ".js") return;
@@ -13,11 +36,13 @@ readdirSync(join("test", "input")).forEach(file => {
     let actual, expected;
 
     try {
-      actual = parseCell(readFileSync(infile, "utf8"), {globals: null});
+      actual = parseCell(readFileSync(infile, "utf8"), { globals: null });
     } catch (error) {
-      if (error instanceof ReferenceError
-          || error instanceof SyntaxError
-          || error instanceof TypeError) {
+      if (
+        error instanceof ReferenceError ||
+        error instanceof SyntaxError ||
+        error instanceof TypeError
+      ) {
         actual = {
           error: {
             type: error.constructor.name,
@@ -39,7 +64,11 @@ readdirSync(join("test", "input")).forEach(file => {
     } catch (error) {
       if (error.code === "ENOENT") {
         console.warn(`! generating ${outfile}`);
-        writeFileSync(outfile, JSON.stringify(actual, replacer, 2) + "\n", "utf8");
+        writeFileSync(
+          outfile,
+          JSON.stringify(actual, replacer, 2) + "\n",
+          "utf8"
+        );
         return;
       } else {
         throw error;
