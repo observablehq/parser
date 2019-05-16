@@ -1,4 +1,4 @@
-import { getLineInfo, tokTypes as tt, Parser } from "acorn";
+import {getLineInfo, tokTypes as tt, Parser} from "acorn";
 import bigInt from "acorn-bigint";
 import dynamicImport from "./dynamic-import.js";
 import defaultGlobals from "./globals.js";
@@ -13,7 +13,7 @@ const STATE_MODIFIER = Symbol("modifier");
 const STATE_FUNCTION = Symbol("function");
 const STATE_NAME = Symbol("name");
 
-export function parseCell(input, { globals } = {}) {
+export function parseCell(input, {globals} = {}) {
   return parseReferences(CellParser.parse(input), input, globals);
 }
 
@@ -104,9 +104,9 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
     if (this.O_function === 1) this.O_async = true;
     return super.parseAwait();
   }
-  parseYield() {
+  parseYield(noIn) {
     if (this.O_function === 1) this.O_generator = true;
-    return super.parseYield();
+    return super.parseYield(noIn);
   }
   parseImport(node) {
     this.next();
@@ -116,8 +116,7 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
       node.injections = this.parseImportSpecifiers();
     }
     this.expectContextual("from");
-    node.source =
-      this.type === tt.string ? this.parseExprAtom() : this.unexpected();
+    node.source = this.type === tt.string ? this.parseExprAtom() : this.unexpected();
     return this.finishNode(node, "ImportDeclaration");
   }
   parseImportSpecifiers() {
@@ -146,11 +145,11 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
     }
     return nodes;
   }
-  parseExprAtom() {
+  parseExprAtom(refDestructuringErrors) {
     return (
       this.parseMaybeKeywordExpression("viewof", "ViewExpression") ||
       this.parseMaybeKeywordExpression("mutable", "MutableExpression") ||
-      super.parseExprAtom()
+      super.parseExprAtom(refDestructuringErrors)
     );
   }
   parseCell(node, eof) {
@@ -223,10 +222,10 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
   parseTopLevel(node) {
     return this.parseCell(node, true);
   }
-  toAssignable(node, binding, errors) {
+  toAssignable(node, isBinding, refDestructuringErrors) {
     return node.type === "MutableExpression"
       ? node
-      : super.toAssignable(node, binding, errors);
+      : super.toAssignable(node, isBinding, refDestructuringErrors);
   }
   checkUnreserved(node) {
     if (node.name === "viewof" || node.name === "mutable") {
@@ -257,7 +256,7 @@ export class CellParser extends Parser.extend(bigInt, dynamicImport) {
   }
 }
 
-export function parseModule(input, { globals } = {}) {
+export function parseModule(input, {globals} = {}) {
   const program = ModuleParser.parse(input);
   for (const cell of program.cells) {
     parseReferences(cell, input, globals);

@@ -1,7 +1,7 @@
 {
   "type": "Cell",
   "start": 0,
-  "end": 20,
+  "end": 32,
   "id": {
     "type": "Identifier",
     "start": 0,
@@ -13,7 +13,7 @@
   "body": {
     "type": "ArrowFunctionExpression",
     "start": 6,
-    "end": 19,
+    "end": 31,
     "id": null,
     "expression": false,
     "generator": false,
@@ -22,12 +22,12 @@
       {
         "type": "ObjectPattern",
         "start": 7,
-        "end": 12,
+        "end": 24,
         "properties": [
           {
             "type": "Property",
             "start": 8,
-            "end": 11,
+            "end": 23,
             "method": false,
             "shorthand": true,
             "computed": false,
@@ -39,10 +39,22 @@
             },
             "kind": "init",
             "value": {
-              "type": "Identifier",
+              "type": "AssignmentPattern",
               "start": 8,
-              "end": 11,
-              "name": "foo"
+              "end": 23,
+              "left": {
+                "type": "Identifier",
+                "start": 8,
+                "end": 11,
+                "name": "foo"
+              },
+              "right": {
+                "type": "Literal",
+                "start": 14,
+                "end": 23,
+                "value": "default",
+                "raw": "\"default\""
+              }
             }
           }
         ]
@@ -50,8 +62,8 @@
     ],
     "body": {
       "type": "BlockStatement",
-      "start": 17,
-      "end": 19,
+      "start": 29,
+      "end": 31,
       "body": []
     }
   },
