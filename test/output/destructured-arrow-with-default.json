@@ -1,0 +1,59 @@
+{
+  "type": "Cell",
+  "start": 0,
+  "end": 20,
+  "id": {
+    "type": "Identifier",
+    "start": 0,
+    "end": 3,
+    "name": "fun"
+  },
+  "async": false,
+  "generator": false,
+  "body": {
+    "type": "ArrowFunctionExpression",
+    "start": 6,
+    "end": 19,
+    "id": null,
+    "expression": false,
+    "generator": false,
+    "async": false,
+    "params": [
+      {
+        "type": "ObjectPattern",
+        "start": 7,
+        "end": 12,
+        "properties": [
+          {
+            "type": "Property",
+            "start": 8,
+            "end": 11,
+            "method": false,
+            "shorthand": true,
+            "computed": false,
+            "key": {
+              "type": "Identifier",
+              "start": 8,
+              "end": 11,
+              "name": "foo"
+            },
+            "kind": "init",
+            "value": {
+              "type": "Identifier",
+              "start": 8,
+              "end": 11,
+              "name": "foo"
+            }
+          }
+        ]
+      }
+    ],
+    "body": {
+      "type": "BlockStatement",
+      "start": 17,
+      "end": 19,
+      "body": []
+    }
+  },
+  "references": []
+}
