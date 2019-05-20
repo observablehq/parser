@@ -1,6 +1,6 @@
 # @observablehq/parser
 
-[![CircleCI](https://circleci.com/gh/observablehq/parser.svg?style=svg&circle-token=c7004fecc8765b1b34f0be42ced4772038eb3910)](https://circleci.com/gh/observablehq/parser)
+[![CircleCI](https://circleci.com/gh/observablehq/parser.svg?style=svg&circle-token=c7004fecc8765b1b34f0be42ced4772038eb3910)](https://circleci.com/gh/observablehq/parser) [![Greenkeeper badge](https://badges.greenkeeper.io/observablehq/parser.svg)](https://greenkeeper.io/)
 
 To parse a cell:
 
