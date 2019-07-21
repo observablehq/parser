@@ -35,7 +35,7 @@
     "acorn-walk": "^6.1.1"
   },
   "devDependencies": {
-    "eslint": "^6.0.1",
+    "eslint": "6.0.1",
     "esm": "^3.0.84",
     "husky": "^2.3.0",
     "rollup": "^1.15.0",
