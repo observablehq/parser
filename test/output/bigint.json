@@ -22,7 +22,7 @@
       "end": 9,
       "value": 42,
       "raw": "42n",
-      "bigint": "42n"
+      "bigint": "42"
     }
   },
   "references": [

@@ -30,9 +30,8 @@
     "cjs": true
   },
   "dependencies": {
-    "acorn": "^6.3.0",
-    "acorn-bigint": "^0.4.0",
-    "acorn-walk": "^6.1.1"
+    "acorn": "^7.0.0",
+    "acorn-walk": "^7.0.0"
   },
   "devDependencies": {
     "eslint": "^6.5.1",
