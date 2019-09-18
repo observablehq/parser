@@ -1,0 +1,156 @@
+{
+  "type": "Cell",
+  "start": 0,
+  "end": 67,
+  "id": null,
+  "async": false,
+  "generator": false,
+  "body": {
+    "type": "BlockStatement",
+    "start": 0,
+    "end": 66,
+    "body": [
+      {
+        "type": "VariableDeclaration",
+        "start": 4,
+        "end": 22,
+        "declarations": [
+          {
+            "type": "VariableDeclarator",
+            "start": 8,
+            "end": 21,
+            "id": {
+              "type": "Identifier",
+              "start": 8,
+              "end": 9,
+              "name": "a"
+            },
+            "init": {
+              "type": "CallExpression",
+              "start": 12,
+              "end": 21,
+              "callee": {
+                "type": "Identifier",
+                "start": 12,
+                "end": 16,
+                "name": "Data"
+              },
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "start": 17,
+                  "end": 20,
+                  "value": "a",
+                  "raw": "\"a\""
+                }
+              ]
+            }
+          }
+        ],
+        "kind": "let"
+      },
+      {
+        "type": "VariableDeclaration",
+        "start": 25,
+        "end": 43,
+        "declarations": [
+          {
+            "type": "VariableDeclarator",
+            "start": 29,
+            "end": 42,
+            "id": {
+              "type": "Identifier",
+              "start": 29,
+              "end": 30,
+              "name": "b"
+            },
+            "init": {
+              "type": "CallExpression",
+              "start": 33,
+              "end": 42,
+              "callee": {
+                "type": "Identifier",
+                "start": 33,
+                "end": 37,
+                "name": "Data"
+              },
+              "arguments": [
+                {
+                  "type": "Literal",
+                  "start": 38,
+                  "end": 41,
+                  "value": "b",
+                  "raw": "'b'"
+                }
+              ]
+            }
+          }
+        ],
+        "kind": "let"
+      },
+      {
+        "type": "VariableDeclaration",
+        "start": 46,
+        "end": 64,
+        "declarations": [
+          {
+            "type": "VariableDeclarator",
+            "start": 50,
+            "end": 63,
+            "id": {
+              "type": "Identifier",
+              "start": 50,
+              "end": 51,
+              "name": "c"
+            },
+            "init": {
+              "type": "CallExpression",
+              "start": 54,
+              "end": 63,
+              "callee": {
+                "type": "Identifier",
+                "start": 54,
+                "end": 58,
+                "name": "Data"
+              },
+              "arguments": [
+                {
+                  "type": "TemplateLiteral",
+                  "start": 59,
+                  "end": 62,
+                  "expressions": [],
+                  "quasis": [
+                    {
+                      "type": "TemplateElement",
+                      "start": 60,
+                      "end": 61,
+                      "value": {
+                        "raw": "c",
+                        "cooked": "c"
+                      },
+                      "tail": true
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "kind": "let"
+      }
+    ]
+  },
+  "references": [
+    {
+      "type": "Identifier",
+      "start": 12,
+      "end": 16,
+      "name": "Data"
+    }
+  ],
+  "data": [
+    "a",
+    "b",
+    "c"
+  ]
+}

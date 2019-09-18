@@ -3,6 +3,7 @@ import bigInt from "acorn-bigint";
 import dynamicImport from "./dynamic-import.js";
 import defaultGlobals from "./globals.js";
 import findReferences from "./references.js";
+import findData from "./data.js";
 
 const SCOPE_FUNCTION = 2;
 const SCOPE_ASYNC = 4;
@@ -14,7 +15,7 @@ const STATE_FUNCTION = Symbol("function");
 const STATE_NAME = Symbol("name");
 
 export function parseCell(input, {globals} = {}) {
-  return parseReferences(CellParser.parse(input), input, globals);
+  return parseData(parseReferences(CellParser.parse(input), input, globals));
 }
 
 /*
@@ -260,6 +261,7 @@ export function parseModule(input, {globals} = {}) {
   const program = ModuleParser.parse(input);
   for (const cell of program.cells) {
     parseReferences(cell, input, globals);
+    parseData(cell, input, globals);
   }
   return program;
 }
@@ -284,6 +286,27 @@ function parseReferences(cell, input, globals = defaultGlobals) {
   if (cell.body && cell.body.type !== "ImportDeclaration") {
     try {
       cell.references = findReferences(cell, globals);
+    } catch (error) {
+      if (error.node) {
+        const loc = getLineInfo(input, error.node.start);
+        error.message += ` (${loc.line}:${loc.column})`;
+        error.pos = error.node.start;
+        error.loc = loc;
+        delete error.node;
+      }
+      throw error;
+    }
+  }
+  return cell;
+}
+
+// Find references.
+// Check for illegal references to arguments.
+// Check for illegal assignments to global references.
+function parseData(cell, input) {
+  if (cell.body && cell.body.type !== "ImportDeclaration") {
+    try {
+      cell.data = findData(cell);
     } catch (error) {
       if (error.node) {
         const loc = getLineInfo(input, error.node.start);
