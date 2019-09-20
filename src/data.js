@@ -41,5 +41,5 @@ export default function findData(cell) {
     walk
   );
 
-  return Array.from(dataReferences);
+  return dataReferences;
 }

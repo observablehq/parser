@@ -13,7 +13,7 @@
     "url": "https://github.com/observablehq/parser.git"
   },
   "scripts": {
-    "test": "tape -r esm 'test/**/*-test.js'",
+    "test": "tap -r esm 'test/**/*-test.js'",
     "prepublishOnly": "rm -rf dist && rollup -c",
     "postpublish": "git push && git push --tags"
   },
@@ -42,8 +42,7 @@
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.0.0",
     "rollup-plugin-terser": "^5.0.0",
-    "tape": "^4.9.1",
-    "tape-await": "^0.1.1"
+    "tap": "^14.6.4"
   },
   "files": [
     "dist/**/*.js",
