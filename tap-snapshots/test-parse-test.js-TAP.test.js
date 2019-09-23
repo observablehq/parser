@@ -1026,6 +1026,354 @@ Object {
 }
 `
 
+exports[`test/parse-test.js TAP parse file-attachment-nested.js > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "body": Array [
+      Node {
+        "body": Node {
+          "body": Array [
+            Node {
+              "declarations": Array [
+                Node {
+                  "end": 49,
+                  "id": Node {
+                    "end": 49,
+                    "name": "b",
+                    "start": 48,
+                    "type": "Identifier",
+                  },
+                  "init": null,
+                  "start": 48,
+                  "type": "VariableDeclarator",
+                },
+                Node {
+                  "end": 52,
+                  "id": Node {
+                    "end": 52,
+                    "name": "c",
+                    "start": 51,
+                    "type": "Identifier",
+                  },
+                  "init": null,
+                  "start": 51,
+                  "type": "VariableDeclarator",
+                },
+              ],
+              "end": 53,
+              "kind": "let",
+              "start": 44,
+              "type": "VariableDeclaration",
+            },
+            Node {
+              "declarations": Array [
+                Node {
+                  "end": 87,
+                  "id": Node {
+                    "end": 65,
+                    "name": "a",
+                    "start": 64,
+                    "type": "Identifier",
+                  },
+                  "init": Node {
+                    "arguments": Array [
+                      Node {
+                        "end": 86,
+                        "raw": "\\"a\\"",
+                        "start": 83,
+                        "type": "Literal",
+                        "value": "a",
+                      },
+                    ],
+                    "callee": Node {
+                      "end": 82,
+                      "name": "FileAttachment",
+                      "start": 68,
+                      "type": "Identifier",
+                    },
+                    "end": 87,
+                    "start": 68,
+                    "type": "CallExpression",
+                  },
+                  "start": 64,
+                  "type": "VariableDeclarator",
+                },
+              ],
+              "end": 88,
+              "kind": "const",
+              "start": 58,
+              "type": "VariableDeclaration",
+            },
+            Node {
+              "alternate": null,
+              "consequent": Node {
+                "body": Array [
+                  Node {
+                    "end": 173,
+                    "expression": Node {
+                      "end": 172,
+                      "left": Node {
+                        "end": 117,
+                        "name": "b",
+                        "start": 116,
+                        "type": "Identifier",
+                      },
+                      "operator": "=",
+                      "right": Node {
+                        "alternate": Node {
+                          "arguments": Array [
+                            Node {
+                              "end": 171,
+                              "raw": "'b'",
+                              "start": 168,
+                              "type": "Literal",
+                              "value": "b",
+                            },
+                          ],
+                          "callee": Node {
+                            "end": 167,
+                            "name": "FileAttachment",
+                            "start": 153,
+                            "type": "Identifier",
+                          },
+                          "end": 172,
+                          "start": 153,
+                          "type": "CallExpression",
+                        },
+                        "consequent": Node {
+                          "end": 150,
+                          "name": "defaultFileValue",
+                          "start": 134,
+                          "type": "Identifier",
+                        },
+                        "end": 172,
+                        "start": 120,
+                        "test": Node {
+                          "end": 131,
+                          "name": "defaultFile",
+                          "start": 120,
+                          "type": "Identifier",
+                        },
+                        "type": "ConditionalExpression",
+                      },
+                      "start": 116,
+                      "type": "AssignmentExpression",
+                    },
+                    "start": 116,
+                    "type": "ExpressionStatement",
+                  },
+                  Node {
+                    "end": 204,
+                    "expression": Node {
+                      "end": 203,
+                      "left": Node {
+                        "end": 181,
+                        "name": "c",
+                        "start": 180,
+                        "type": "Identifier",
+                      },
+                      "operator": "=",
+                      "right": Node {
+                        "arguments": Array [
+                          Node {
+                            "end": 202,
+                            "expressions": Array [],
+                            "quasis": Array [
+                              Node {
+                                "end": 201,
+                                "start": 200,
+                                "tail": true,
+                                "type": "TemplateElement",
+                                "value": Object {
+                                  "cooked": "c",
+                                  "raw": "c",
+                                },
+                              },
+                            ],
+                            "start": 199,
+                            "type": "TemplateLiteral",
+                          },
+                        ],
+                        "callee": Node {
+                          "end": 198,
+                          "name": "FileAttachment",
+                          "start": 184,
+                          "type": "Identifier",
+                        },
+                        "end": 203,
+                        "start": 184,
+                        "type": "CallExpression",
+                      },
+                      "start": 180,
+                      "type": "AssignmentExpression",
+                    },
+                    "start": 180,
+                    "type": "ExpressionStatement",
+                  },
+                ],
+                "end": 210,
+                "start": 108,
+                "type": "BlockStatement",
+              },
+              "end": 210,
+              "start": 93,
+              "test": Node {
+                "end": 106,
+                "name": "condition",
+                "start": 97,
+                "type": "Identifier",
+              },
+              "type": "IfStatement",
+            },
+          ],
+          "end": 214,
+          "start": 38,
+          "type": "BlockStatement",
+        },
+        "end": 214,
+        "start": 20,
+        "test": Node {
+          "end": 36,
+          "left": Node {
+            "end": 32,
+            "name": "count",
+            "start": 27,
+            "type": "Identifier",
+          },
+          "operator": ">",
+          "right": Node {
+            "end": 36,
+            "raw": "0",
+            "start": 35,
+            "type": "Literal",
+            "value": 0,
+          },
+          "start": 27,
+          "type": "BinaryExpression",
+        },
+        "type": "WhileStatement",
+      },
+      Node {
+        "argument": Node {
+          "arguments": Array [
+            Node {
+              "end": 231,
+              "name": "a",
+              "start": 230,
+              "type": "Identifier",
+            },
+            Node {
+              "end": 234,
+              "name": "b",
+              "start": 233,
+              "type": "Identifier",
+            },
+            Node {
+              "end": 237,
+              "name": "c",
+              "start": 236,
+              "type": "Identifier",
+            },
+          ],
+          "callee": Node {
+            "end": 229,
+            "name": "input",
+            "start": 224,
+            "type": "Identifier",
+          },
+          "end": 238,
+          "start": 224,
+          "type": "CallExpression",
+        },
+        "end": 239,
+        "start": 217,
+        "type": "ReturnStatement",
+      },
+    ],
+    "end": 241,
+    "start": 16,
+    "type": "BlockStatement",
+  },
+  "end": 242,
+  "fileAttachments": Set {
+    "a",
+    "b",
+    "c",
+  },
+  "generator": false,
+  "id": Node {
+    "end": 13,
+    "id": Node {
+      "end": 13,
+      "name": "slider",
+      "start": 7,
+      "type": "Identifier",
+    },
+    "start": 0,
+    "type": "ViewExpression",
+  },
+  "references": Array [
+    Node {
+      "end": 32,
+      "name": "count",
+      "start": 27,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 82,
+      "name": "FileAttachment",
+      "start": 68,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 106,
+      "name": "condition",
+      "start": 97,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 131,
+      "name": "defaultFile",
+      "start": 120,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 150,
+      "name": "defaultFileValue",
+      "start": 134,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 229,
+      "name": "input",
+      "start": 224,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 231,
+      "name": "a",
+      "start": 230,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 234,
+      "name": "b",
+      "start": 233,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 237,
+      "name": "c",
+      "start": 236,
+      "type": "Identifier",
+    },
+  ],
+  "start": 0,
+  "type": "Cell",
+}
+`
+
 exports[`test/parse-test.js TAP parse file-attachment.js > must match snapshot 1`] = `
 Node {
   "async": false,
