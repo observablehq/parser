@@ -27,8 +27,8 @@ Node {
     "start": 0,
     "type": "BlockStatement",
   },
-  "data": Set {},
   "end": 17,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [],
@@ -47,8 +47,8 @@ Node {
     "type": "Literal",
     "value": 42,
   },
-  "data": Set {},
   "end": 3,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [],
@@ -89,8 +89,8 @@ Node {
     "start": 0,
     "type": "FunctionExpression",
   },
-  "data": Set {},
   "end": 26,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [],
@@ -125,8 +125,8 @@ Node {
     "start": 0,
     "type": "BlockStatement",
   },
-  "data": Set {},
   "end": 21,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -178,8 +178,8 @@ Node {
     "start": 0,
     "type": "ArrowFunctionExpression",
   },
-  "data": Set {},
   "end": 33,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -257,8 +257,8 @@ Node {
     "start": 0,
     "type": "BlockStatement",
   },
-  "data": Set {},
   "end": 58,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -350,8 +350,8 @@ Node {
     "start": 0,
     "type": "BlockStatement",
   },
-  "data": Set {},
   "end": 72,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -415,8 +415,8 @@ Node {
     "start": 0,
     "type": "BlockStatement",
   },
-  "data": Set {},
   "end": 54,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -475,8 +475,8 @@ Node {
     "start": 0,
     "type": "BlockStatement",
   },
-  "data": Set {},
   "end": 36,
+  "fileAttachments": Set {},
   "generator": true,
   "id": null,
   "references": Array [
@@ -520,8 +520,8 @@ Node {
     "start": 0,
     "type": "CallExpression",
   },
-  "data": Set {},
   "end": 14,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [],
@@ -541,8 +541,8 @@ Node {
     "type": "Literal",
     "value": 0,
   },
-  "data": Set {},
   "end": 3,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [],
@@ -574,8 +574,8 @@ Node {
     "start": 0,
     "type": "BinaryExpression",
   },
-  "data": Set {},
   "end": 10,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -613,8 +613,8 @@ Node {
     "start": 0,
     "type": "BinaryExpression",
   },
-  "data": Set {},
   "end": 9,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -652,8 +652,8 @@ Node {
     "start": 27,
     "type": "BlockStatement",
   },
-  "data": Set {},
   "end": 44,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 24,
@@ -689,8 +689,8 @@ Node {
     "start": 6,
     "type": "BlockStatement",
   },
-  "data": Set {},
   "end": 42,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 3,
@@ -790,8 +790,8 @@ Node {
     "start": 6,
     "type": "ArrowFunctionExpression",
   },
-  "data": Set {},
   "end": 32,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 3,
@@ -870,8 +870,8 @@ Node {
     "start": 0,
     "type": "FunctionExpression",
   },
-  "data": Set {},
   "end": 35,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 12,
@@ -907,8 +907,8 @@ Node {
     "start": 6,
     "type": "CallExpression",
   },
-  "data": Set {},
   "end": 20,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 3,
@@ -958,8 +958,8 @@ Node {
     "type": "Literal",
     "value": 42,
   },
-  "data": Set {},
   "end": 28,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 3,
@@ -983,8 +983,8 @@ Node {
     "type": "Literal",
     "value": 42,
   },
-  "data": Set {},
   "end": 10,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 3,
@@ -993,6 +993,541 @@ Node {
     "type": "Identifier",
   },
   "references": Array [],
+  "start": 0,
+  "type": "Cell",
+}
+`
+
+exports[`test/parse-test.js TAP parse file-attachment-forbidden-1.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 4,
+      "line": 1,
+    },
+    "message": "FileAttachment() requires a single literal string as its argument. (1:4)",
+    "pos": 4,
+    "type": "SyntaxError",
+  },
+}
+`
+
+exports[`test/parse-test.js TAP parse file-attachment-forbidden.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 4,
+      "line": 1,
+    },
+    "message": "FileAttachment() requires a single literal string as its argument. (1:4)",
+    "pos": 4,
+    "type": "SyntaxError",
+  },
+}
+`
+
+exports[`test/parse-test.js TAP parse file-attachment-nested.js > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "body": Array [
+      Node {
+        "body": Node {
+          "body": Array [
+            Node {
+              "declarations": Array [
+                Node {
+                  "end": 49,
+                  "id": Node {
+                    "end": 49,
+                    "name": "b",
+                    "start": 48,
+                    "type": "Identifier",
+                  },
+                  "init": null,
+                  "start": 48,
+                  "type": "VariableDeclarator",
+                },
+                Node {
+                  "end": 52,
+                  "id": Node {
+                    "end": 52,
+                    "name": "c",
+                    "start": 51,
+                    "type": "Identifier",
+                  },
+                  "init": null,
+                  "start": 51,
+                  "type": "VariableDeclarator",
+                },
+              ],
+              "end": 53,
+              "kind": "let",
+              "start": 44,
+              "type": "VariableDeclaration",
+            },
+            Node {
+              "declarations": Array [
+                Node {
+                  "end": 87,
+                  "id": Node {
+                    "end": 65,
+                    "name": "a",
+                    "start": 64,
+                    "type": "Identifier",
+                  },
+                  "init": Node {
+                    "arguments": Array [
+                      Node {
+                        "end": 86,
+                        "raw": "\\"a\\"",
+                        "start": 83,
+                        "type": "Literal",
+                        "value": "a",
+                      },
+                    ],
+                    "callee": Node {
+                      "end": 82,
+                      "name": "FileAttachment",
+                      "start": 68,
+                      "type": "Identifier",
+                    },
+                    "end": 87,
+                    "start": 68,
+                    "type": "CallExpression",
+                  },
+                  "start": 64,
+                  "type": "VariableDeclarator",
+                },
+              ],
+              "end": 88,
+              "kind": "const",
+              "start": 58,
+              "type": "VariableDeclaration",
+            },
+            Node {
+              "alternate": null,
+              "consequent": Node {
+                "body": Array [
+                  Node {
+                    "end": 173,
+                    "expression": Node {
+                      "end": 172,
+                      "left": Node {
+                        "end": 117,
+                        "name": "b",
+                        "start": 116,
+                        "type": "Identifier",
+                      },
+                      "operator": "=",
+                      "right": Node {
+                        "alternate": Node {
+                          "arguments": Array [
+                            Node {
+                              "end": 171,
+                              "raw": "'b'",
+                              "start": 168,
+                              "type": "Literal",
+                              "value": "b",
+                            },
+                          ],
+                          "callee": Node {
+                            "end": 167,
+                            "name": "FileAttachment",
+                            "start": 153,
+                            "type": "Identifier",
+                          },
+                          "end": 172,
+                          "start": 153,
+                          "type": "CallExpression",
+                        },
+                        "consequent": Node {
+                          "end": 150,
+                          "name": "defaultFileValue",
+                          "start": 134,
+                          "type": "Identifier",
+                        },
+                        "end": 172,
+                        "start": 120,
+                        "test": Node {
+                          "end": 131,
+                          "name": "defaultFile",
+                          "start": 120,
+                          "type": "Identifier",
+                        },
+                        "type": "ConditionalExpression",
+                      },
+                      "start": 116,
+                      "type": "AssignmentExpression",
+                    },
+                    "start": 116,
+                    "type": "ExpressionStatement",
+                  },
+                  Node {
+                    "end": 204,
+                    "expression": Node {
+                      "end": 203,
+                      "left": Node {
+                        "end": 181,
+                        "name": "c",
+                        "start": 180,
+                        "type": "Identifier",
+                      },
+                      "operator": "=",
+                      "right": Node {
+                        "arguments": Array [
+                          Node {
+                            "end": 202,
+                            "expressions": Array [],
+                            "quasis": Array [
+                              Node {
+                                "end": 201,
+                                "start": 200,
+                                "tail": true,
+                                "type": "TemplateElement",
+                                "value": Object {
+                                  "cooked": "c",
+                                  "raw": "c",
+                                },
+                              },
+                            ],
+                            "start": 199,
+                            "type": "TemplateLiteral",
+                          },
+                        ],
+                        "callee": Node {
+                          "end": 198,
+                          "name": "FileAttachment",
+                          "start": 184,
+                          "type": "Identifier",
+                        },
+                        "end": 203,
+                        "start": 184,
+                        "type": "CallExpression",
+                      },
+                      "start": 180,
+                      "type": "AssignmentExpression",
+                    },
+                    "start": 180,
+                    "type": "ExpressionStatement",
+                  },
+                ],
+                "end": 210,
+                "start": 108,
+                "type": "BlockStatement",
+              },
+              "end": 210,
+              "start": 93,
+              "test": Node {
+                "end": 106,
+                "name": "condition",
+                "start": 97,
+                "type": "Identifier",
+              },
+              "type": "IfStatement",
+            },
+          ],
+          "end": 214,
+          "start": 38,
+          "type": "BlockStatement",
+        },
+        "end": 214,
+        "start": 20,
+        "test": Node {
+          "end": 36,
+          "left": Node {
+            "end": 32,
+            "name": "count",
+            "start": 27,
+            "type": "Identifier",
+          },
+          "operator": ">",
+          "right": Node {
+            "end": 36,
+            "raw": "0",
+            "start": 35,
+            "type": "Literal",
+            "value": 0,
+          },
+          "start": 27,
+          "type": "BinaryExpression",
+        },
+        "type": "WhileStatement",
+      },
+      Node {
+        "argument": Node {
+          "arguments": Array [
+            Node {
+              "end": 231,
+              "name": "a",
+              "start": 230,
+              "type": "Identifier",
+            },
+            Node {
+              "end": 234,
+              "name": "b",
+              "start": 233,
+              "type": "Identifier",
+            },
+            Node {
+              "end": 237,
+              "name": "c",
+              "start": 236,
+              "type": "Identifier",
+            },
+          ],
+          "callee": Node {
+            "end": 229,
+            "name": "input",
+            "start": 224,
+            "type": "Identifier",
+          },
+          "end": 238,
+          "start": 224,
+          "type": "CallExpression",
+        },
+        "end": 239,
+        "start": 217,
+        "type": "ReturnStatement",
+      },
+    ],
+    "end": 241,
+    "start": 16,
+    "type": "BlockStatement",
+  },
+  "end": 242,
+  "fileAttachments": Set {
+    "a",
+    "b",
+    "c",
+  },
+  "generator": false,
+  "id": Node {
+    "end": 13,
+    "id": Node {
+      "end": 13,
+      "name": "slider",
+      "start": 7,
+      "type": "Identifier",
+    },
+    "start": 0,
+    "type": "ViewExpression",
+  },
+  "references": Array [
+    Node {
+      "end": 32,
+      "name": "count",
+      "start": 27,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 82,
+      "name": "FileAttachment",
+      "start": 68,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 106,
+      "name": "condition",
+      "start": 97,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 131,
+      "name": "defaultFile",
+      "start": 120,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 150,
+      "name": "defaultFileValue",
+      "start": 134,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 229,
+      "name": "input",
+      "start": 224,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 231,
+      "name": "a",
+      "start": 230,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 234,
+      "name": "b",
+      "start": 233,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 237,
+      "name": "c",
+      "start": 236,
+      "type": "Identifier",
+    },
+  ],
+  "start": 0,
+  "type": "Cell",
+}
+`
+
+exports[`test/parse-test.js TAP parse file-attachment.js > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "body": Array [
+      Node {
+        "declarations": Array [
+          Node {
+            "end": 31,
+            "id": Node {
+              "end": 9,
+              "name": "a",
+              "start": 8,
+              "type": "Identifier",
+            },
+            "init": Node {
+              "arguments": Array [
+                Node {
+                  "end": 30,
+                  "raw": "\\"a\\"",
+                  "start": 27,
+                  "type": "Literal",
+                  "value": "a",
+                },
+              ],
+              "callee": Node {
+                "end": 26,
+                "name": "FileAttachment",
+                "start": 12,
+                "type": "Identifier",
+              },
+              "end": 31,
+              "start": 12,
+              "type": "CallExpression",
+            },
+            "start": 8,
+            "type": "VariableDeclarator",
+          },
+        ],
+        "end": 32,
+        "kind": "let",
+        "start": 4,
+        "type": "VariableDeclaration",
+      },
+      Node {
+        "declarations": Array [
+          Node {
+            "end": 62,
+            "id": Node {
+              "end": 40,
+              "name": "b",
+              "start": 39,
+              "type": "Identifier",
+            },
+            "init": Node {
+              "arguments": Array [
+                Node {
+                  "end": 61,
+                  "raw": "'b'",
+                  "start": 58,
+                  "type": "Literal",
+                  "value": "b",
+                },
+              ],
+              "callee": Node {
+                "end": 57,
+                "name": "FileAttachment",
+                "start": 43,
+                "type": "Identifier",
+              },
+              "end": 62,
+              "start": 43,
+              "type": "CallExpression",
+            },
+            "start": 39,
+            "type": "VariableDeclarator",
+          },
+        ],
+        "end": 63,
+        "kind": "let",
+        "start": 35,
+        "type": "VariableDeclaration",
+      },
+      Node {
+        "declarations": Array [
+          Node {
+            "end": 93,
+            "id": Node {
+              "end": 71,
+              "name": "c",
+              "start": 70,
+              "type": "Identifier",
+            },
+            "init": Node {
+              "arguments": Array [
+                Node {
+                  "end": 92,
+                  "expressions": Array [],
+                  "quasis": Array [
+                    Node {
+                      "end": 91,
+                      "start": 90,
+                      "tail": true,
+                      "type": "TemplateElement",
+                      "value": Object {
+                        "cooked": "c",
+                        "raw": "c",
+                      },
+                    },
+                  ],
+                  "start": 89,
+                  "type": "TemplateLiteral",
+                },
+              ],
+              "callee": Node {
+                "end": 88,
+                "name": "FileAttachment",
+                "start": 74,
+                "type": "Identifier",
+              },
+              "end": 93,
+              "start": 74,
+              "type": "CallExpression",
+            },
+            "start": 70,
+            "type": "VariableDeclarator",
+          },
+        ],
+        "end": 94,
+        "kind": "let",
+        "start": 66,
+        "type": "VariableDeclaration",
+      },
+    ],
+    "end": 96,
+    "start": 0,
+    "type": "BlockStatement",
+  },
+  "end": 97,
+  "fileAttachments": Set {
+    "a",
+    "b",
+    "c",
+  },
+  "generator": false,
+  "id": null,
+  "references": Array [
+    Node {
+      "end": 26,
+      "name": "FileAttachment",
+      "start": 12,
+      "type": "Identifier",
+    },
+  ],
   "start": 0,
   "type": "Cell",
 }
@@ -1070,8 +1605,8 @@ Node {
     "start": 0,
     "type": "BlockStatement",
   },
-  "data": Set {},
   "end": 62,
+  "fileAttachments": Set {},
   "generator": true,
   "id": null,
   "references": Array [
@@ -1229,8 +1764,8 @@ Node {
     "start": 0,
     "type": "FunctionExpression",
   },
-  "data": Set {},
   "end": 128,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 18,
@@ -1378,8 +1913,8 @@ Node {
     "start": 0,
     "type": "BlockStatement",
   },
-  "data": Set {},
   "end": 107,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -1392,34 +1927,6 @@ Node {
   ],
   "start": 0,
   "type": "Cell",
-}
-`
-
-exports[`test/parse-test.js TAP parse forbidden-data-1.js > must match snapshot 1`] = `
-Object {
-  "error": Object {
-    "loc": Object {
-      "column": 4,
-      "line": 1,
-    },
-    "message": "Data() requires a single literal string as its argument. (1:4)",
-    "pos": 4,
-    "type": "SyntaxError",
-  },
-}
-`
-
-exports[`test/parse-test.js TAP parse forbidden-data.js > must match snapshot 1`] = `
-Object {
-  "error": Object {
-    "loc": Object {
-      "column": 4,
-      "line": 1,
-    },
-    "message": "Data() requires a single literal string as its argument. (1:4)",
-    "pos": 4,
-    "type": "SyntaxError",
-  },
 }
 `
 
@@ -2040,170 +2547,11 @@ Node {
     "start": 0,
     "type": "FunctionExpression",
   },
-  "data": Set {},
   "end": 40,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [],
-  "start": 0,
-  "type": "Cell",
-}
-`
-
-exports[`test/parse-test.js TAP parse load-data.js > must match snapshot 1`] = `
-Node {
-  "async": false,
-  "body": Node {
-    "body": Array [
-      Node {
-        "declarations": Array [
-          Node {
-            "end": 21,
-            "id": Node {
-              "end": 9,
-              "name": "a",
-              "start": 8,
-              "type": "Identifier",
-            },
-            "init": Node {
-              "arguments": Array [
-                Node {
-                  "end": 20,
-                  "raw": "\\"a\\"",
-                  "start": 17,
-                  "type": "Literal",
-                  "value": "a",
-                },
-              ],
-              "callee": Node {
-                "end": 16,
-                "name": "Data",
-                "start": 12,
-                "type": "Identifier",
-              },
-              "end": 21,
-              "start": 12,
-              "type": "CallExpression",
-            },
-            "start": 8,
-            "type": "VariableDeclarator",
-          },
-        ],
-        "end": 22,
-        "kind": "let",
-        "start": 4,
-        "type": "VariableDeclaration",
-      },
-      Node {
-        "declarations": Array [
-          Node {
-            "end": 42,
-            "id": Node {
-              "end": 30,
-              "name": "b",
-              "start": 29,
-              "type": "Identifier",
-            },
-            "init": Node {
-              "arguments": Array [
-                Node {
-                  "end": 41,
-                  "raw": "'b'",
-                  "start": 38,
-                  "type": "Literal",
-                  "value": "b",
-                },
-              ],
-              "callee": Node {
-                "end": 37,
-                "name": "Data",
-                "start": 33,
-                "type": "Identifier",
-              },
-              "end": 42,
-              "start": 33,
-              "type": "CallExpression",
-            },
-            "start": 29,
-            "type": "VariableDeclarator",
-          },
-        ],
-        "end": 43,
-        "kind": "let",
-        "start": 25,
-        "type": "VariableDeclaration",
-      },
-      Node {
-        "declarations": Array [
-          Node {
-            "end": 63,
-            "id": Node {
-              "end": 51,
-              "name": "c",
-              "start": 50,
-              "type": "Identifier",
-            },
-            "init": Node {
-              "arguments": Array [
-                Node {
-                  "end": 62,
-                  "expressions": Array [],
-                  "quasis": Array [
-                    Node {
-                      "end": 61,
-                      "start": 60,
-                      "tail": true,
-                      "type": "TemplateElement",
-                      "value": Object {
-                        "cooked": "c",
-                        "raw": "c",
-                      },
-                    },
-                  ],
-                  "start": 59,
-                  "type": "TemplateLiteral",
-                },
-              ],
-              "callee": Node {
-                "end": 58,
-                "name": "Data",
-                "start": 54,
-                "type": "Identifier",
-              },
-              "end": 63,
-              "start": 54,
-              "type": "CallExpression",
-            },
-            "start": 50,
-            "type": "VariableDeclarator",
-          },
-        ],
-        "end": 64,
-        "kind": "let",
-        "start": 46,
-        "type": "VariableDeclaration",
-      },
-    ],
-    "end": 66,
-    "start": 0,
-    "type": "BlockStatement",
-  },
-  "data": Set {
-    "a",
-    "b",
-    "c",
-  },
-  "end": 67,
-  "generator": false,
-  "id": null,
-  "references": Array [
-    Node {
-      "end": 16,
-      "name": "Data",
-      "start": 12,
-      "type": "Identifier",
-    },
-  ],
   "start": 0,
   "type": "Cell",
 }
@@ -2243,8 +2591,8 @@ Node {
     "start": 0,
     "type": "AssignmentExpression",
   },
-  "data": Set {},
   "end": 15,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -2313,8 +2661,8 @@ Node {
     "start": 0,
     "type": "BinaryExpression",
   },
-  "data": Set {},
   "end": 24,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -2380,8 +2728,8 @@ Node {
     "start": 16,
     "type": "AwaitExpression",
   },
-  "data": Set {},
   "end": 44,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 13,
@@ -2452,8 +2800,8 @@ Node {
     "start": 0,
     "type": "BlockStatement",
   },
-  "data": Set {},
   "end": 27,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -2540,8 +2888,8 @@ Node {
     "start": 14,
     "type": "BlockStatement",
   },
-  "data": Set {},
   "end": 41,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 11,
@@ -2633,8 +2981,8 @@ Node {
     "start": 0,
     "type": "FunctionExpression",
   },
-  "data": Set {},
   "end": 43,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 11,
@@ -2701,8 +3049,8 @@ Node {
     "start": 1,
     "type": "AssignmentExpression",
   },
-  "data": Set {},
   "end": 21,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -2793,8 +3141,8 @@ Node {
     "start": 1,
     "type": "AssignmentExpression",
   },
-  "data": Set {},
   "end": 44,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -2849,8 +3197,8 @@ Node {
     "start": 0,
     "type": "MutableExpression",
   },
-  "data": Set {},
   "end": 28,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -2911,8 +3259,8 @@ Node {
     "start": 0,
     "type": "MemberExpression",
   },
-  "data": Set {},
   "end": 23,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -2988,8 +3336,8 @@ Node {
     "start": 0,
     "type": "FunctionExpression",
   },
-  "data": Set {},
   "end": 40,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 18,
@@ -3032,8 +3380,8 @@ Node {
     "start": 6,
     "type": "BlockStatement",
   },
-  "data": Set {},
   "end": 23,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 3,
@@ -3068,8 +3416,8 @@ Node {
     "superClass": null,
     "type": "ClassExpression",
   },
-  "data": Set {},
   "end": 13,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 9,
@@ -3107,8 +3455,8 @@ Node {
     "type": "Literal",
     "value": 42,
   },
-  "data": Set {},
   "end": 9,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 3,
@@ -3159,8 +3507,8 @@ Node {
     "start": 6,
     "type": "FunctionExpression",
   },
-  "data": Set {},
   "end": 36,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 3,
@@ -3211,8 +3559,8 @@ Node {
     "start": 0,
     "type": "FunctionExpression",
   },
-  "data": Set {},
   "end": 30,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 12,
@@ -3269,8 +3617,8 @@ Node {
     "start": 0,
     "type": "FunctionExpression",
   },
-  "data": Set {},
   "end": 30,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 13,
@@ -3316,8 +3664,8 @@ Node {
     "start": 1,
     "type": "ObjectExpression",
   },
-  "data": Set {},
   "end": 12,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [],
@@ -3369,8 +3717,8 @@ Node {
     "start": 0,
     "type": "SequenceExpression",
   },
-  "data": Set {},
   "end": 8,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [],
@@ -3431,8 +3779,8 @@ Node {
     "start": 0,
     "type": "BlockStatement",
   },
-  "data": Set {},
   "end": 32,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -3462,8 +3810,8 @@ Node {
     "start": 0,
     "type": "Identifier",
   },
-  "data": Set {},
   "end": 4,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -3511,8 +3859,8 @@ Node {
     },
     "type": "TaggedTemplateExpression",
   },
-  "data": Set {},
   "end": 13,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -3550,8 +3898,8 @@ Node {
     "start": 0,
     "type": "ThisExpression",
   },
-  "data": Set {},
   "end": 5,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [],
@@ -3655,8 +4003,8 @@ Node {
     "start": 13,
     "type": "BlockStatement",
   },
-  "data": Set {},
   "end": 39,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 10,
@@ -3709,8 +4057,8 @@ Node {
     "start": 13,
     "type": "CallExpression",
   },
-  "data": Set {},
   "end": 25,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 10,
@@ -3763,8 +4111,8 @@ Node {
     "start": 27,
     "type": "CallExpression",
   },
-  "data": Set {},
   "end": 39,
+  "fileAttachments": Set {},
   "generator": false,
   "id": Node {
     "end": 24,
@@ -3830,8 +4178,8 @@ Node {
     "start": 0,
     "type": "MemberExpression",
   },
-  "data": Set {},
   "end": 16,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -3919,8 +4267,8 @@ Node {
     "start": 0,
     "type": "BinaryExpression",
   },
-  "data": Set {},
   "end": 23,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -3961,8 +4309,8 @@ Node {
     "start": 0,
     "type": "ViewExpression",
   },
-  "data": Set {},
   "end": 25,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -4009,8 +4357,8 @@ Node {
     "start": 0,
     "type": "MemberExpression",
   },
-  "data": Set {},
   "end": 21,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -4074,8 +4422,8 @@ Node {
     "start": 0,
     "type": "BlockStatement",
   },
-  "data": Set {},
   "end": 36,
+  "fileAttachments": Set {},
   "generator": true,
   "id": null,
   "references": Array [
@@ -4124,8 +4472,8 @@ Node {
     "start": 0,
     "type": "BlockStatement",
   },
-  "data": Set {},
   "end": 19,
+  "fileAttachments": Set {},
   "generator": true,
   "id": null,
   "references": Array [
@@ -4156,8 +4504,8 @@ Node {
     "start": 0,
     "type": "YieldExpression",
   },
-  "data": Set {},
   "end": 12,
+  "fileAttachments": Set {},
   "generator": true,
   "id": null,
   "references": Array [
@@ -4222,8 +4570,8 @@ Node {
     "start": 0,
     "type": "BlockStatement",
   },
-  "data": Set {},
   "end": 47,
+  "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -4254,8 +4602,8 @@ Node {
     "start": 0,
     "type": "YieldExpression",
   },
-  "data": Set {},
   "end": 14,
+  "fileAttachments": Set {},
   "generator": true,
   "id": null,
   "references": Array [

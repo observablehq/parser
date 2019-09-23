@@ -3,7 +3,7 @@ import bigInt from "acorn-bigint";
 import dynamicImport from "./dynamic-import.js";
 import defaultGlobals from "./globals.js";
 import findReferences from "./references.js";
-import findData from "./data.js";
+import findFileAttachments from "./file-attachments.js";
 
 const SCOPE_FUNCTION = 2;
 const SCOPE_ASYNC = 4;
@@ -306,7 +306,7 @@ function parseReferences(cell, input, globals = defaultGlobals) {
 function parseData(cell, input) {
   if (cell.body && cell.body.type !== "ImportDeclaration") {
     try {
-      cell.data = findData(cell);
+      cell.fileAttachments = findFileAttachments(cell);
     } catch (error) {
       if (error.node) {
         const loc = getLineInfo(input, error.node.start);
