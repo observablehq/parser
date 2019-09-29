@@ -704,6 +704,136 @@ Node {
 }
 `
 
+exports[`test/parse-test.js TAP parse catch-clause.js > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "body": Array [
+      Node {
+        "block": Node {
+          "body": Array [
+            Node {
+              "declarations": Array [
+                Node {
+                  "end": 25,
+                  "id": Node {
+                    "elements": Array [
+                      Node {
+                        "end": 20,
+                        "name": "x",
+                        "start": 19,
+                        "type": "Identifier",
+                      },
+                    ],
+                    "end": 21,
+                    "start": 18,
+                    "type": "ArrayPattern",
+                  },
+                  "init": Node {
+                    "end": 25,
+                    "name": "y",
+                    "start": 24,
+                    "type": "Identifier",
+                  },
+                  "start": 18,
+                  "type": "VariableDeclarator",
+                },
+              ],
+              "end": 26,
+              "kind": "let",
+              "start": 14,
+              "type": "VariableDeclaration",
+            },
+            Node {
+              "end": 35,
+              "expression": Node {
+                "argument": Node {
+                  "end": 32,
+                  "name": "x",
+                  "start": 31,
+                  "type": "Identifier",
+                },
+                "end": 34,
+                "operator": "++",
+                "prefix": false,
+                "start": 31,
+                "type": "UpdateExpression",
+              },
+              "start": 31,
+              "type": "ExpressionStatement",
+            },
+            Node {
+              "argument": Node {
+                "end": 48,
+                "name": "x",
+                "start": 47,
+                "type": "Identifier",
+              },
+              "end": 49,
+              "start": 40,
+              "type": "ReturnStatement",
+            },
+          ],
+          "end": 53,
+          "start": 8,
+          "type": "BlockStatement",
+        },
+        "end": 83,
+        "finalizer": null,
+        "handler": Node {
+          "body": Node {
+            "body": Array [
+              Node {
+                "argument": Node {
+                  "end": 78,
+                  "name": "e",
+                  "start": 77,
+                  "type": "Identifier",
+                },
+                "end": 79,
+                "start": 70,
+                "type": "ReturnStatement",
+              },
+            ],
+            "end": 83,
+            "start": 64,
+            "type": "BlockStatement",
+          },
+          "end": 83,
+          "param": Node {
+            "end": 62,
+            "name": "e",
+            "start": 61,
+            "type": "Identifier",
+          },
+          "start": 54,
+          "type": "CatchClause",
+        },
+        "start": 4,
+        "type": "TryStatement",
+      },
+    ],
+    "end": 85,
+    "start": 0,
+    "type": "BlockStatement",
+  },
+  "end": 86,
+  "fileAttachments": Set {},
+  "generator": false,
+  "id": null,
+  "references": Array [
+    Node {
+      "end": 25,
+      "name": "y",
+      "start": 24,
+      "type": "Identifier",
+    },
+  ],
+  "start": 0,
+  "type": "Cell",
+}
+`
+
 exports[`test/parse-test.js TAP parse comma-then-comment.js > must match snapshot 1`] = `
 Object {
   "error": Object {
@@ -3735,64 +3865,88 @@ Node {
       Node {
         "declarations": Array [
           Node {
-            "end": 11,
+            "end": 13,
             "id": Node {
-              "end": 7,
+              "end": 9,
               "name": "x",
-              "start": 6,
+              "start": 8,
               "type": "Identifier",
             },
             "init": Node {
-              "end": 11,
+              "end": 13,
               "raw": "2",
-              "start": 10,
+              "start": 12,
               "type": "Literal",
               "value": 2,
             },
-            "start": 6,
+            "start": 8,
             "type": "VariableDeclarator",
           },
         ],
-        "end": 12,
+        "end": 14,
         "kind": "let",
-        "start": 2,
+        "start": 4,
         "type": "VariableDeclaration",
       },
       Node {
-        "argument": Node {
-          "end": 28,
-          "id": Node {
-            "end": 28,
+        "end": 23,
+        "expression": Node {
+          "end": 22,
+          "left": Node {
+            "end": 18,
             "name": "x",
-            "start": 27,
+            "start": 17,
             "type": "Identifier",
           },
-          "start": 20,
+          "operator": "=",
+          "right": Node {
+            "end": 22,
+            "raw": "4",
+            "start": 21,
+            "type": "Literal",
+            "value": 4,
+          },
+          "start": 17,
+          "type": "AssignmentExpression",
+        },
+        "start": 17,
+        "type": "ExpressionStatement",
+      },
+      Node {
+        "argument": Node {
+          "end": 41,
+          "id": Node {
+            "end": 41,
+            "name": "x",
+            "start": 40,
+            "type": "Identifier",
+          },
+          "start": 33,
           "type": "ViewExpression",
         },
-        "end": 29,
-        "start": 13,
+        "end": 42,
+        "start": 26,
         "type": "ReturnStatement",
       },
     ],
-    "end": 31,
+    "end": 44,
     "start": 0,
     "type": "BlockStatement",
   },
-  "end": 32,
+  "end": 45,
   "fileAttachments": Set {},
   "generator": false,
   "id": null,
   "references": Array [
     Node {
-      "end": 28,
+      "end": 41,
       "id": Node {
-        "end": 28,
+        "end": 41,
         "name": "x",
-        "start": 27,
+        "start": 40,
         "type": "Identifier",
       },
-      "start": 20,
+      "start": 33,
       "type": "ViewExpression",
     },
   ],
