@@ -2,7 +2,7 @@ import {simple} from "acorn-walk";
 import {test} from "tap";
 import {readdirSync, readFileSync, writeFileSync} from "fs";
 import {basename, extname, join} from "path";
-import {parseCell, peekId} from "../src/index.js";
+import {parseCell, peekId, parseModule} from "../src/index.js";
 import walk from "../src/walk.js";
 
 test("peekId", t => {
@@ -25,6 +25,17 @@ test("peekId", t => {
     peekId(`function queryAll(text, values) {
   return fetch("https://api.observable.localh`),
     "queryAll"
+  );
+  t.end();
+});
+
+test("parseModule", t => {
+  t.matchSnapshot(
+    parseModule(`a = 1;
+
+b = 2;
+
+c = a + b`)
   );
   t.end();
 });

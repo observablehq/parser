@@ -4772,3 +4772,106 @@ Node {
   "type": "Cell",
 }
 `
+
+exports[`test/parse-test.js TAP parseModule > must match snapshot 1`] = `
+Node {
+  "cells": Array [
+    Node {
+      "async": false,
+      "body": Node {
+        "end": 5,
+        "raw": "1",
+        "start": 4,
+        "type": "Literal",
+        "value": 1,
+      },
+      "end": 6,
+      "fileAttachments": Set {},
+      "generator": false,
+      "id": Node {
+        "end": 1,
+        "name": "a",
+        "start": 0,
+        "type": "Identifier",
+      },
+      "input": "a = 1;\\n\\nb = 2;\\n\\nc = a + b",
+      "references": Array [],
+      "start": 0,
+      "type": "Cell",
+    },
+    Node {
+      "async": false,
+      "body": Node {
+        "end": 13,
+        "raw": "2",
+        "start": 12,
+        "type": "Literal",
+        "value": 2,
+      },
+      "end": 14,
+      "fileAttachments": Set {},
+      "generator": false,
+      "id": Node {
+        "end": 9,
+        "name": "b",
+        "start": 8,
+        "type": "Identifier",
+      },
+      "input": "a = 1;\\n\\nb = 2;\\n\\nc = a + b",
+      "references": Array [],
+      "start": 8,
+      "type": "Cell",
+    },
+    Node {
+      "async": false,
+      "body": Node {
+        "end": 25,
+        "left": Node {
+          "end": 21,
+          "name": "a",
+          "start": 20,
+          "type": "Identifier",
+        },
+        "operator": "+",
+        "right": Node {
+          "end": 25,
+          "name": "b",
+          "start": 24,
+          "type": "Identifier",
+        },
+        "start": 20,
+        "type": "BinaryExpression",
+      },
+      "end": 25,
+      "fileAttachments": Set {},
+      "generator": false,
+      "id": Node {
+        "end": 17,
+        "name": "c",
+        "start": 16,
+        "type": "Identifier",
+      },
+      "input": "a = 1;\\n\\nb = 2;\\n\\nc = a + b",
+      "references": Array [
+        Node {
+          "end": 21,
+          "name": "a",
+          "start": 20,
+          "type": "Identifier",
+        },
+        Node {
+          "end": 25,
+          "name": "b",
+          "start": 24,
+          "type": "Identifier",
+        },
+      ],
+      "start": 16,
+      "type": "Cell",
+    },
+  ],
+  "end": 25,
+  "start": 0,
+  "type": "Program",
+}
+`
