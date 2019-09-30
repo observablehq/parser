@@ -1513,12 +1513,51 @@ Node {
         "start": 66,
         "type": "VariableDeclaration",
       },
+      Node {
+        "declarations": Array [
+          Node {
+            "end": 125,
+            "id": Node {
+              "end": 103,
+              "name": "c2",
+              "start": 101,
+              "type": "Identifier",
+            },
+            "init": Node {
+              "arguments": Array [
+                Node {
+                  "end": 124,
+                  "raw": "\\"c\\"",
+                  "start": 121,
+                  "type": "Literal",
+                  "value": "c",
+                },
+              ],
+              "callee": Node {
+                "end": 120,
+                "name": "FileAttachment",
+                "start": 106,
+                "type": "Identifier",
+              },
+              "end": 125,
+              "start": 106,
+              "type": "CallExpression",
+            },
+            "start": 101,
+            "type": "VariableDeclarator",
+          },
+        ],
+        "end": 126,
+        "kind": "let",
+        "start": 97,
+        "type": "VariableDeclaration",
+      },
     ],
-    "end": 96,
+    "end": 128,
     "start": 0,
     "type": "BlockStatement",
   },
-  "end": 97,
+  "end": 129,
   "fileAttachments": Map {
     "a" => Array [
       27,
@@ -1528,6 +1567,7 @@ Node {
     ],
     "c" => Array [
       89,
+      121,
     ],
   },
   "generator": false,
