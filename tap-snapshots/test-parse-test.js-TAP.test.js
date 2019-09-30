@@ -1430,13 +1430,22 @@ Node {
   "end": 242,
   "fileAttachments": Map {
     "a" => Array [
-      83,
+      Object {
+        "end": 86,
+        "start": 83,
+      },
     ],
     "b" => Array [
-      168,
+      Object {
+        "end": 171,
+        "start": 168,
+      },
     ],
     "c" => Array [
-      199,
+      Object {
+        "end": 202,
+        "start": 199,
+      },
     ],
   },
   "generator": false,
@@ -1692,14 +1701,26 @@ Node {
   "end": 129,
   "fileAttachments": Map {
     "a" => Array [
-      27,
+      Object {
+        "end": 30,
+        "start": 27,
+      },
     ],
     "b" => Array [
-      58,
+      Object {
+        "end": 61,
+        "start": 58,
+      },
     ],
     "c" => Array [
-      89,
-      121,
+      Object {
+        "end": 92,
+        "start": 89,
+      },
+      Object {
+        "end": 124,
+        "start": 121,
+      },
     ],
   },
   "generator": false,

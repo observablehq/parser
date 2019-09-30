@@ -35,9 +35,15 @@ export default function findFileAttachments(cell) {
           args[0].type === "Literal" ? args[0].value : args[0].quasis[0].value.cooked;
 
         if (references.has(fileReference)) {
-          references.get(fileReference).push(args[0].start);
+          references.get(fileReference).push({
+            start: args[0].start,
+            end: args[0].end
+          });
         } else {
-          references.set(fileReference, [args[0].start]);
+          references.set(fileReference, [{
+            start: args[0].start,
+            end: args[0].end
+          }]);
         }
       }
     },
