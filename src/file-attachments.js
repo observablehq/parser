@@ -33,17 +33,12 @@ export default function findFileAttachments(cell) {
 
         const fileReference =
           args[0].type === "Literal" ? args[0].value : args[0].quasis[0].value.cooked;
+        const fileLocation = {start: args[0].start, end: args[0].end};
 
         if (references.has(fileReference)) {
-          references.get(fileReference).push({
-            start: args[0].start,
-            end: args[0].end
-          });
+          references.get(fileReference).push(fileLocation);
         } else {
-          references.set(fileReference, [{
-            start: args[0].start,
-            end: args[0].end
-          }]);
+          references.set(fileReference, [fileLocation]);
         }
       }
     },
