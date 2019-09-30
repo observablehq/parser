@@ -28,7 +28,7 @@ Node {
     "type": "BlockStatement",
   },
   "end": 17,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [],
@@ -48,7 +48,7 @@ Node {
     "value": 42,
   },
   "end": 3,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [],
@@ -90,7 +90,7 @@ Node {
     "type": "FunctionExpression",
   },
   "end": 26,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [],
@@ -126,7 +126,7 @@ Node {
     "type": "BlockStatement",
   },
   "end": 21,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -179,7 +179,7 @@ Node {
     "type": "ArrowFunctionExpression",
   },
   "end": 33,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -258,7 +258,7 @@ Node {
     "type": "BlockStatement",
   },
   "end": 58,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -351,7 +351,7 @@ Node {
     "type": "BlockStatement",
   },
   "end": 72,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -416,7 +416,7 @@ Node {
     "type": "BlockStatement",
   },
   "end": 54,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -476,7 +476,7 @@ Node {
     "type": "BlockStatement",
   },
   "end": 36,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": true,
   "id": null,
   "references": Array [
@@ -521,7 +521,7 @@ Node {
     "type": "CallExpression",
   },
   "end": 14,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [],
@@ -542,7 +542,7 @@ Node {
     "value": 0,
   },
   "end": 3,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [],
@@ -575,7 +575,7 @@ Node {
     "type": "BinaryExpression",
   },
   "end": 10,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -614,7 +614,7 @@ Node {
     "type": "BinaryExpression",
   },
   "end": 9,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -653,7 +653,7 @@ Node {
     "type": "BlockStatement",
   },
   "end": 44,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 24,
@@ -690,7 +690,7 @@ Node {
     "type": "BlockStatement",
   },
   "end": 42,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 3,
@@ -791,7 +791,7 @@ Node {
     "type": "ArrowFunctionExpression",
   },
   "end": 32,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 3,
@@ -871,7 +871,7 @@ Node {
     "type": "FunctionExpression",
   },
   "end": 35,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 12,
@@ -908,7 +908,7 @@ Node {
     "type": "CallExpression",
   },
   "end": 20,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 3,
@@ -959,7 +959,7 @@ Node {
     "value": 42,
   },
   "end": 28,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 3,
@@ -984,7 +984,7 @@ Node {
     "value": 42,
   },
   "end": 10,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 3,
@@ -1296,10 +1296,16 @@ Node {
     "type": "BlockStatement",
   },
   "end": 242,
-  "fileAttachments": Set {
-    "a",
-    "b",
-    "c",
+  "fileAttachments": Map {
+    "a" => Array [
+      83,
+    ],
+    "b" => Array [
+      168,
+    ],
+    "c" => Array [
+      199,
+    ],
   },
   "generator": false,
   "id": Node {
@@ -1513,10 +1519,16 @@ Node {
     "type": "BlockStatement",
   },
   "end": 97,
-  "fileAttachments": Set {
-    "a",
-    "b",
-    "c",
+  "fileAttachments": Map {
+    "a" => Array [
+      27,
+    ],
+    "b" => Array [
+      58,
+    ],
+    "c" => Array [
+      89,
+    ],
   },
   "generator": false,
   "id": null,
@@ -1606,7 +1618,7 @@ Node {
     "type": "BlockStatement",
   },
   "end": 62,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": true,
   "id": null,
   "references": Array [
@@ -1765,7 +1777,7 @@ Node {
     "type": "FunctionExpression",
   },
   "end": 128,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 18,
@@ -1914,7 +1926,7 @@ Node {
     "type": "BlockStatement",
   },
   "end": 107,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -2548,7 +2560,7 @@ Node {
     "type": "FunctionExpression",
   },
   "end": 40,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [],
@@ -2592,7 +2604,7 @@ Node {
     "type": "AssignmentExpression",
   },
   "end": 15,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -2662,7 +2674,7 @@ Node {
     "type": "BinaryExpression",
   },
   "end": 24,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -2729,7 +2741,7 @@ Node {
     "type": "AwaitExpression",
   },
   "end": 44,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 13,
@@ -2801,7 +2813,7 @@ Node {
     "type": "BlockStatement",
   },
   "end": 27,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -2889,7 +2901,7 @@ Node {
     "type": "BlockStatement",
   },
   "end": 41,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 11,
@@ -2982,7 +2994,7 @@ Node {
     "type": "FunctionExpression",
   },
   "end": 43,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 11,
@@ -3050,7 +3062,7 @@ Node {
     "type": "AssignmentExpression",
   },
   "end": 21,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -3142,7 +3154,7 @@ Node {
     "type": "AssignmentExpression",
   },
   "end": 44,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -3198,7 +3210,7 @@ Node {
     "type": "MutableExpression",
   },
   "end": 28,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -3260,7 +3272,7 @@ Node {
     "type": "MemberExpression",
   },
   "end": 23,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -3337,7 +3349,7 @@ Node {
     "type": "FunctionExpression",
   },
   "end": 40,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 18,
@@ -3381,7 +3393,7 @@ Node {
     "type": "BlockStatement",
   },
   "end": 23,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 3,
@@ -3417,7 +3429,7 @@ Node {
     "type": "ClassExpression",
   },
   "end": 13,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 9,
@@ -3456,7 +3468,7 @@ Node {
     "value": 42,
   },
   "end": 9,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 3,
@@ -3508,7 +3520,7 @@ Node {
     "type": "FunctionExpression",
   },
   "end": 36,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 3,
@@ -3560,7 +3572,7 @@ Node {
     "type": "FunctionExpression",
   },
   "end": 30,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 12,
@@ -3618,7 +3630,7 @@ Node {
     "type": "FunctionExpression",
   },
   "end": 30,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 13,
@@ -3665,7 +3677,7 @@ Node {
     "type": "ObjectExpression",
   },
   "end": 12,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [],
@@ -3718,7 +3730,7 @@ Node {
     "type": "SequenceExpression",
   },
   "end": 8,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [],
@@ -3780,7 +3792,7 @@ Node {
     "type": "BlockStatement",
   },
   "end": 32,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -3811,7 +3823,7 @@ Node {
     "type": "Identifier",
   },
   "end": 4,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -3860,7 +3872,7 @@ Node {
     "type": "TaggedTemplateExpression",
   },
   "end": 13,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -3899,7 +3911,7 @@ Node {
     "type": "ThisExpression",
   },
   "end": 5,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [],
@@ -4004,7 +4016,7 @@ Node {
     "type": "BlockStatement",
   },
   "end": 39,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 10,
@@ -4058,7 +4070,7 @@ Node {
     "type": "CallExpression",
   },
   "end": 25,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 10,
@@ -4112,7 +4124,7 @@ Node {
     "type": "CallExpression",
   },
   "end": 39,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": Node {
     "end": 24,
@@ -4179,7 +4191,7 @@ Node {
     "type": "MemberExpression",
   },
   "end": 16,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -4268,7 +4280,7 @@ Node {
     "type": "BinaryExpression",
   },
   "end": 23,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -4310,7 +4322,7 @@ Node {
     "type": "ViewExpression",
   },
   "end": 25,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -4358,7 +4370,7 @@ Node {
     "type": "MemberExpression",
   },
   "end": 21,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -4423,7 +4435,7 @@ Node {
     "type": "BlockStatement",
   },
   "end": 36,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": true,
   "id": null,
   "references": Array [
@@ -4473,7 +4485,7 @@ Node {
     "type": "BlockStatement",
   },
   "end": 19,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": true,
   "id": null,
   "references": Array [
@@ -4505,7 +4517,7 @@ Node {
     "type": "YieldExpression",
   },
   "end": 12,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": true,
   "id": null,
   "references": Array [
@@ -4571,7 +4583,7 @@ Node {
     "type": "BlockStatement",
   },
   "end": 47,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -4603,7 +4615,7 @@ Node {
     "type": "YieldExpression",
   },
   "end": 14,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": true,
   "id": null,
   "references": Array [
