@@ -1,1 +1,5 @@
-{ let x = 2; return viewof x; }
+{
+  let x = 2;
+  x = 4;
+  return viewof x;
+}

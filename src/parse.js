@@ -317,6 +317,8 @@ function parseFileAttachments(cell, input) {
       }
       throw error;
     }
+  } else {
+    cell.fileAttachments = new Set();
   }
   return cell;
 }
