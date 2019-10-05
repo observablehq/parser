@@ -6,8 +6,8 @@ export default make({
     c(node.argument, st, "Expression");
   },
   ObjectPattern(node, st, c) {
-    const list = node.properties;
-    for (const prop of list) {
+    for (const prop of node.properties) {
+      if (prop.computed) c(prop.key, st, "Pattern");
       c(prop.value || prop.argument, st, "Pattern");
     }
   },
