@@ -2,15 +2,6 @@ import {make} from "acorn-walk";
 
 export default make({
   Import() {},
-  SpreadProperty(node, st, c) {
-    c(node.argument, st, "Expression");
-  },
-  ObjectPattern(node, st, c) {
-    for (const prop of node.properties) {
-      if (prop.computed) c(prop.key, st, "Pattern");
-      c(prop.value || prop.argument, st, "Pattern");
-    }
-  },
   ViewExpression(node, st, c) {
     c(node.id, st, "Identifier");
   },
