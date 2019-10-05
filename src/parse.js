@@ -43,7 +43,7 @@ export function peekId(input) {
   let state = STATE_START;
   let name;
   try {
-    for (const token of Parser.tokenizer(input, { ecmaVersion: 11 })) {
+    for (const token of Parser.tokenizer(input, {ecmaVersion: 11})) {
       switch (state) {
         case STATE_START:
         case STATE_MODIFIER: {
@@ -86,9 +86,8 @@ export function peekId(input) {
 }
 
 export class CellParser extends Parser {
-  constructor(...args) {
-    super(...args);
-    this.options.ecmaVersion = 11;
+  constructor(options, ...args) {
+    super(Object.assign({ecmaVersion: 11}, options), ...args);
   }
   enterScope(flags) {
     if (flags & SCOPE_FUNCTION) ++this.O_function;
