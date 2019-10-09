@@ -13,7 +13,7 @@ const STATE_FUNCTION = Symbol("function");
 const STATE_NAME = Symbol("name");
 
 export function parseCell(input, {globals} = {}) {
-  return parseData(parseReferences(CellParser.parse(input), input, globals));
+  return parseFileAttachments(parseReferences(CellParser.parse(input), input, globals));
 }
 
 /*
@@ -262,7 +262,7 @@ export function parseModule(input, {globals} = {}) {
   const program = ModuleParser.parse(input);
   for (const cell of program.cells) {
     parseReferences(cell, input, globals);
-    parseData(cell, input, globals);
+    parseFileAttachments(cell, input, globals);
   }
   return program;
 }
@@ -304,7 +304,7 @@ function parseReferences(cell, input, globals = defaultGlobals) {
 // Find references.
 // Check for illegal references to arguments.
 // Check for illegal assignments to global references.
-function parseData(cell, input) {
+function parseFileAttachments(cell, input) {
   if (cell.body && cell.body.type !== "ImportDeclaration") {
     try {
       cell.fileAttachments = findFileAttachments(cell);
@@ -318,6 +318,8 @@ function parseData(cell, input) {
       }
       throw error;
     }
+  } else {
+    cell.fileAttachments = new Map();
   }
   return cell;
 }

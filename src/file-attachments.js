@@ -3,7 +3,7 @@ import walk from "./walk.js";
 
 export default function findFileAttachments(cell) {
   const ast = {type: "Program", body: [cell.body]};
-  const references = new Set();
+  const references = new Map();
 
   simple(
     ast,
@@ -31,11 +31,15 @@ export default function findFileAttachments(cell) {
           );
         }
 
-        references.add(
-          args[0].type === "Literal"
-            ? args[0].value
-            : args[0].quasis[0].value.cooked
-        );
+        const fileReference =
+          args[0].type === "Literal" ? args[0].value : args[0].quasis[0].value.cooked;
+        const fileLocation = {start: args[0].start, end: args[0].end};
+
+        if (references.has(fileReference)) {
+          references.get(fileReference).push(fileLocation);
+        } else {
+          references.set(fileReference, [fileLocation]);
+        }
       }
     },
     walk
