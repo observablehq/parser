@@ -1,6 +1,6 @@
 {
   "name": "@observablehq/parser",
-  "version": "1.2.1",
+  "version": "2.0.0",
   "license": "ISC",
   "main": "dist/parser.min.js",
   "module": "src/index.js",
@@ -23,18 +23,18 @@
     }
   },
   "dependencies": {
-    "acorn": "^6.3.0",
-    "acorn-bigint": "^0.4.0",
-    "acorn-walk": "^6.1.1"
+    "acorn": "^7.0.0",
+    "acorn-walk": "^7.0.0"
   },
   "devDependencies": {
-    "eslint": "^6.3.0",
-    "husky": "^3.0.5",
-    "rollup": "^1.20.3",
+    "eslint": "^6.5.1",
+    "esm": "^3.0.84",
+    "rollup": "^1.22.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.0.0",
-    "rollup-plugin-terser": "^5.0.0",
-    "tap": "^14.6.4"
+    "rollup-plugin-terser": "^5.1.2",
+    "tap": "^14.6.4",
+    "husky": "^3.0.8"
   },
   "files": [
     "dist/**/*.js",

@@ -502,23 +502,16 @@ exports[`test/parse-test.js TAP parse bare-dynamic-import.js > must match snapsh
 Node {
   "async": false,
   "body": Node {
-    "arguments": Array [
-      Node {
-        "end": 12,
-        "raw": "\\"bar\\"",
-        "start": 7,
-        "type": "Literal",
-        "value": "bar",
-      },
-    ],
-    "callee": Node {
-      "end": 6,
-      "start": 0,
-      "type": "Import",
-    },
     "end": 13,
+    "source": Node {
+      "end": 12,
+      "raw": "\\"bar\\"",
+      "start": 7,
+      "type": "Literal",
+      "value": "bar",
+    },
     "start": 0,
-    "type": "CallExpression",
+    "type": "ImportExpression",
   },
   "end": 14,
   "fileAttachments": Set {},
@@ -534,7 +527,7 @@ exports[`test/parse-test.js TAP parse bigint-zero.js > must match snapshot 1`] =
 Node {
   "async": false,
   "body": Node {
-    "bigint": "0n",
+    "bigint": "0",
     "end": 2,
     "raw": "0n",
     "start": 0,
@@ -564,7 +557,7 @@ Node {
     },
     "operator": "+",
     "right": Node {
-      "bigint": "42n",
+      "bigint": "42",
       "end": 9,
       "raw": "42n",
       "start": 6,
@@ -860,6 +853,71 @@ Node {
 }
 `
 
+exports[`test/parse-test.js TAP parse computed-property-name.js > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "async": false,
+    "body": Node {
+      "end": 27,
+      "name": "value",
+      "start": 22,
+      "type": "Identifier",
+    },
+    "end": 27,
+    "expression": true,
+    "generator": false,
+    "id": null,
+    "params": Array [
+      Node {
+        "end": 17,
+        "properties": Array [
+          Node {
+            "computed": true,
+            "end": 16,
+            "key": Node {
+              "end": 8,
+              "name": "field",
+              "start": 3,
+              "type": "Identifier",
+            },
+            "kind": "init",
+            "method": false,
+            "shorthand": false,
+            "start": 2,
+            "type": "Property",
+            "value": Node {
+              "end": 16,
+              "name": "value",
+              "start": 11,
+              "type": "Identifier",
+            },
+          },
+        ],
+        "start": 1,
+        "type": "ObjectPattern",
+      },
+    ],
+    "start": 0,
+    "type": "ArrowFunctionExpression",
+  },
+  "end": 28,
+  "fileAttachments": Set {},
+  "generator": false,
+  "id": null,
+  "references": Array [
+    Node {
+      "end": 8,
+      "name": "field",
+      "start": 3,
+      "type": "Identifier",
+    },
+  ],
+  "start": 0,
+  "type": "Cell",
+}
+`
+
 exports[`test/parse-test.js TAP parse destructured-arrow-with-default.js > must match snapshot 1`] = `
 Node {
   "async": false,
@@ -1019,23 +1077,16 @@ exports[`test/parse-test.js TAP parse dynamic-import.js > must match snapshot 1`
 Node {
   "async": false,
   "body": Node {
-    "arguments": Array [
-      Node {
-        "end": 18,
-        "raw": "\\"bar\\"",
-        "start": 13,
-        "type": "Literal",
-        "value": "bar",
-      },
-    ],
-    "callee": Node {
-      "end": 12,
-      "start": 6,
-      "type": "Import",
-    },
     "end": 19,
+    "source": Node {
+      "end": 18,
+      "raw": "\\"bar\\"",
+      "start": 13,
+      "type": "Literal",
+      "value": "bar",
+    },
     "start": 6,
-    "type": "CallExpression",
+    "type": "ImportExpression",
   },
   "end": 20,
   "fileAttachments": Set {},
@@ -3976,6 +4027,75 @@ Node {
       "type": "Identifier",
     },
   ],
+  "start": 0,
+  "type": "Cell",
+}
+`
+
+exports[`test/parse-test.js TAP parse spread-element.js > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "async": false,
+    "body": Node {
+      "end": 22,
+      "name": "bar",
+      "start": 19,
+      "type": "Identifier",
+    },
+    "end": 22,
+    "expression": true,
+    "generator": false,
+    "id": null,
+    "params": Array [
+      Node {
+        "end": 14,
+        "properties": Array [
+          Node {
+            "computed": false,
+            "end": 5,
+            "key": Node {
+              "end": 5,
+              "name": "foo",
+              "start": 2,
+              "type": "Identifier",
+            },
+            "kind": "init",
+            "method": false,
+            "shorthand": true,
+            "start": 2,
+            "type": "Property",
+            "value": Node {
+              "end": 5,
+              "name": "foo",
+              "start": 2,
+              "type": "Identifier",
+            },
+          },
+          Node {
+            "argument": Node {
+              "end": 13,
+              "name": "bar",
+              "start": 10,
+              "type": "Identifier",
+            },
+            "end": 13,
+            "start": 7,
+            "type": "RestElement",
+          },
+        ],
+        "start": 1,
+        "type": "ObjectPattern",
+      },
+    ],
+    "start": 0,
+    "type": "ArrowFunctionExpression",
+  },
+  "end": 23,
+  "fileAttachments": Set {},
+  "generator": false,
+  "id": null,
+  "references": Array [],
   "start": 0,
   "type": "Cell",
 }

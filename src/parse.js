@@ -1,6 +1,4 @@
 import {getLineInfo, tokTypes as tt, Parser} from "acorn";
-import bigInt from "acorn-bigint";
-import dynamicImport from "./dynamic-import.js";
 import defaultGlobals from "./globals.js";
 import findReferences from "./references.js";
 import findFileAttachments from "./file-attachments.js";
@@ -46,7 +44,7 @@ export function peekId(input) {
   let state = STATE_START;
   let name;
   try {
-    for (const token of Parser.tokenizer(input)) {
+    for (const token of Parser.tokenizer(input, {ecmaVersion: 11})) {
       switch (state) {
         case STATE_START:
         case STATE_MODIFIER: {
@@ -88,7 +86,10 @@ export function peekId(input) {
   }
 }
 
-export class CellParser extends Parser.extend(bigInt, dynamicImport) {
+export class CellParser extends Parser {
+  constructor(options, ...args) {
+    super(Object.assign({ecmaVersion: 11}, options), ...args);
+  }
   enterScope(flags) {
     if (flags & SCOPE_FUNCTION) ++this.O_function;
     return super.enterScope(flags);
