@@ -903,7 +903,7 @@ Node {
     "type": "ArrowFunctionExpression",
   },
   "end": 28,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [
@@ -4177,7 +4177,7 @@ Node {
     "type": "ArrowFunctionExpression",
   },
   "end": 23,
-  "fileAttachments": Set {},
+  "fileAttachments": Map {},
   "generator": false,
   "id": null,
   "references": Array [],
