@@ -1,7 +1,6 @@
 import {getLineInfo, tokTypes as tt, Parser} from "acorn";
 import defaultGlobals from "./globals.js";
 import findReferences from "./references.js";
-import findFileAttachments from "./file-attachments.js";
 
 const SCOPE_FUNCTION = 2;
 const SCOPE_ASYNC = 4;
@@ -13,7 +12,7 @@ const STATE_FUNCTION = Symbol("function");
 const STATE_NAME = Symbol("name");
 
 export function parseCell(input, {globals} = {}) {
-  return parseFileAttachments(parseReferences(CellParser.parse(input), input, globals));
+  return parseReferences(CellParser.parse(input), input, globals);
 }
 
 /*
@@ -86,6 +85,10 @@ export function peekId(input) {
   }
 }
 
+const fileAttachmentMessage =
+  "FileAttachment() requires a single literal string as its argument.";
+const fileAttachmentMessageReassign = "FileAttachment() cannot be reassigned.";
+
 export class CellParser extends Parser {
   constructor(options, ...args) {
     super(Object.assign({ecmaVersion: 11}, options), ...args);
@@ -97,6 +100,43 @@ export class CellParser extends Parser {
   exitScope() {
     if (this.currentScope().flags & SCOPE_FUNCTION) --this.O_function;
     return super.exitScope();
+  }
+  parseFileAttachment() {
+    if (!this.isContextual("FileAttachment")) return;
+
+    const node = this.startNode();
+    node.callee = this.parseIdent();
+
+    if (!this.eat(tt.parenL)) {
+      this.raise(this.start, fileAttachmentMessageReassign);
+    }
+
+    if (this.type !== tt.string && this.type !== tt.backQuote) {
+      this.unexpected(null, fileAttachmentMessage);
+    }
+
+    const source = this.parseExprAtom();
+    if (source.type === "TemplateLiteral" && source.expressions.length) {
+      this.unexpected(source.expressions[0].start, fileAttachmentMessage);
+    }
+
+    if (!this.eat(tt.parenR)) {
+      this.raise(this.start, fileAttachmentMessage);
+    }
+
+    const fileReference =
+      source.type === "Literal" ? source.value : source.quasis[0].value.cooked;
+    const fileLocation = {start: source.start, end: source.end};
+
+    if (this.fileAttachments.has(fileReference)) {
+      this.fileAttachments.get(fileReference).push(fileLocation);
+    } else {
+      this.fileAttachments.set(fileReference, [fileLocation]);
+    }
+
+    node.arguments = [source];
+
+    return this.finishNode(node, "CallExpression");
   }
   parseForIn(node, init) {
     if (this.O_function === 1 && node.await) this.O_async = true;
@@ -118,7 +158,8 @@ export class CellParser extends Parser {
       node.injections = this.parseImportSpecifiers();
     }
     this.expectContextual("from");
-    node.source = this.type === tt.string ? this.parseExprAtom() : this.unexpected();
+    node.source =
+      this.type === tt.string ? this.parseExprAtom() : this.unexpected();
     return this.finishNode(node, "ImportDeclaration");
   }
   parseImportSpecifiers() {
@@ -151,6 +192,7 @@ export class CellParser extends Parser {
     return (
       this.parseMaybeKeywordExpression("viewof", "ViewExpression") ||
       this.parseMaybeKeywordExpression("mutable", "MutableExpression") ||
+      this.parseFileAttachment() ||
       super.parseExprAtom(refDestructuringErrors)
     );
   }
@@ -160,6 +202,7 @@ export class CellParser extends Parser {
     let body = null;
     let id = null;
 
+    this.fileAttachments = new Map();
     this.O_function = 0;
     this.O_async = false;
     this.O_generator = false;
@@ -218,6 +261,7 @@ export class CellParser extends Parser {
     node.async = this.O_async;
     node.generator = this.O_generator;
     node.body = body;
+    node.fileAttachments = this.fileAttachments;
     this.exitScope();
     return this.finishNode(node, "Cell");
   }
@@ -242,10 +286,14 @@ export class CellParser extends Parser {
       checkClashes
     );
   }
-  unexpected(pos) {
+  unexpected(pos, message) {
     this.raise(
       pos != null ? pos : this.start,
-      this.type === tt.eof ? "Unexpected end of input" : "Unexpected token"
+      message
+        ? message
+        : this.type === tt.eof
+        ? "Unexpected end of input"
+        : "Unexpected token"
     );
   }
   parseMaybeKeywordExpression(keyword, type) {
@@ -262,7 +310,6 @@ export function parseModule(input, {globals} = {}) {
   const program = ModuleParser.parse(input);
   for (const cell of program.cells) {
     parseReferences(cell, input, globals);
-    parseFileAttachments(cell, input, globals);
   }
   return program;
 }
@@ -297,29 +344,6 @@ function parseReferences(cell, input, globals = defaultGlobals) {
       }
       throw error;
     }
-  }
-  return cell;
-}
-
-// Find references.
-// Check for illegal references to arguments.
-// Check for illegal assignments to global references.
-function parseFileAttachments(cell, input) {
-  if (cell.body && cell.body.type !== "ImportDeclaration") {
-    try {
-      cell.fileAttachments = findFileAttachments(cell);
-    } catch (error) {
-      if (error.node) {
-        const loc = getLineInfo(input, error.node.start);
-        error.message += ` (${loc.line}:${loc.column})`;
-        error.pos = error.node.start;
-        error.loc = loc;
-        delete error.node;
-      }
-      throw error;
-    }
-  } else {
-    cell.fileAttachments = new Map();
   }
   return cell;
 }

@@ -1185,11 +1185,25 @@ exports[`test/parse-test.js TAP parse file-attachment-forbidden-1.js > must matc
 Object {
   "error": Object {
     "loc": Object {
-      "column": 4,
+      "column": 25,
       "line": 1,
     },
-    "message": "FileAttachment() requires a single literal string as its argument. (1:4)",
-    "pos": 4,
+    "message": "FileAttachment() requires a single literal string as its argument. (1:25)",
+    "pos": 25,
+    "type": "SyntaxError",
+  },
+}
+`
+
+exports[`test/parse-test.js TAP parse file-attachment-forbidden-2.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 19,
+      "line": 1,
+    },
+    "message": "FileAttachment() cannot be reassigned. (1:19)",
+    "pos": 19,
     "type": "SyntaxError",
   },
 }
@@ -1199,11 +1213,11 @@ exports[`test/parse-test.js TAP parse file-attachment-forbidden.js > must match 
 Object {
   "error": Object {
     "loc": Object {
-      "column": 4,
+      "column": 24,
       "line": 1,
     },
-    "message": "FileAttachment() requires a single literal string as its argument. (1:4)",
-    "pos": 4,
+    "message": "FileAttachment() requires a single literal string as its argument. (1:24)",
+    "pos": 24,
     "type": "SyntaxError",
   },
 }
