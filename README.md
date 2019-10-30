@@ -1,6 +1,6 @@
 # @observablehq/parser
 
-[![CircleCI](https://circleci.com/gh/observablehq/parser.svg?style=svg&circle-token=c7004fecc8765b1b34f0be42ced4772038eb3910)](https://circleci.com/gh/observablehq/parser)
+[![Node CI](https://github.com/observablehq/parser/workflows/Node%20CI/badge.svg)](https://github.com/observablehq/parser/actions?workflow=Node+CI)
 
 To parse a cell:
 
