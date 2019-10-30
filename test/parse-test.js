@@ -20,6 +20,8 @@ test("peekId", t => {
   t.equal(peekId("function /* yeah */ a()"), "a");
   t.equal(peekId("function"), undefined);
   t.equal(peekId("1"), undefined);
+  t.equal(peekId("#"), undefined, "Ignores syntax errors");
+  t.equal(peekId("abc /"), undefined, "Needs a = for a name to be identified");
   t.equal(peekId("({ a: 1 })"), undefined);
   t.equal(
     peekId(`function queryAll(text, values) {
