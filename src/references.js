@@ -148,7 +148,7 @@ export default function findReferences(cell, globals) {
     }
     if (!referenceSet.has(name)) {
       if (name === "arguments") {
-        throw Object.assign(new ReferenceError(`arguments is not allowed`), {node});
+        throw Object.assign(new SyntaxError(`arguments is not allowed`), {node});
       }
       referenceSet.add(name);
       references.push(node);
@@ -193,7 +193,7 @@ export default function findReferences(cell, globals) {
       if (nodeParents[nodeParents.length - 2].type === "MutableExpression") {
         return;
       }
-      throw Object.assign(new TypeError(`Assignment to constant variable ${node.name}`), {node});
+      throw Object.assign(new SyntaxError(`Assignment to constant variable ${node.name}`), {node});
     }
   }
 
