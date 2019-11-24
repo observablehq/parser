@@ -2195,7 +2195,7 @@ Object {
     },
     "message": "Assignment to constant variable foo (2:2)",
     "pos": 4,
-    "type": "TypeError",
+    "type": "SyntaxError",
   },
 }
 `
@@ -2209,7 +2209,7 @@ Object {
     },
     "message": "arguments is not allowed (1:4)",
     "pos": 4,
-    "type": "ReferenceError",
+    "type": "SyntaxError",
   },
 }
 `
@@ -2223,7 +2223,7 @@ Object {
     },
     "message": "arguments is not allowed (1:6)",
     "pos": 6,
-    "type": "ReferenceError",
+    "type": "SyntaxError",
   },
 }
 `
