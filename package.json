@@ -27,7 +27,7 @@
     "acorn-walk": "^7.0.0"
   },
   "devDependencies": {
-    "eslint": "^6.6.0",
+    "eslint": "^6.7.2",
     "esm": "^3.0.84",
     "rollup": "^1.26.2",
     "rollup-plugin-commonjs": "^10.1.0",
