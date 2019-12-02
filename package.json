@@ -13,13 +13,13 @@
     "url": "https://github.com/observablehq/parser.git"
   },
   "scripts": {
-    "test": "tap 'test/**/*-test.js'",
+    "test": "eslint . && tap 'test/**/*-test.js'",
     "prepublishOnly": "rm -rf dist && rollup -c",
     "postpublish": "git push && git push --tags"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "eslint . && yarn test"
+      "pre-commit": "yarn test"
     }
   },
   "dependencies": {
