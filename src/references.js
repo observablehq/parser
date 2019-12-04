@@ -26,7 +26,6 @@ function declaresArguments(node) {
 }
 
 export default function findReferences(cell, globals) {
-  const ast = {type: "Program", body: [cell.body]};
   const locals = new Map;
   const globalSet = new Set(globals);
   const references = [];
@@ -81,11 +80,11 @@ export default function findReferences(cell, globals) {
   }
 
   function declareModuleSpecifier(node) {
-    declareLocal(ast, node.local);
+    declareLocal(cell.body, node.local);
   }
 
   ancestor(
-    ast,
+    cell.body,
     {
       VariableDeclaration: (node, parents) => {
         let parent = null;
@@ -154,8 +153,26 @@ export default function findReferences(cell, globals) {
     }
   }
 
+  function assignmentIdentifier(node, parents) {
+    if (parents.length > 2 && parents[1].type === "AssignmentPattern" && parents[2] === parents[1].right) {
+      identifier(node, parents);
+    }
+  }
+
+  if (cell.id && (cell.id.type === "ArrayPattern" || cell.id.type === "ObjectPattern")) {
+    declarePattern(cell.id, cell.id);
+    ancestor(
+      cell.id,
+      {
+        VariablePattern: assignmentIdentifier,
+        Identifier: assignmentIdentifier
+      },
+      walk
+    );
+  }
+
   ancestor(
-    ast,
+    cell.body,
     {
       VariablePattern: identifier,
       Identifier: identifier
@@ -210,7 +227,7 @@ export default function findReferences(cell, globals) {
   }
 
   ancestor(
-    ast,
+    cell.body,
     {
       AssignmentExpression: checkConstLeft,
       AssignmentPattern: checkConstLeft,

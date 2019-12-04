@@ -1,4 +1,4 @@
-import {getLineInfo, TokContext, tokTypes as tt, Parser} from "acorn";
+import {getLineInfo, TokContext, Token, tokTypes as tt, Parser} from "acorn";
 import defaultGlobals from "./globals.js";
 import findReferences from "./references.js";
 import findFeatures from "./features.js";
@@ -106,6 +106,7 @@ export class CellParser extends Parser {
     this.O_function = 0;
     this.O_async = false;
     this.O_generator = false;
+    this.O_destructuring = null;
     this.strict = true;
     this.enterScope(SCOPE_FUNCTION | SCOPE_ASYNC | SCOPE_GENERATOR);
   }
@@ -133,8 +134,23 @@ export class CellParser extends Parser {
 
     // A non-empty cell?
     else if (token.type !== tt.eof && token.type !== tt.semi) {
-      // A named cell?
-      if (token.type === tt.name) {
+
+      // A destructuring cell, maybe?
+      // (But not an object expression or arrow function!)
+      if (token.type === tt.parenL) {
+        id = this.parseParenAndDistinguishExpression(true);
+        if (id.type !== "ArrowFunctionExpression" && this.eat(tt.eq)) {
+          id = this.toAssignable(id, true, this.O_destructuring);
+          this.checkCellDeclaration(id);
+        } else {
+          body = id;
+          id = null;
+        }
+        token = new Token(this);
+      }
+
+      // A simple named cell?
+      else if (token.type === tt.name) {
         if (token.value === "viewof" || token.value === "mutable") {
           token = lookahead.getToken();
           if (token.type !== tt.name) {
@@ -152,22 +168,20 @@ export class CellParser extends Parser {
         }
       }
 
-      // A block?
-      if (token.type === tt.braceL) {
-        body = this.parseBlock();
+      // A block or an expression?
+      if (body === null) {
+        body = token.type === tt.braceL
+          ? this.parseBlock()
+          : this.parseExpression();
       }
 
-      // An expression?
-      // Possibly a function or class declaration?
-      else {
-        body = this.parseExpression();
-        if (
-          id === null &&
-          (body.type === "FunctionExpression" ||
-            body.type === "ClassExpression")
-        ) {
-          id = body.id;
-        }
+      // Promote the name of a function or class declaration?
+      if (
+        id === null &&
+        (body.type === "FunctionExpression" ||
+          body.type === "ClassExpression")
+      ) {
+        id = body.id;
       }
     }
 
@@ -184,11 +198,39 @@ export class CellParser extends Parser {
       ? node
       : super.toAssignable(node, isBinding, refDestructuringErrors);
   }
+  checkCellDeclaration(node) {
+    switch (node.type) {
+      case "Identifier":
+        break;
+      case "ObjectPattern":
+        for (const p of node.properties) this.checkCellDeclaration(p);
+        break;
+      case "ArrayPattern":
+        for (const e of node.elements) e && this.checkCellDeclaration(e);
+        break;
+      case "Property":
+        this.checkCellDeclaration(node.value);
+        break;
+      case "RestElement":
+        this.checkCellDeclaration(node.argument);
+        break;
+      case "AssignmentPattern":
+        this.checkCellDeclaration(node.left);
+        break;
+      default:
+        this.unexpected();
+        break;
+    }
+  }
   checkLocal(id) {
     const node = id.id || id;
     if (defaultGlobals.has(node.name) || node.name === "arguments") {
       this.raise(node.start, `Identifier '${node.name}' is reserved`);
     }
+  }
+  checkExpressionErrors(refDestructuringErrors, andThrow) {
+    this.O_destructuring = refDestructuringErrors;
+    return super.checkExpressionErrors(refDestructuringErrors, andThrow);
   }
   checkUnreserved(node) {
     if (node.name === "viewof" || node.name === "mutable") {

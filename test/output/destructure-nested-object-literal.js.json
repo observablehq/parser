@@ -1,0 +1,89 @@
+{
+  "type": "Cell",
+  "start": 0,
+  "end": 34,
+  "id": {
+    "type": "ObjectPattern",
+    "start": 1,
+    "end": 25,
+    "properties": [
+      {
+        "type": "Property",
+        "start": 2,
+        "end": 24,
+        "method": false,
+        "shorthand": false,
+        "computed": false,
+        "key": {
+          "type": "Identifier",
+          "start": 2,
+          "end": 5,
+          "name": "foo"
+        },
+        "value": {
+          "type": "ObjectPattern",
+          "start": 7,
+          "end": 24,
+          "properties": [
+            {
+              "type": "Property",
+              "start": 8,
+              "end": 23,
+              "method": false,
+              "shorthand": false,
+              "computed": false,
+              "key": {
+                "type": "Identifier",
+                "start": 8,
+                "end": 11,
+                "name": "bar"
+              },
+              "value": {
+                "type": "ObjectPattern",
+                "start": 13,
+                "end": 23,
+                "properties": [
+                  {
+                    "type": "Property",
+                    "start": 14,
+                    "end": 22,
+                    "method": false,
+                    "shorthand": false,
+                    "computed": false,
+                    "key": {
+                      "type": "Identifier",
+                      "start": 14,
+                      "end": 17,
+                      "name": "baz"
+                    },
+                    "value": {
+                      "type": "Identifier",
+                      "start": 19,
+                      "end": 22,
+                      "name": "qux"
+                    },
+                    "kind": "init"
+                  }
+                ]
+              },
+              "kind": "init"
+            }
+          ]
+        },
+        "kind": "init"
+      }
+    ]
+  },
+  "body": {
+    "type": "ObjectExpression",
+    "start": 30,
+    "end": 32,
+    "properties": []
+  },
+  "async": false,
+  "generator": false,
+  "references": [],
+  "fileAttachments": [],
+  "databaseClients": [],
+  "secrets": []
+}

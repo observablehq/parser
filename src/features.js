@@ -2,12 +2,11 @@ import {simple} from "acorn-walk";
 import walk from "./walk.js";
 
 export default function findFeatures(cell, featureName) {
-  const ast = {type: "Program", body: [cell.body]};
   const features = new Map();
   const {references} = cell;
 
   simple(
-    ast,
+    cell,
     {
       CallExpression: node => {
         const {callee, arguments: args} = node;

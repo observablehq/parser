@@ -1,0 +1,123 @@
+{
+  "type": "Cell",
+  "start": 0,
+  "end": 46,
+  "id": {
+    "type": "ObjectPattern",
+    "start": 1,
+    "end": 11,
+    "properties": [
+      {
+        "type": "Property",
+        "start": 2,
+        "end": 5,
+        "method": false,
+        "shorthand": true,
+        "computed": false,
+        "key": {
+          "type": "Identifier",
+          "start": 2,
+          "end": 5,
+          "name": "foo"
+        },
+        "kind": "init",
+        "value": {
+          "type": "Identifier",
+          "start": 2,
+          "end": 5,
+          "name": "foo"
+        }
+      },
+      {
+        "type": "Property",
+        "start": 7,
+        "end": 10,
+        "method": false,
+        "shorthand": true,
+        "computed": false,
+        "key": {
+          "type": "Identifier",
+          "start": 7,
+          "end": 10,
+          "name": "bar"
+        },
+        "kind": "init",
+        "value": {
+          "type": "Identifier",
+          "start": 7,
+          "end": 10,
+          "name": "bar"
+        }
+      }
+    ]
+  },
+  "body": {
+    "type": "BlockStatement",
+    "start": 15,
+    "end": 45,
+    "body": [
+      {
+        "type": "ReturnStatement",
+        "start": 19,
+        "end": 43,
+        "argument": {
+          "type": "ObjectExpression",
+          "start": 26,
+          "end": 42,
+          "properties": [
+            {
+              "type": "Property",
+              "start": 27,
+              "end": 33,
+              "method": false,
+              "shorthand": false,
+              "computed": false,
+              "key": {
+                "type": "Identifier",
+                "start": 27,
+                "end": 30,
+                "name": "foo"
+              },
+              "value": {
+                "type": "Literal",
+                "start": 32,
+                "end": 33,
+                "value": 1,
+                "raw": "1"
+              },
+              "kind": "init"
+            },
+            {
+              "type": "Property",
+              "start": 35,
+              "end": 41,
+              "method": false,
+              "shorthand": false,
+              "computed": false,
+              "key": {
+                "type": "Identifier",
+                "start": 35,
+                "end": 38,
+                "name": "bar"
+              },
+              "value": {
+                "type": "Literal",
+                "start": 40,
+                "end": 41,
+                "value": 2,
+                "raw": "2"
+              },
+              "kind": "init"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "async": false,
+  "generator": false,
+  "references": [],
+  "fileAttachments": [],
+  "databaseClients": [],
+  "secrets": []
+}
