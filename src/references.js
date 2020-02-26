@@ -28,7 +28,7 @@ function declaresArguments(node) {
 export default function findReferences(cell, globals) {
   const ast = {type: "Program", body: [cell.body]};
   const locals = new Map;
-  const referenceSet = new Set(globals);
+  const globalSet = new Set(globals);
   const references = [];
 
   function hasLocal(node, name) {
@@ -146,11 +146,10 @@ export default function findReferences(cell, globals) {
         name = `mutable ${node.id.name}`;
       }
     }
-    if (!referenceSet.has(name)) {
+    if (!globalSet.has(name)) {
       if (name === "arguments") {
         throw Object.assign(new SyntaxError(`arguments is not allowed`), {node});
       }
-      referenceSet.add(name);
       references.push(node);
     }
   }
