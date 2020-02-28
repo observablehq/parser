@@ -43,6 +43,19 @@ test("finds mutable references", t => {
   t.end();
 });
 
+test("finds multiple references", t => {
+  t.deepEqual(parseCell(`cell = {
+  const a = b + c;
+  const d = c - b;
+}`).references, [
+    {type: "Identifier", start: 21, end: 22, name: "b"},
+    {type: "Identifier", start: 25, end: 26, name: "c"},
+    {type: "Identifier", start: 40, end: 41, name: "c"},
+    {type: "Identifier", start: 44, end: 45, name: "b"}
+  ]);
+  t.end();
+});
+
 test("doesn’t consider the identifier a reference", t => {
   t.deepEqual(parseCell(`foo = bar`).references, [
     {type: "Identifier", start: 6, end: 9, name: "bar"}
