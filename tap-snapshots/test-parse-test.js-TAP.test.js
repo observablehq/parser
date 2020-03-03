@@ -2228,6 +2228,20 @@ Object {
 }
 `
 
+exports[`test/parse-test.js TAP parse import-as-duplicate.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 20,
+      "line": 1,
+    },
+    "message": "Identifier 'foo' has already been declared (1:20)",
+    "pos": 20,
+    "type": "SyntaxError",
+  },
+}
+`
+
 exports[`test/parse-test.js TAP parse import-default-as.js > must match snapshot 1`] = `
 Object {
   "error": Object {
@@ -2251,6 +2265,20 @@ Object {
     },
     "message": "Unexpected token (1:7)",
     "pos": 7,
+    "type": "SyntaxError",
+  },
+}
+`
+
+exports[`test/parse-test.js TAP parse import-duplicate.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 13,
+      "line": 1,
+    },
+    "message": "Identifier 'foo' has already been declared (1:13)",
+    "pos": 13,
     "type": "SyntaxError",
   },
 }
@@ -2551,6 +2579,20 @@ Node {
 }
 `
 
+exports[`test/parse-test.js TAP parse import-with-as-duplicate.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 28,
+      "line": 1,
+    },
+    "message": "Identifier 'foo' has already been declared (1:28)",
+    "pos": 28,
+    "type": "SyntaxError",
+  },
+}
+`
+
 exports[`test/parse-test.js TAP parse import-with-default-as.js > must match snapshot 1`] = `
 Object {
   "error": Object {
@@ -2574,6 +2616,20 @@ Object {
     },
     "message": "Unexpected keyword 'default' (1:19)",
     "pos": 19,
+    "type": "SyntaxError",
+  },
+}
+`
+
+exports[`test/parse-test.js TAP parse import-with-duplicate.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 21,
+      "line": 1,
+    },
+    "message": "Identifier 'foo' has already been declared (1:21)",
+    "pos": 21,
     "type": "SyntaxError",
   },
 }
