@@ -123,6 +123,7 @@ export class CellParser extends Parser {
   }
   parseImportSpecifiers() {
     const nodes = [];
+    const identifiers = new Set;
     let first = true;
     this.expect(tt.braceL);
     while (!this.eat(tt.braceR)) {
@@ -143,6 +144,10 @@ export class CellParser extends Parser {
         node.local = node.imported;
       }
       this.checkLVal(node.local, "let");
+      if (identifiers.has(node.local.name)) {
+        this.raise(node.local.start, `Identifier '${node.local.name}' has already been declared`);
+      }
+      identifiers.add(node.local.name);
       nodes.push(this.finishNode(node, "ImportSpecifier"));
     }
     return nodes;
