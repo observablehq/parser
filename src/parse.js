@@ -112,8 +112,12 @@ export class CellParser extends Parser {
   }
   parseImport(node) {
     this.next();
+    node.factory = this.eat(tt.star);
     node.specifiers = this.parseImportSpecifiers();
     if (this.type === tt._with) {
+      if(node.factory) {
+        this.raise(node.specifiers.end, `Factory imports cannot have "with" Import Specifiers`);
+      }
       this.next();
       node.injections = this.parseImportSpecifiers();
     }

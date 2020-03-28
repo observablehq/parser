@@ -2319,6 +2319,7 @@ Node {
   "async": false,
   "body": Node {
     "end": 23,
+    "factory": false,
     "source": Node {
       "end": 23,
       "raw": "\\"module\\"",
@@ -2353,11 +2354,91 @@ Object {
 }
 `
 
+exports[`test/parse-test.js TAP parse import-factory-with.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": null,
+      "line": 1,
+    },
+    "message": "Factory imports cannot have \\"with\\" Import Specifiers (1:NaN)",
+    "pos": undefined,
+    "type": "SyntaxError",
+  },
+}
+`
+
+exports[`test/parse-test.js TAP parse import-factory.js > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "end": 36,
+    "factory": true,
+    "source": Node {
+      "end": 36,
+      "raw": "\\"source\\"",
+      "start": 28,
+      "type": "Literal",
+      "value": "source",
+    },
+    "specifiers": Array [
+      Node {
+        "end": 15,
+        "imported": Node {
+          "end": 15,
+          "name": "chart",
+          "start": 10,
+          "type": "Identifier",
+        },
+        "local": Node {
+          "end": 15,
+          "name": "chart",
+          "start": 10,
+          "type": "Identifier",
+        },
+        "mutable": false,
+        "start": 10,
+        "type": "ImportSpecifier",
+        "view": false,
+      },
+      Node {
+        "end": 21,
+        "imported": Node {
+          "end": 21,
+          "name": "data",
+          "start": 17,
+          "type": "Identifier",
+        },
+        "local": Node {
+          "end": 21,
+          "name": "data",
+          "start": 17,
+          "type": "Identifier",
+        },
+        "mutable": false,
+        "start": 17,
+        "type": "ImportSpecifier",
+        "view": false,
+      },
+    ],
+    "start": 0,
+    "type": "ImportDeclaration",
+  },
+  "end": 37,
+  "fileAttachments": Map {},
+  "generator": false,
+  "id": null,
+  "start": 0,
+  "type": "Cell",
+}
+`
+
 exports[`test/parse-test.js TAP parse import-mutable-as.js > must match snapshot 1`] = `
 Node {
   "async": false,
   "body": Node {
     "end": 41,
+    "factory": false,
     "source": Node {
       "end": 41,
       "raw": "\\"module\\"",
@@ -2403,6 +2484,7 @@ Node {
   "async": false,
   "body": Node {
     "end": 34,
+    "factory": false,
     "source": Node {
       "end": 34,
       "raw": "\\"module\\"",
@@ -2448,6 +2530,7 @@ Node {
   "async": false,
   "body": Node {
     "end": 38,
+    "factory": false,
     "source": Node {
       "end": 38,
       "raw": "\\"module\\"",
@@ -2526,6 +2609,7 @@ Node {
   "async": false,
   "body": Node {
     "end": 40,
+    "factory": false,
     "source": Node {
       "end": 40,
       "raw": "\\"module\\"",
@@ -2570,6 +2654,7 @@ Node {
   "async": false,
   "body": Node {
     "end": 33,
+    "factory": false,
     "source": Node {
       "end": 33,
       "raw": "\\"module\\"",
@@ -2670,6 +2755,7 @@ Node {
   "async": false,
   "body": Node {
     "end": 34,
+    "factory": false,
     "injections": Array [],
     "source": Node {
       "end": 34,
@@ -2716,6 +2802,7 @@ Node {
   "async": false,
   "body": Node {
     "end": 44,
+    "factory": false,
     "injections": Array [
       Node {
         "end": 29,
@@ -2782,6 +2869,7 @@ Node {
   "async": false,
   "body": Node {
     "end": 38,
+    "factory": false,
     "source": Node {
       "end": 38,
       "raw": "\\"module\\"",
