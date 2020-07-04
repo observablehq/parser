@@ -137,10 +137,13 @@ export class CellParser extends Parser {
       node.view = this.eatContextual("viewof");
       if (!node.view) node.mutable = this.eatContextual("mutable");
       node.imported = this.parseIdent();
+      this.checkUnreserved(node.imported);
+      this.checkLocal(node.imported);
       if (this.eatContextual("as")) {
         node.local = this.parseIdent();
+        this.checkUnreserved(node.local);
+        this.checkLocal(node.local);
       } else {
-        this.checkUnreserved(node.imported);
         node.local = node.imported;
       }
       this.checkLVal(node.local, "let");
@@ -219,6 +222,7 @@ export class CellParser extends Parser {
     this.semicolon();
     if (eof) this.expect(tt.eof); // TODO
 
+    if (id) this.checkLocal(id);
     node.id = id;
     node.async = this.O_async;
     node.generator = this.O_generator;
@@ -233,6 +237,12 @@ export class CellParser extends Parser {
     return node.type === "MutableExpression"
       ? node
       : super.toAssignable(node, isBinding, refDestructuringErrors);
+  }
+  checkLocal(id) {
+    const node = id.id || id;
+    if (defaultGlobals.has(node.name) || node.name === "arguments") {
+      this.raise(node.start, `Identifier '${node.name}' is reserved`);
+    }
   }
   checkUnreserved(node) {
     if (node.name === "viewof" || node.name === "mutable") {

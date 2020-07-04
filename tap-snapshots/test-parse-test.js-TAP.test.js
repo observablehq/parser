@@ -99,6 +99,20 @@ Node {
 }
 `
 
+exports[`test/parse-test.js TAP parse arguments-name.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 0,
+      "line": 1,
+    },
+    "message": "Identifier 'arguments' is reserved (1:0)",
+    "pos": 0,
+    "type": "SyntaxError",
+  },
+}
+`
+
 exports[`test/parse-test.js TAP parse await-block-cell.js > must match snapshot 1`] = `
 Node {
   "async": true,
@@ -2216,6 +2230,20 @@ Node {
 }
 `
 
+exports[`test/parse-test.js TAP parse function-unexpected-viewof.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 9,
+      "line": 1,
+    },
+    "message": "Unexpected keyword 'viewof' (1:9)",
+    "pos": 9,
+    "type": "SyntaxError",
+  },
+}
+`
+
 exports[`test/parse-test.js TAP parse global-assignment.js > must match snapshot 1`] = `
 Object {
   "error": Object {
@@ -4270,6 +4298,118 @@ Node {
   "references": Array [],
   "start": 0,
   "type": "Cell",
+}
+`
+
+exports[`test/parse-test.js TAP parse reserved-function.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 9,
+      "line": 1,
+    },
+    "message": "Identifier 'Array' is reserved (1:9)",
+    "pos": 9,
+    "type": "SyntaxError",
+  },
+}
+`
+
+exports[`test/parse-test.js TAP parse reserved-import-as.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 15,
+      "line": 1,
+    },
+    "message": "Identifier 'Array' is reserved (1:15)",
+    "pos": 15,
+    "type": "SyntaxError",
+  },
+}
+`
+
+exports[`test/parse-test.js TAP parse reserved-import-view.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 15,
+      "line": 1,
+    },
+    "message": "Identifier 'Array' is reserved (1:15)",
+    "pos": 15,
+    "type": "SyntaxError",
+  },
+}
+`
+
+exports[`test/parse-test.js TAP parse reserved-import-with-as.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 26,
+      "line": 1,
+    },
+    "message": "Identifier 'Array' is reserved (1:26)",
+    "pos": 26,
+    "type": "SyntaxError",
+  },
+}
+`
+
+exports[`test/parse-test.js TAP parse reserved-import-with.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 19,
+      "line": 1,
+    },
+    "message": "Identifier 'Array' is reserved (1:19)",
+    "pos": 19,
+    "type": "SyntaxError",
+  },
+}
+`
+
+exports[`test/parse-test.js TAP parse reserved-import.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 8,
+      "line": 1,
+    },
+    "message": "Identifier 'Array' is reserved (1:8)",
+    "pos": 8,
+    "type": "SyntaxError",
+  },
+}
+`
+
+exports[`test/parse-test.js TAP parse reserved-name.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 0,
+      "line": 1,
+    },
+    "message": "Identifier 'Array' is reserved (1:0)",
+    "pos": 0,
+    "type": "SyntaxError",
+  },
+}
+`
+
+exports[`test/parse-test.js TAP parse reserved-view.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 7,
+      "line": 1,
+    },
+    "message": "Identifier 'Array' is reserved (1:7)",
+    "pos": 7,
+    "type": "SyntaxError",
+  },
 }
 `
 

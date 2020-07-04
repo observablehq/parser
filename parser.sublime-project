@@ -7,7 +7,9 @@
         "yarn.lock"
       ],
       "folder_exclude_patterns": [
-        ".esm-cache"
+        ".esm-cache",
+        ".nyc_output",
+        "dist"
       ]
     }
   ],
