@@ -1,5 +1,7 @@
 # @observablehq/parser
 
+Checking to see if CircleCI has stopped auto-building this repository.
+
 [![Node CI](https://github.com/observablehq/parser/workflows/Node%20CI/badge.svg)](https://github.com/observablehq/parser/actions?workflow=Node+CI)
 
 To parse a cell:
