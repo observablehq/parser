@@ -135,7 +135,7 @@ export class CellParser extends Parser {
       }
       const node = this.startNode();
       node.view = this.eatContextual("viewof");
-      if (!node.view) node.mutable = this.eatContextual("mutable");
+      node.mutable = node.view ? false : this.eatContextual("mutable");
       node.imported = this.parseIdent();
       this.checkUnreserved(node.imported);
       this.checkLocal(node.imported);
