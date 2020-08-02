@@ -1202,7 +1202,7 @@ Object {
       "column": 4,
       "line": 1,
     },
-    "message": "FileAttachment() requires a single literal string as its argument. (1:4)",
+    "message": "FileAttachment() requires a single literal string argument. (1:4)",
     "pos": 4,
     "type": "SyntaxError",
   },
@@ -1216,10 +1216,122 @@ Object {
       "column": 4,
       "line": 1,
     },
-    "message": "FileAttachment() requires a single literal string as its argument. (1:4)",
+    "message": "FileAttachment() requires a single literal string argument. (1:4)",
     "pos": 4,
     "type": "SyntaxError",
   },
+}
+`
+
+exports[`test/parse-test.js TAP parse file-attachment-masked.js > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "body": Array [
+      Node {
+        "declarations": Array [
+          Node {
+            "end": 40,
+            "id": Node {
+              "end": 22,
+              "name": "FileAttachment",
+              "start": 8,
+              "type": "Identifier",
+            },
+            "init": Node {
+              "async": false,
+              "body": Node {
+                "end": 40,
+                "left": Node {
+                  "end": 36,
+                  "name": "a",
+                  "start": 35,
+                  "type": "Identifier",
+                },
+                "operator": "+",
+                "right": Node {
+                  "end": 40,
+                  "name": "b",
+                  "start": 39,
+                  "type": "Identifier",
+                },
+                "start": 35,
+                "type": "BinaryExpression",
+              },
+              "end": 40,
+              "expression": true,
+              "generator": false,
+              "id": null,
+              "params": Array [
+                Node {
+                  "end": 27,
+                  "name": "a",
+                  "start": 26,
+                  "type": "Identifier",
+                },
+                Node {
+                  "end": 30,
+                  "name": "b",
+                  "start": 29,
+                  "type": "Identifier",
+                },
+              ],
+              "start": 25,
+              "type": "ArrowFunctionExpression",
+            },
+            "start": 8,
+            "type": "VariableDeclarator",
+          },
+        ],
+        "end": 41,
+        "kind": "let",
+        "start": 4,
+        "type": "VariableDeclaration",
+      },
+      Node {
+        "argument": Node {
+          "arguments": Array [
+            Node {
+              "end": 67,
+              "raw": "1",
+              "start": 66,
+              "type": "Literal",
+              "value": 1,
+            },
+            Node {
+              "end": 70,
+              "raw": "2",
+              "start": 69,
+              "type": "Literal",
+              "value": 2,
+            },
+          ],
+          "callee": Node {
+            "end": 65,
+            "name": "FileAttachment",
+            "start": 51,
+            "type": "Identifier",
+          },
+          "end": 71,
+          "start": 51,
+          "type": "CallExpression",
+        },
+        "end": 72,
+        "start": 44,
+        "type": "ReturnStatement",
+      },
+    ],
+    "end": 74,
+    "start": 0,
+    "type": "BlockStatement",
+  },
+  "end": 75,
+  "fileAttachments": Map {},
+  "generator": false,
+  "id": null,
+  "references": Array [],
+  "start": 0,
+  "type": "Cell",
 }
 `
 

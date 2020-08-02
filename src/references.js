@@ -1,4 +1,4 @@
-// Base on https://github.com/ForbesLindesay/acorn-globals
+// Based on https://github.com/ForbesLindesay/acorn-globals
 // Copyright (c) 2014 Forbes Lindesay
 // https://github.com/ForbesLindesay/acorn-globals/blob/master/LICENSE
 

@@ -1,7 +1,7 @@
 import {getLineInfo, tokTypes as tt, Parser} from "acorn";
 import defaultGlobals from "./globals.js";
 import findReferences from "./references.js";
-import findFileAttachments from "./file-attachments.js";
+import findFileAttachments from "./fileAttachments.js";
 
 const SCOPE_FUNCTION = 2;
 const SCOPE_ASYNC = 4;
@@ -13,7 +13,10 @@ const STATE_FUNCTION = Symbol("function");
 const STATE_NAME = Symbol("name");
 
 export function parseCell(input, {globals} = {}) {
-  return parseFileAttachments(parseReferences(CellParser.parse(input), input, globals));
+  const cell = CellParser.parse(input);
+  parseReferences(cell, input, globals);
+  parseFileAttachments(cell);
+  return cell;
 }
 
 /*

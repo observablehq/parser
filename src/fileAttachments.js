@@ -3,7 +3,8 @@ import walk from "./walk.js";
 
 export default function findFileAttachments(cell) {
   const ast = {type: "Program", body: [cell.body]};
-  const references = new Map();
+  const fileAttachments = new Map();
+  const {references} = cell;
 
   simple(
     ast,
@@ -12,7 +13,11 @@ export default function findFileAttachments(cell) {
         const {callee, arguments: args} = node;
 
         // Ignore function calls that are not references to FileAttachment
-        if (!(callee.type === "Identifier" && callee.name === "FileAttachment")) return;
+        if (
+          callee.type !== "Identifier" ||
+          callee.name !== "FileAttachment" ||
+          references.indexOf(callee) < 0
+        ) return;
 
         // Forbid all sorts of dynamic uses of FileAttachment
         if (
@@ -25,25 +30,21 @@ export default function findFileAttachments(cell) {
         ) {
           throw Object.assign(
             new SyntaxError(
-              `FileAttachment() requires a single literal string as its argument.`
+              `FileAttachment() requires a single literal string argument.`
             ),
             {node}
           );
         }
 
-        const fileReference =
-          args[0].type === "Literal" ? args[0].value : args[0].quasis[0].value.cooked;
-        const fileLocation = {start: args[0].start, end: args[0].end};
-
-        if (references.has(fileReference)) {
-          references.get(fileReference).push(fileLocation);
-        } else {
-          references.set(fileReference, [fileLocation]);
-        }
+        const [arg] = args;
+        const name = arg.type === "Literal" ? arg.value : arg.quasis[0].value.cooked;
+        const location = {start: arg.start, end: arg.end};
+        if (fileAttachments.has(name)) fileAttachments.get(name).push(location);
+        else fileAttachments.set(name, [location]);
       }
     },
     walk
   );
 
-  return references;
+  return fileAttachments;
 }
