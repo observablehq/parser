@@ -1,7 +1,7 @@
 import {getLineInfo, tokTypes as tt, Parser} from "acorn";
 import defaultGlobals from "./globals.js";
 import findReferences from "./references.js";
-import findFileAttachments from "./fileAttachments.js";
+import findFeatures from "./features.js";
 
 const SCOPE_FUNCTION = 2;
 const SCOPE_ASYNC = 4;
@@ -15,7 +15,7 @@ const STATE_NAME = Symbol("name");
 export function parseCell(input, {globals} = {}) {
   const cell = CellParser.parse(input);
   parseReferences(cell, input, globals);
-  parseFileAttachments(cell);
+  parseFeatures(cell);
   return cell;
 }
 
@@ -280,7 +280,7 @@ export function parseModule(input, {globals} = {}) {
   const program = ModuleParser.parse(input);
   for (const cell of program.cells) {
     parseReferences(cell, input, globals);
-    parseFileAttachments(cell, input, globals);
+    parseFeatures(cell, input, globals);
   }
   return program;
 }
@@ -319,13 +319,15 @@ function parseReferences(cell, input, globals = defaultGlobals) {
   return cell;
 }
 
-// Find references.
+// Find features: file attachments, secrets, database clients.
 // Check for illegal references to arguments.
 // Check for illegal assignments to global references.
-function parseFileAttachments(cell, input) {
+function parseFeatures(cell, input) {
   if (cell.body && cell.body.type !== "ImportDeclaration") {
     try {
-      cell.fileAttachments = findFileAttachments(cell);
+      cell.fileAttachments = findFeatures(cell, "FileAttachment", "FileAttachment() requires a single literal string argument.");
+      cell.databaseClients = findFeatures(cell, "DatabaseClient", "DatabaseClient() requires a single literal string argument.");
+      cell.secrets = findFeatures(cell, "Secret", "Secret() requires a single literal string argument.");
     } catch (error) {
       if (error.node) {
         const loc = getLineInfo(input, error.node.start);
@@ -338,6 +340,8 @@ function parseFileAttachments(cell, input) {
     }
   } else {
     cell.fileAttachments = new Map();
+    cell.databaseClients = new Map();
+    cell.secrets = new Map();
   }
   return cell;
 }
