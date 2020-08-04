@@ -13,7 +13,10 @@ const STATE_FUNCTION = Symbol("function");
 const STATE_NAME = Symbol("name");
 
 export function parseCell(input, {globals} = {}) {
-  return parseFileAttachments(parseReferences(CellParser.parse(input), input, globals));
+  const cell = CellParser.parse(input);
+  parseReferences(cell, input, globals);
+  parseFileAttachments(cell);
+  return cell;
 }
 
 /*

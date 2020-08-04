@@ -1,219 +1,182 @@
-// Base on https://github.com/ForbesLindesay/acorn-globals
-// Copyright (c) 2014 Forbes Lindesay
-// https://github.com/ForbesLindesay/acorn-globals/blob/master/LICENSE
-
-import {ancestor} from "acorn-walk";
+import {recursive} from "acorn-walk";
 import walk from "./walk.js";
-
-function isScope(node) {
-  return node.type === "FunctionExpression"
-      || node.type === "FunctionDeclaration"
-      || node.type === "ArrowFunctionExpression"
-      || node.type === "Program";
-}
-
-function isBlockScope(node) {
-  return node.type === "BlockStatement"
-      || node.type === "ForInStatement"
-      || node.type === "ForOfStatement"
-      || node.type === "ForStatement"
-      || isScope(node);
-}
-
-function declaresArguments(node) {
-  return node.type === "FunctionExpression"
-      || node.type === "FunctionDeclaration";
-}
 
 export default function findReferences(cell, globals) {
   const ast = {type: "Program", body: [cell.body]};
-  const locals = new Map;
-  const globalSet = new Set(globals);
   const references = [];
+  let currentBlockScope = Object.create(null);
+  let currentScope = currentBlockScope;
+  const stack = [];
 
-  function hasLocal(node, name) {
-    const l = locals.get(node);
-    return l ? l.has(name) : false;
+  currentBlockScope.undefined = true;
+
+  if (globals) {
+    for (const global of globals) {
+      currentBlockScope[global] = true;
+    }
   }
 
-  function declareLocal(node, id) {
-    const l = locals.get(node);
-    if (l) l.add(id.name);
-    else locals.set(node, new Set([id.name]));
-  }
-
-  function declareClass(node) {
-    if (node.id) declareLocal(node, node.id);
-  }
-
-  function declareFunction(node) {
-    node.params.forEach(param => declarePattern(param, node));
-    if (node.id) declareLocal(node, node.id);
-  }
-
-  function declareCatchClause(node) {
-    if (node.param) declarePattern(node.param, node);
-  }
-
-  function declarePattern(node, parent) {
+  function declarePattern(node, scope) {
     switch (node.type) {
       case "Identifier":
-        declareLocal(parent, node);
+        scope[node.name] = true;
         break;
       case "ObjectPattern":
-        node.properties.forEach(node => declarePattern(node, parent));
+        for (const property of node.properties) {
+          declarePattern(property, scope);
+        }
         break;
       case "ArrayPattern":
-        node.elements.forEach(node => node && declarePattern(node, parent));
+        for (const element of node.elements) {
+          if (element) {
+            declarePattern(element, scope);
+          }
+        }
         break;
       case "Property":
-        declarePattern(node.value, parent);
+        declarePattern(node.value, scope);
         break;
       case "RestElement":
-        declarePattern(node.argument, parent);
+        declarePattern(node.argument, scope);
         break;
       case "AssignmentPattern":
-        declarePattern(node.left, parent);
+        declarePattern(node.left, scope);
         break;
       default:
-        throw new Error("Unrecognized pattern type: " + node.type);
+        throw new Error("unexpected pattern: " + node.type);
     }
   }
 
-  function declareModuleSpecifier(node) {
-    declareLocal(ast, node.local);
+  function visitScope(node, state, visit) {
+    stack.push(currentBlockScope);
+    currentScope = currentBlockScope = Object.create(currentBlockScope);
+    walk[node.type](node, state, visit);
+    currentScope = currentBlockScope = stack.pop();
   }
 
-  ancestor(
-    ast,
-    {
-      VariableDeclaration: (node, parents) => {
-        let parent = null;
-        for (let i = parents.length - 1; i >= 0 && parent === null; --i) {
-          if (node.kind === "var" ? isScope(parents[i]) : isBlockScope(parents[i])) {
-            parent = parents[i];
-          }
-        }
-        node.declarations.forEach(declaration => declarePattern(declaration.id, parent));
-      },
-      FunctionDeclaration: (node, parents) => {
-        let parent = null;
-        for (let i = parents.length - 2; i >= 0 && parent === null; --i) {
-          if (isScope(parents[i])) {
-            parent = parents[i];
-          }
-        }
-        declareLocal(parent, node.id);
-        declareFunction(node);
-      },
-      Function: declareFunction,
-      ClassDeclaration: (node, parents) => {
-        let parent = null;
-        for (let i = parents.length - 2; i >= 0 && parent === null; i--) {
-          if (isScope(parents[i])) {
-            parent = parents[i];
-          }
-        }
-        declareLocal(parent, node.id);
-      },
-      Class: declareClass,
-      CatchClause: declareCatchClause,
-      ImportDefaultSpecifier: declareModuleSpecifier,
-      ImportSpecifier: declareModuleSpecifier,
-      ImportNamespaceSpecifier: declareModuleSpecifier
-    },
-    walk
-  );
+  function visitBlockScope(node, state, visit) {
+    stack.push(currentBlockScope);
+    currentBlockScope = Object.create(currentBlockScope);
+    walk[node.type](node, state, visit);
+    currentBlockScope = stack.pop();
+  }
 
-  function identifier(node, parents) {
-    let name = node.name;
-    if (name === "undefined") return;
-    for (let i = parents.length - 2; i >= 0; --i) {
-      if (name === "arguments") {
-        if (declaresArguments(parents[i])) {
-          return;
-        }
-      }
-      if (hasLocal(parents[i], name)) {
-        return;
-      }
-      if (parents[i].type === "ViewExpression") {
-        node = parents[i];
-        name = `viewof ${node.id.name}`;
-      }
-      if (parents[i].type === "MutableExpression") {
-        node = parents[i];
-        name = `mutable ${node.id.name}`;
-      }
-    }
-    if (!globalSet.has(name)) {
-      if (name === "arguments") {
-        throw Object.assign(new SyntaxError(`arguments is not allowed`), {node});
+  function visitFunction(node, state, visit) {
+    if (node.id) currentBlockScope[node.id.name] = true;
+    stack.push(currentBlockScope);
+    currentScope = currentBlockScope = Object.create(currentBlockScope);
+    if (node.type !== "ArrowFunctionExpression") currentBlockScope.arguments = true;
+    for (const param of node.params) declarePattern(param, currentBlockScope);
+    walk.Function(node, state, visit);
+    currentScope = currentBlockScope = stack.pop();
+  }
+
+  function visitClass(node, state, visit) {
+    if (node.id) currentBlockScope[node.id.name] = true;
+    stack.push(currentBlockScope);
+    currentScope = currentBlockScope = Object.create(currentBlockScope);
+    walk.Class(node, state, visit);
+    currentScope = currentBlockScope = stack.pop();
+  }
+
+  function visitCatchClause(node, state, visit) {
+    stack.push(currentBlockScope);
+    currentScope = currentBlockScope = Object.create(currentBlockScope);
+    if (node.param) declarePattern(node.param, currentBlockScope);
+    walk.CatchClause(node, state, visit);
+    currentScope = currentBlockScope = stack.pop();
+  }
+
+  function visitVariableDeclaration(node, state, visit) {
+    const scope = node.kind === "var" ? currentScope : currentBlockScope;
+    for (const {id} of node.declarations) declarePattern(id, scope);
+    walk.VariableDeclaration(node, state, visit);
+  }
+
+  function visitViewExpression(node) {
+    if (!currentBlockScope[`viewof ${node.id.name}`]) references.push(node);
+  }
+
+  function visitMutableExpression(node) {
+    if (!currentBlockScope[`mutable ${node.id.name}`]) references.push(node);
+  }
+
+  function visitIdentifier(node) {
+    if (!currentBlockScope[node.name]) {
+      if (node.name === "arguments") {
+        throw Object.assign(new SyntaxError("arguments is not allowed"), {node});
       }
       references.push(node);
     }
   }
 
-  ancestor(
-    ast,
-    {
-      VariablePattern: identifier,
-      Identifier: identifier
-    },
-    walk
-  );
+  recursive(ast, null, {
+    BlockStatement: visitBlockScope,
+    CatchClause: visitCatchClause,
+    Class: visitClass,
+    ForInStatement: visitBlockScope,
+    ForOfStatement: visitBlockScope,
+    ForStatement: visitBlockScope,
+    Function: visitFunction,
+    Identifier: visitIdentifier,
+    MutableExpression: visitMutableExpression,
+    Program: visitScope,
+    VariableDeclaration: visitVariableDeclaration,
+    VariablePattern: visitIdentifier,
+    ViewExpression: visitViewExpression
+  }, walk);
 
-  function checkConst(node, parents) {
-    switch (node.type) {
-      case "Identifier":
-      case "VariablePattern": {
-        identifier(node, parents);
-        break;
-      }
-      case "ArrayPattern":
-      case "ObjectPattern": {
-        ancestor(
-          node,
-          {
-            Identifier: identifier,
-            VariablePattern: identifier
-          },
-          walk
-        );
-        break;
-      }
-    }
-    function identifier(node, nodeParents) {
-      for (const parent of parents) {
-        if (hasLocal(parent, node.name)) {
-          return;
-        }
-      }
-      if (nodeParents[nodeParents.length - 2].type === "MutableExpression") {
-        return;
-      }
-      throw Object.assign(new SyntaxError(`Assignment to constant variable ${node.name}`), {node});
-    }
-  }
-
-  function checkConstArgument(node, parents) {
-    checkConst(node.argument, parents);
-  }
-
-  function checkConstLeft(node, parents) {
-    checkConst(node.left, parents);
-  }
-
-  ancestor(
-    ast,
-    {
-      AssignmentExpression: checkConstLeft,
-      UpdateExpression: checkConstArgument,
-      ForOfStatement: checkConstLeft,
-      ForInStatement: checkConstLeft
-    },
-    walk
-  );
+//   function checkConst(node, parents) {
+//     switch (node.type) {
+//       case "Identifier":
+//       case "VariablePattern": {
+//         identifier(node, parents);
+//         break;
+//       }
+//       case "ArrayPattern":
+//       case "ObjectPattern": {
+//         ancestor(
+//           node,
+//           {
+//             Identifier: identifier,
+//             VariablePattern: identifier
+//           },
+//           walk
+//         );
+//         break;
+//       }
+//     }
+//     function identifier(node, nodeParents) {
+//       for (const parent of parents) {
+//         if (hasLocal(parent, node.name)) {
+//           return;
+//         }
+//       }
+//       if (nodeParents[nodeParents.length - 2].type === "MutableExpression") {
+//         return;
+//       }
+//       throw Object.assign(new SyntaxError(`Assignment to constant variable ${node.name}`), {node});
+//     }
+//   }
+//
+//   function checkConstArgument(node, parents) {
+//     checkConst(node.argument, parents);
+//   }
+//
+//   function checkConstLeft(node, parents) {
+//     checkConst(node.left, parents);
+//   }
+//
+//   ancestor(
+//     ast,
+//     {
+//       AssignmentExpression: checkConstLeft,
+//       UpdateExpression: checkConstArgument,
+//       ForOfStatement: checkConstLeft,
+//       ForInStatement: checkConstLeft
+//     },
+//     walk
+//   );
 
   return references;
 }
