@@ -1,7 +1,7 @@
 import {simple} from "acorn-walk";
 import walk from "./walk.js";
 
-export default function findFeatures(cell, featureName, errorMessage) {
+export default function findFeatures(cell, featureName) {
   const ast = {type: "Program", body: [cell.body]};
   const features = new Map();
   const {references} = cell;
@@ -25,7 +25,7 @@ export default function findFeatures(cell, featureName, errorMessage) {
           !((args[0].type === "Literal" && /^['"]/.test(args[0].raw)) ||
             (args[0].type === "TemplateLiteral" && args[0].expressions.length === 0))
         ) {
-          throw Object.assign(new SyntaxError(errorMessage), {node});
+          throw Object.assign(new SyntaxError(`${featureName} requires a single literal string argument`), {node});
         }
 
         const [arg] = args;

@@ -325,9 +325,9 @@ function parseReferences(cell, input, globals = defaultGlobals) {
 function parseFeatures(cell, input) {
   if (cell.body && cell.body.type !== "ImportDeclaration") {
     try {
-      cell.fileAttachments = findFeatures(cell, "FileAttachment", "FileAttachment() requires a single literal string argument.");
-      cell.databaseClients = findFeatures(cell, "DatabaseClient", "DatabaseClient() requires a single literal string argument.");
-      cell.secrets = findFeatures(cell, "Secret", "Secret() requires a single literal string argument.");
+      cell.fileAttachments = findFeatures(cell, "FileAttachment");
+      cell.databaseClients = findFeatures(cell, "DatabaseClient");
+      cell.secrets = findFeatures(cell, "Secret");
     } catch (error) {
       if (error.node) {
         const loc = getLineInfo(input, error.node.start);
