@@ -4587,6 +4587,46 @@ Node {
 }
 `
 
+exports[`test/parse-test.js TAP parse nullish-coalescing.js > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "end": 30,
+    "left": Node {
+      "end": 10,
+      "raw": "null",
+      "start": 6,
+      "type": "Literal",
+      "value": null,
+    },
+    "operator": "??",
+    "right": Node {
+      "end": 30,
+      "raw": "'default string'",
+      "start": 14,
+      "type": "Literal",
+      "value": "default string",
+    },
+    "start": 6,
+    "type": "LogicalExpression",
+  },
+  "databaseClients": Map {},
+  "end": 31,
+  "fileAttachments": Map {},
+  "generator": false,
+  "id": Node {
+    "end": 3,
+    "name": "foo",
+    "start": 0,
+    "type": "Identifier",
+  },
+  "references": Array [],
+  "secrets": Map {},
+  "start": 0,
+  "type": "Cell",
+}
+`
+
 exports[`test/parse-test.js TAP parse object-literal.js > must match snapshot 1`] = `
 Node {
   "async": false,
@@ -4625,6 +4665,70 @@ Node {
   "generator": false,
   "id": null,
   "references": Array [],
+  "secrets": Map {},
+  "start": 0,
+  "type": "Cell",
+}
+`
+
+exports[`test/parse-test.js TAP parse optional-chaining.js > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "end": 30,
+    "expression": Node {
+      "computed": false,
+      "end": 30,
+      "object": Node {
+        "computed": false,
+        "end": 24,
+        "object": Node {
+          "end": 20,
+          "name": "adventurer",
+          "start": 10,
+          "type": "Identifier",
+        },
+        "optional": false,
+        "property": Node {
+          "end": 24,
+          "name": "dog",
+          "start": 21,
+          "type": "Identifier",
+        },
+        "start": 10,
+        "type": "MemberExpression",
+      },
+      "optional": true,
+      "property": Node {
+        "end": 30,
+        "name": "name",
+        "start": 26,
+        "type": "Identifier",
+      },
+      "start": 10,
+      "type": "MemberExpression",
+    },
+    "start": 10,
+    "type": "ChainExpression",
+  },
+  "databaseClients": Map {},
+  "end": 31,
+  "fileAttachments": Map {},
+  "generator": false,
+  "id": Node {
+    "end": 7,
+    "name": "dogName",
+    "start": 0,
+    "type": "Identifier",
+  },
+  "references": Array [
+    Node {
+      "end": 20,
+      "name": "adventurer",
+      "start": 10,
+      "type": "Identifier",
+    },
+  ],
   "secrets": Map {},
   "start": 0,
   "type": "Cell",
