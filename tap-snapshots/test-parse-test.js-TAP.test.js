@@ -3223,6 +3223,114 @@ Node {
 }
 `
 
+exports[`test/parse-test.js TAP parse logical-assignment.js > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "body": Array [
+      Node {
+        "declarations": Array [
+          Node {
+            "end": 16,
+            "id": Node {
+              "end": 9,
+              "name": "a",
+              "start": 8,
+              "type": "Identifier",
+            },
+            "init": Node {
+              "end": 16,
+              "raw": "null",
+              "start": 12,
+              "type": "Literal",
+              "value": null,
+            },
+            "start": 8,
+            "type": "VariableDeclarator",
+          },
+        ],
+        "end": 17,
+        "kind": "let",
+        "start": 4,
+        "type": "VariableDeclaration",
+      },
+      Node {
+        "declarations": Array [
+          Node {
+            "end": 33,
+            "id": Node {
+              "end": 25,
+              "name": "b",
+              "start": 24,
+              "type": "Identifier",
+            },
+            "init": Node {
+              "end": 33,
+              "raw": "false",
+              "start": 28,
+              "type": "Literal",
+              "value": false,
+            },
+            "start": 24,
+            "type": "VariableDeclarator",
+          },
+        ],
+        "end": 34,
+        "kind": "let",
+        "start": 20,
+        "type": "VariableDeclaration",
+      },
+      Node {
+        "end": 45,
+        "expression": Node {
+          "end": 44,
+          "left": Node {
+            "end": 38,
+            "name": "a",
+            "start": 37,
+            "type": "Identifier",
+          },
+          "operator": "||=",
+          "right": Node {
+            "end": 44,
+            "name": "b",
+            "start": 43,
+            "type": "Identifier",
+          },
+          "start": 37,
+          "type": "AssignmentExpression",
+        },
+        "start": 37,
+        "type": "ExpressionStatement",
+      },
+      Node {
+        "argument": Node {
+          "end": 56,
+          "name": "a",
+          "start": 55,
+          "type": "Identifier",
+        },
+        "end": 57,
+        "start": 48,
+        "type": "ReturnStatement",
+      },
+    ],
+    "end": 59,
+    "start": 0,
+    "type": "BlockStatement",
+  },
+  "databaseClients": Map {},
+  "end": 60,
+  "fileAttachments": Map {},
+  "generator": false,
+  "id": null,
+  "references": Array [],
+  "secrets": Map {},
+  "start": 0,
+  "type": "Cell",
+}
+`
+
 exports[`test/parse-test.js TAP parse member-assignment.js > must match snapshot 1`] = `
 Node {
   "async": false,

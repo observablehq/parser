@@ -91,7 +91,7 @@ export function peekId(input) {
 
 export class CellParser extends Parser {
   constructor(options, ...args) {
-    super(Object.assign({ecmaVersion: 11}, options), ...args);
+    super(Object.assign({ecmaVersion: 12}, options), ...args);
   }
   enterScope(flags) {
     if (flags & SCOPE_FUNCTION) ++this.O_function;
