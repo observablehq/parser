@@ -2,6 +2,7 @@ import {getLineInfo, tokTypes as tt, Parser} from "acorn";
 import defaultGlobals from "./globals.js";
 import findReferences from "./references.js";
 import findFeatures from "./features.js";
+import {toJavaScript} from "./tag.js";
 
 const SCOPE_FUNCTION = 2;
 const SCOPE_ASYNC = 4;
@@ -12,8 +13,9 @@ const STATE_MODIFIER = Symbol("modifier");
 const STATE_FUNCTION = Symbol("function");
 const STATE_NAME = Symbol("name");
 
-export function parseCell(input, {globals} = {}) {
-  const cell = CellParser.parse(input);
+export function parseCell(input, {globals, tag = {}} = {}) {
+  const source = tag.name ? toJavaScript(input, tag.name, tag.raw) : input;
+  const cell = CellParser.parse(source);
   parseReferences(cell, input, globals);
   parseFeatures(cell);
   return cell;

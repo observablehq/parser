@@ -557,6 +557,102 @@ Node {
 }
 `
 
+exports[`test/parse-test.js TAP parse basic.tex > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "end": 38,
+    "quasi": Node {
+      "end": 38,
+      "expressions": Array [
+        Node {
+          "end": 15,
+          "name": "numerator",
+          "start": 6,
+          "type": "Identifier",
+        },
+        Node {
+          "end": 36,
+          "name": "denominator",
+          "start": 25,
+          "type": "Identifier",
+        },
+      ],
+      "quasis": Array [
+        Node {
+          "end": 4,
+          "start": 4,
+          "tail": false,
+          "type": "TemplateElement",
+          "value": Object {
+            "cooked": "",
+            "raw": "",
+          },
+        },
+        Node {
+          "end": 23,
+          "start": 16,
+          "tail": false,
+          "type": "TemplateElement",
+          "value": Object {
+            "cooked": " over ",
+            "raw": " \\\\over ",
+          },
+        },
+        Node {
+          "end": 37,
+          "start": 37,
+          "tail": true,
+          "type": "TemplateElement",
+          "value": Object {
+            "cooked": "",
+            "raw": "",
+          },
+        },
+      ],
+      "start": 3,
+      "type": "TemplateLiteral",
+    },
+    "start": 0,
+    "tag": Node {
+      "end": 3,
+      "name": "tex",
+      "start": 0,
+      "type": "Identifier",
+    },
+    "type": "TaggedTemplateExpression",
+  },
+  "databaseClients": Map {},
+  "end": 38,
+  "fileAttachments": Map {},
+  "generator": false,
+  "id": null,
+  "references": Array [
+    Node {
+      "end": 3,
+      "name": "tex",
+      "start": 0,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 15,
+      "name": "numerator",
+      "start": 6,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 36,
+      "name": "denominator",
+      "start": 25,
+      "type": "Identifier",
+    },
+  ],
+  "secrets": Map {},
+  "start": 0,
+  "type": "Cell",
+}
+`
+
 exports[`test/parse-test.js TAP parse bigint-zero.js > must match snapshot 1`] = `
 Node {
   "async": false,
@@ -3325,6 +3421,80 @@ Node {
   "generator": false,
   "id": null,
   "references": Array [],
+  "secrets": Map {},
+  "start": 0,
+  "type": "Cell",
+}
+`
+
+exports[`test/parse-test.js TAP parse markdown.md > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "end": 116,
+    "quasi": Node {
+      "end": 116,
+      "expressions": Array [
+        Node {
+          "end": 112,
+          "name": "foo",
+          "start": 109,
+          "type": "Identifier",
+        },
+      ],
+      "quasis": Array [
+        Node {
+          "end": 107,
+          "start": 3,
+          "tail": false,
+          "type": "TemplateElement",
+          "value": Object {
+            "cooked": "# Header 1\\n\\n\`\`\`\\nconst codeBlock = true;\\n\`\`\`\\n\\nParagraph that references \`codeBlock\`. Foo value: \\"",
+            "raw": "# Header 1\\n\\n\\\\\`\\\\\`\\\\\`\\nconst codeBlock = true;\\n\\\\\`\\\\\`\\\\\`\\n\\nParagraph that references \\\\\`codeBlock\\\\\`. Foo value: \\"",
+          },
+        },
+        Node {
+          "end": 115,
+          "start": 113,
+          "tail": true,
+          "type": "TemplateElement",
+          "value": Object {
+            "cooked": "\\".",
+            "raw": "\\".",
+          },
+        },
+      ],
+      "start": 2,
+      "type": "TemplateLiteral",
+    },
+    "start": 0,
+    "tag": Node {
+      "end": 2,
+      "name": "md",
+      "start": 0,
+      "type": "Identifier",
+    },
+    "type": "TaggedTemplateExpression",
+  },
+  "databaseClients": Map {},
+  "end": 116,
+  "fileAttachments": Map {},
+  "generator": false,
+  "id": null,
+  "references": Array [
+    Node {
+      "end": 2,
+      "name": "md",
+      "start": 0,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 112,
+      "name": "foo",
+      "start": 109,
+      "type": "Identifier",
+    },
+  ],
   "secrets": Map {},
   "start": 0,
   "type": "Cell",

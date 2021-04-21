@@ -43,14 +43,19 @@ c = a + b`)
 });
 
 readdirSync(join("test", "input")).forEach(file => {
-  if (extname(file) !== ".js") return;
+  const bareExtension = extname(file).replace(".", "");
   test(`parse ${file}`, test => {
     const infile = join("test", "input", file);
-    const outfile = join("test", "output", basename(file, ".js") + ".json");
-    let actual, expected;
+    let actual;
 
     try {
-      actual = parseCell(readFileSync(infile, "utf8"), {globals: null});
+      actual = parseCell(readFileSync(infile, "utf8"), {
+        globals: null,
+        tag: {
+          name: bareExtension !== 'js' ? bareExtension : undefined,
+          raw: bareExtension == 'tex'
+        }
+      });
     } catch (error) {
       if (
         error instanceof ReferenceError ||
