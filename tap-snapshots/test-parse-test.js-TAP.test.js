@@ -5685,6 +5685,20 @@ Node {
 }
 `
 
+exports[`test/parse-test.js TAP parse viewof-in-markdown.md > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 30,
+      "line": 1,
+    },
+    "message": "Unexpected token (1:30)",
+    "pos": 30,
+    "type": "SyntaxError",
+  },
+}
+`
+
 exports[`test/parse-test.js TAP parse viewof-internal-comment.js > must match snapshot 1`] = `
 Node {
   "async": false,
