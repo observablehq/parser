@@ -463,16 +463,55 @@ Node {
 `
 
 exports[`test/parse-test.js TAP parse await-in-markdown.md > must match snapshot 1`] = `
-Object {
-  "error": Object {
-    "loc": Object {
-      "column": 24,
-      "line": 1,
+Node {
+  "databaseClients": Map {},
+  "end": 30,
+  "expressions": Array [
+    Node {
+      "argument": Node {
+        "arguments": Array [],
+        "callee": Node {
+          "end": 24,
+          "name": "importantValue",
+          "start": 10,
+          "type": "Identifier",
+        },
+        "end": 26,
+        "start": 10,
+        "type": "CallExpression",
+      },
+      "end": 26,
+      "start": 4,
+      "type": "AwaitExpression",
     },
-    "message": "Unterminated expression (1:24)",
-    "pos": 24,
-    "type": "SyntaxError",
-  },
+  ],
+  "fileAttachments": Map {},
+  "input": "**\${await importantValue()}**\\n",
+  "quasis": Array [
+    Node {
+      "end": 2,
+      "start": 0,
+      "tail": false,
+      "type": "TemplateElement",
+      "value": Object {
+        "cooked": "**",
+        "raw": "**",
+      },
+    },
+    Node {
+      "end": 30,
+      "start": 27,
+      "tail": true,
+      "type": "TemplateElement",
+      "value": Object {
+        "cooked": "**\\n",
+        "raw": "**\\n",
+      },
+    },
+  ],
+  "secrets": Map {},
+  "start": 0,
+  "type": "TemplateLiteral",
 }
 `
 

@@ -1,7 +1,12 @@
 import {Parser, tokTypes as tt} from "acorn";
 
+const SCOPE_FUNCTION = 2;
+const SCOPE_ASYNC = 4;
+const SCOPE_GENERATOR = 8;
+
 export default function parseTemplate(input) {
-  const parser = new Parser(undefined, input, 0);
+  const parser = new Parser({ecmaVersion: 12}, input, 0);
+  parser.strict = true;
   const node = parser.startNode();
   node.input = input;
   node.expressions = [];
@@ -17,12 +22,14 @@ export default function parseTemplate(input) {
 
 function parseTemplateExpression() {
   moveTo.call(this, this.end + 2); // skip "${"
+  this.enterScope(SCOPE_FUNCTION | SCOPE_ASYNC | SCOPE_GENERATOR); // 👈
   this.nextToken();
   const expression = this.parseExpression();
   if (this.input.charCodeAt(this.pos - 1) !== 125) { // "}"
     this.raise(this.pos, "Unterminated expression");
   }
   moveTo.call(this, this.pos); // skip "}"
+  this.exitScope();
   return expression;
 }
 
