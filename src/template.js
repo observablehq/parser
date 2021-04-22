@@ -8,7 +8,6 @@ export default function parseTemplate(input) {
   const parser = new Parser({ecmaVersion: 12}, input, 0);
   parser.strict = true;
   const node = parser.startNode();
-  console.log(node);
   node.input = input;
   parser.finishNode(node, "Cell");
   node.body = parser.startNode();
