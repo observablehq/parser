@@ -13,15 +13,22 @@ const STATE_MODIFIER = Symbol("modifier");
 const STATE_FUNCTION = Symbol("function");
 const STATE_NAME = Symbol("name");
 
-export function parseCell(input, options) {
+
+export function parseCell(input, {globals, tag, raw} = {}) {
+  return tag != null
+    ? parseTemplateCell(input, {globals, tag, raw})
+    : parseJavaScriptCell(input, {globals, tag, raw});
+}
+
+function parseJavaScriptCell(input, options) {
   return finishCell(CellParser.parse(input), input, options);
 }
 
-export function parseTemplateCell(input, options) {
+function parseTemplateCell(input, options) {
   return finishCell(parseTemplate(input), input, options);
 }
 
-function finishCell(cell, input, {globals} = {}) {
+function finishCell(cell, input, {globals}) {
   parseReferences(cell, input, globals);
   parseFeatures(cell);
   return cell;

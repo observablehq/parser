@@ -51,10 +51,8 @@ readdirSync(join("test", "input")).forEach(file => {
     try {
       actual = parseCell(readFileSync(infile, "utf8"), {
         globals: null,
-        tag: {
-          name: bareExtension !== 'js' ? bareExtension : undefined,
-          raw: bareExtension == 'tex'
-        }
+        tag: bareExtension !== 'js' ? bareExtension : undefined,
+        raw: bareExtension == 'tex'
       });
     } catch (error) {
       if (
