@@ -462,6 +462,20 @@ Node {
 }
 `
 
+exports[`test/parse-test.js TAP parse await-in-markdown.md > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 24,
+      "line": 1,
+    },
+    "message": "Unterminated expression (1:24)",
+    "pos": 24,
+    "type": "SyntaxError",
+  },
+}
+`
+
 exports[`test/parse-test.js TAP parse await-yield.js > must match snapshot 1`] = `
 Node {
   "async": true,
@@ -4322,6 +4336,20 @@ Object {
     },
     "message": "Unexpected keyword 'mutable' (1:2)",
     "pos": 2,
+    "type": "SyntaxError",
+  },
+}
+`
+
+exports[`test/parse-test.js TAP parse mutable-in-markdown.md > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 19,
+      "line": 1,
+    },
+    "message": "Unterminated expression (1:19)",
+    "pos": 19,
     "type": "SyntaxError",
   },
 }
