@@ -10,16 +10,17 @@ export default function parseTemplate(input) {
   const node = parser.startNode();
   node.input = input;
   parser.finishNode(node, "Cell");
-  node.body = parser.startNode();
-  node.body.expressions = [];
-  node.body.quasis = [];
+  const body = parser.startNode(); 
+  node.body = body;
+  body.expressions = [];
+  body.quasis = [];
   while (parser.pos <= input.length) {
     const quasi = parseTemplateElement.call(parser);
-    node.body.quasis.push(quasi);
+    body.quasis.push(quasi);
     if (quasi.tail) break;
-    node.body.expressions.push(parseTemplateExpression.call(parser));
+    body.expressions.push(parseTemplateExpression.call(parser));
   }
-  parser.finishNode(node.body, "TemplateLiteral");
+  parser.finishNode(body, "TemplateLiteral");
   return node;
 }
 
