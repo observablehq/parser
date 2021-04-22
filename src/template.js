@@ -1,29 +1,6 @@
 import {Parser, tokTypes as tt} from "acorn";
 
-export function toJavaScript(input, tag, rawTag) {
-  return transpileTemplate(parseTemplate(input), tag, rawTag);
-}
-
-function transpileTemplate(node, tag = "", rawTag) {
-  const parts = [];
-  parts.push(escapeTemplateElement(node.quasis[0], rawTag));
-  for (let i = 0; i < node.expressions.length; ++i) {
-    const {start, end} = node.expressions[i];
-    parts.push(
-      "${", node.input.slice(start, end), "}",
-      escapeTemplateElement(node.quasis[i + 1], rawTag)
-    );
-  }
-  return `${tag}\`${parts.join("")}\``;
-}
-
-function escapeTemplateElement({value: {raw}}, rawTag) {
-  return rawTag
-    ? raw.replace(/`/g, "\\`")
-    : raw.replace(/\\/g, "\\\\").replace(/`/g, "\\`");
-}
-
-function parseTemplate(input) {
+export default function parseTemplate(input) {
   const parser = new Parser(undefined, input, 0);
   const node = parser.startNode();
   node.input = input;
