@@ -8,16 +8,20 @@ export default function parseTemplate(input) {
   const parser = new Parser({ecmaVersion: 12}, input, 0);
   parser.strict = true;
   const node = parser.startNode();
+  console.log(node);
   node.input = input;
-  node.expressions = [];
-  node.quasis = [];
+  parser.finishNode(node, "Cell");
+  node.body = parser.startNode();
+  node.body.expressions = [];
+  node.body.quasis = [];
   while (parser.pos <= input.length) {
     const quasi = parseTemplateElement.call(parser);
-    node.quasis.push(quasi);
+    node.body.quasis.push(quasi);
     if (quasi.tail) break;
-    node.expressions.push(parseTemplateExpression.call(parser));
+    node.body.expressions.push(parseTemplateExpression.call(parser));
   }
-  return parser.finishNode(node, "TemplateLiteral");
+  parser.finishNode(node.body, "TemplateLiteral");
+  return node;
 }
 
 function parseTemplateExpression() {

@@ -464,54 +464,67 @@ Node {
 
 exports[`test/parse-test.js TAP parse await-in-markdown.md > must match snapshot 1`] = `
 Node {
-  "databaseClients": Map {},
-  "end": 30,
-  "expressions": Array [
-    Node {
-      "argument": Node {
-        "arguments": Array [],
-        "callee": Node {
-          "end": 24,
-          "name": "importantValue",
+  "body": Node {
+    "end": 30,
+    "expressions": Array [
+      Node {
+        "argument": Node {
+          "arguments": Array [],
+          "callee": Node {
+            "end": 24,
+            "name": "importantValue",
+            "start": 10,
+            "type": "Identifier",
+          },
+          "end": 26,
           "start": 10,
-          "type": "Identifier",
+          "type": "CallExpression",
         },
         "end": 26,
-        "start": 10,
-        "type": "CallExpression",
+        "start": 4,
+        "type": "AwaitExpression",
       },
-      "end": 26,
-      "start": 4,
-      "type": "AwaitExpression",
-    },
-  ],
+    ],
+    "quasis": Array [
+      Node {
+        "end": 2,
+        "start": 0,
+        "tail": false,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": "**",
+          "raw": "**",
+        },
+      },
+      Node {
+        "end": 30,
+        "start": 27,
+        "tail": true,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": "**\\n",
+          "raw": "**\\n",
+        },
+      },
+    ],
+    "start": 0,
+    "type": "TemplateLiteral",
+  },
+  "databaseClients": Map {},
+  "end": 0,
   "fileAttachments": Map {},
   "input": "**\${await importantValue()}**\\n",
-  "quasis": Array [
+  "references": Array [
     Node {
-      "end": 2,
-      "start": 0,
-      "tail": false,
-      "type": "TemplateElement",
-      "value": Object {
-        "cooked": "**",
-        "raw": "**",
-      },
-    },
-    Node {
-      "end": 30,
-      "start": 27,
-      "tail": true,
-      "type": "TemplateElement",
-      "value": Object {
-        "cooked": "**\\n",
-        "raw": "**\\n",
-      },
+      "end": 24,
+      "name": "importantValue",
+      "start": 10,
+      "type": "Identifier",
     },
   ],
   "secrets": Map {},
   "start": 0,
-  "type": "TemplateLiteral",
+  "type": "Cell",
 }
 `
 
@@ -612,9 +625,62 @@ Node {
 
 exports[`test/parse-test.js TAP parse basic.tex > must match snapshot 1`] = `
 Node {
+  "body": Node {
+    "end": 33,
+    "expressions": Array [
+      Node {
+        "end": 11,
+        "name": "numerator",
+        "start": 2,
+        "type": "Identifier",
+      },
+      Node {
+        "end": 32,
+        "name": "denominator",
+        "start": 21,
+        "type": "Identifier",
+      },
+    ],
+    "quasis": Array [
+      Node {
+        "end": 0,
+        "start": 0,
+        "tail": false,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": "",
+          "raw": "",
+        },
+      },
+      Node {
+        "end": 19,
+        "start": 12,
+        "tail": false,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": " \\\\over ",
+          "raw": " \\\\over ",
+        },
+      },
+      Node {
+        "end": 33,
+        "start": 33,
+        "tail": true,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": "",
+          "raw": "",
+        },
+      },
+    ],
+    "start": 0,
+    "type": "TemplateLiteral",
+  },
   "databaseClients": Map {},
-  "end": 33,
-  "expressions": Array [
+  "end": 0,
+  "fileAttachments": Map {},
+  "input": "\${numerator} \\\\over \${denominator}",
+  "references": Array [
     Node {
       "end": 11,
       "name": "numerator",
@@ -628,43 +694,9 @@ Node {
       "type": "Identifier",
     },
   ],
-  "fileAttachments": Map {},
-  "input": "\${numerator} \\\\over \${denominator}",
-  "quasis": Array [
-    Node {
-      "end": 0,
-      "start": 0,
-      "tail": false,
-      "type": "TemplateElement",
-      "value": Object {
-        "cooked": "",
-        "raw": "",
-      },
-    },
-    Node {
-      "end": 19,
-      "start": 12,
-      "tail": false,
-      "type": "TemplateElement",
-      "value": Object {
-        "cooked": " \\\\over ",
-        "raw": " \\\\over ",
-      },
-    },
-    Node {
-      "end": 33,
-      "start": 33,
-      "tail": true,
-      "type": "TemplateElement",
-      "value": Object {
-        "cooked": "",
-        "raw": "",
-      },
-    },
-  ],
   "secrets": Map {},
   "start": 0,
-  "type": "TemplateLiteral",
+  "type": "Cell",
 }
 `
 
@@ -3444,9 +3476,46 @@ Node {
 
 exports[`test/parse-test.js TAP parse markdown.md > must match snapshot 1`] = `
 Node {
+  "body": Node {
+    "end": 104,
+    "expressions": Array [
+      Node {
+        "end": 101,
+        "name": "foo",
+        "start": 98,
+        "type": "Identifier",
+      },
+    ],
+    "quasis": Array [
+      Node {
+        "end": 96,
+        "start": 0,
+        "tail": false,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": "# Header 1\\n\\n\`\`\`\\nconst codeBlock = true;\\n\`\`\`\\n\\nParagraph that references \`codeBlock\`. Foo value: \\"",
+          "raw": "# Header 1\\n\\n\`\`\`\\nconst codeBlock = true;\\n\`\`\`\\n\\nParagraph that references \`codeBlock\`. Foo value: \\"",
+        },
+      },
+      Node {
+        "end": 104,
+        "start": 102,
+        "tail": true,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": "\\".",
+          "raw": "\\".",
+        },
+      },
+    ],
+    "start": 0,
+    "type": "TemplateLiteral",
+  },
   "databaseClients": Map {},
-  "end": 104,
-  "expressions": Array [
+  "end": 0,
+  "fileAttachments": Map {},
+  "input": "# Header 1\\n\\n\`\`\`\\nconst codeBlock = true;\\n\`\`\`\\n\\nParagraph that references \`codeBlock\`. Foo value: \\"\${foo}\\".",
+  "references": Array [
     Node {
       "end": 101,
       "name": "foo",
@@ -3454,33 +3523,9 @@ Node {
       "type": "Identifier",
     },
   ],
-  "fileAttachments": Map {},
-  "input": "# Header 1\\n\\n\`\`\`\\nconst codeBlock = true;\\n\`\`\`\\n\\nParagraph that references \`codeBlock\`. Foo value: \\"\${foo}\\".",
-  "quasis": Array [
-    Node {
-      "end": 96,
-      "start": 0,
-      "tail": false,
-      "type": "TemplateElement",
-      "value": Object {
-        "cooked": "# Header 1\\n\\n\`\`\`\\nconst codeBlock = true;\\n\`\`\`\\n\\nParagraph that references \`codeBlock\`. Foo value: \\"",
-        "raw": "# Header 1\\n\\n\`\`\`\\nconst codeBlock = true;\\n\`\`\`\\n\\nParagraph that references \`codeBlock\`. Foo value: \\"",
-      },
-    },
-    Node {
-      "end": 104,
-      "start": 102,
-      "tail": true,
-      "type": "TemplateElement",
-      "value": Object {
-        "cooked": "\\".",
-        "raw": "\\".",
-      },
-    },
-  ],
   "secrets": Map {},
   "start": 0,
-  "type": "TemplateLiteral",
+  "type": "Cell",
 }
 `
 
