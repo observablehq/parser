@@ -20,7 +20,7 @@ export function parseCell(input, {globals, tag, raw} = {}) {
 }
 
 function parseJavaScriptCell(input, options) {
-  return finishCell(CellParser.parse(input), input, options);
+  return finishCell(CellParser.parse(input, options), input, options);
 }
 
 function parseTemplateCell(input, {tag, raw, ...options}) {
