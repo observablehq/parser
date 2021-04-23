@@ -336,7 +336,6 @@ export class TemplateCellParser extends CellParser {
     this.next();
     this.finishNode(body, "TemplateLiteral");
 
-    // TODO: Dry this up
     this.expect(tt.eof);
     node.id = null;
     node.async = this.O_async;
