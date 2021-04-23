@@ -313,7 +313,8 @@ const o_tmpl = new TokContext(
 
 export class TemplateCellParser extends CellParser {
   parse() {
-    return this.parseCell(this.startNode());
+    let node = this.options.program || this.startNode();
+    return this.parseTopLevel(node);
   }
   parseCell(node) {
     // Initialize the type so that we're inside a backQuote, but
