@@ -291,11 +291,6 @@ export class CellParser extends Parser {
 }
 
 export class TemplateCellParser extends CellParser {
-  constructor({tag, raw, ...options}, ...args) {
-    super(options, ...args);
-    this.tag = tag;
-    this.raw = raw;
-  }
   parse() {
     return this.parseCell(this.startNode());
   }
