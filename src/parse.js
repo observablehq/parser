@@ -300,7 +300,7 @@ export class CellParser extends Parser {
   }
 }
 
-// Based on acorn’s q_tmpl. We will use this to initialize the 
+// Based on acorn’s q_tmpl. We will use this to initialize the
 // parser context so our `readTemplateToken` override is called.
 // `readTemplateToken` is based on acorn's `readTmplToken` which
 // is used inside template literals. Our version allows backQuotes.
@@ -312,23 +312,22 @@ const o_tmpl = new TokContext(
 );
 
 export class TemplateCellParser extends CellParser {
-  parse() {
-    let node = this.options.program || this.startNode();
-    return this.parseTopLevel(node);
+  constructor(...args) {
+    super(...args);
+    // Initialize the type so that we're inside a backQuote
+    this.type = tt.backQuote;
+    this.exprAllowed = false;
+  }
+  initialContext() {
+    // Provide our custom TokContext
+    return [o_tmpl];
   }
   parseCell(node) {
-    // Initialize the type so that we're inside a backQuote, but
-    // provide our custom TokContext.
-    this.type = tt.backQuote;
-    this.context.push(o_tmpl);
-    this.exprAllowed = false;
-
     this.startCell();
 
     // Based on acorn.Parser.parseTemplate
     const isTagged = false;
     const body = this.startNode();
-    this.next();
     body.expressions = [];
     let curElt = this.parseTemplateElement({isTagged});
     body.quasis = [curElt];
