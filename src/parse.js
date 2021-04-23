@@ -28,8 +28,10 @@ function parseTemplateCell(input, options) {
 }
 
 function finishCell(cell, input, {tag = null, raw, globals} = {}) {
-  cell.tag = tag;
-  cell.raw = !!raw;
+  if (tag != null) {
+    cell.tag = tag;
+    cell.raw = !!raw;
+  }
   parseReferences(cell, input, globals);
   parseFeatures(cell);
   return cell;
@@ -108,10 +110,6 @@ export function peekId(input) {
 export class CellParser extends Parser {
   constructor(options, ...args) {
     super(Object.assign({ecmaVersion: 12}, options), ...args);
-    this.O_function = 0;
-    this.O_async = false;
-    this.O_generator = false;
-    this.strict = true;
   }
   enterScope(flags) {
     if (flags & SCOPE_FUNCTION) ++this.O_function;
@@ -185,13 +183,29 @@ export class CellParser extends Parser {
       super.parseExprAtom(refDestructuringErrors)
     );
   }
+  startCell() {
+    this.O_function = 0;
+    this.O_async = false;
+    this.O_generator = false;
+    this.strict = true;
+    this.enterScope(SCOPE_FUNCTION | SCOPE_ASYNC | SCOPE_GENERATOR);
+  }
+  finishCell(node, body, id) {
+    if (id) this.checkLocal(id);
+    node.id = id;
+    node.body = body;
+    node.async = this.O_async;
+    node.generator = this.O_generator;
+    this.exitScope();
+    return this.finishNode(node, "Cell");
+  }
   parseCell(node, eof) {
     const lookahead = new CellParser({}, this.input, this.start);
     let token = lookahead.getToken();
     let body = null;
     let id = null;
 
-    this.enterScope(SCOPE_FUNCTION | SCOPE_ASYNC | SCOPE_GENERATOR);
+    this.startCell();
 
     // An import?
     if (token.type === tt._import && lookahead.getToken().type !== tt.parenL) {
@@ -241,13 +255,7 @@ export class CellParser extends Parser {
     this.semicolon();
     if (eof) this.expect(tt.eof); // TODO
 
-    if (id) this.checkLocal(id);
-    node.id = id;
-    node.async = this.O_async;
-    node.generator = this.O_generator;
-    node.body = body;
-    this.exitScope();
-    return this.finishNode(node, "Cell");
+    return this.finishCell(node, body, id);
   }
   parseTopLevel(node) {
     return this.parseCell(node, true);
@@ -292,29 +300,29 @@ export class CellParser extends Parser {
   }
 }
 
+// Based on acorn’s q_tmpl. We will use this to initialize the 
+// parser context so our `readTemplateToken` override is called.
+// `readTemplateToken` is based on acorn's `readTmplToken` which
+// is used inside template literals. Our version allows backQuotes.
+const o_tmpl = new TokContext(
+  "`", // token
+  true, // isExpr
+  true, // preserveSpace
+  parser => readTemplateToken.call(parser) // override
+);
+
 export class TemplateCellParser extends CellParser {
   parse() {
     return this.parseCell(this.startNode());
   }
   parseCell(node) {
-    // Based on acorn’s q_tmpl. We will use this to initialize the 
-    // parser context so our `readTemplateToken` override is called.
-    // `readTemplateToken` is based on acorn's `readTmplToken` which
-    // is used inside template literals. Our version allows backQuotes.
-    const o_tmpl = new TokContext(
-      "`", // token
-      true, // isExpr
-      true, // preserveSpace
-      parser => readTemplateToken.call(parser) // override
-    );
-
     // Initialize the type so that we're inside a backQuote, but
     // provide our custom TokContext.
     this.type = tt.backQuote;
     this.context.push(o_tmpl);
     this.exprAllowed = false;
 
-    this.enterScope(SCOPE_FUNCTION | SCOPE_ASYNC | SCOPE_GENERATOR);
+    this.startCell();
 
     // Based on acorn.Parser.parseTemplate
     const isTagged = false;
@@ -334,15 +342,8 @@ export class TemplateCellParser extends CellParser {
     this.finishNode(body, "TemplateLiteral");
 
     this.expect(tt.eof);
-    node.id = null;
-    node.async = this.O_async;
-    node.generator = this.O_generator;
     node.template = true;
-    node.tag = this.tag;
-    node.raw = this.raw;
-    node.body = body;
-    this.exitScope();
-    return this.finishNode(node, "Cell");
+    return this.finishCell(node, body, null);
   }
 }
 
