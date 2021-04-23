@@ -13,10 +13,10 @@ const STATE_FUNCTION = Symbol("function");
 const STATE_NAME = Symbol("name");
 
 
-export function parseCell(input, {globals, tag, raw} = {}) {
-  return tag != null
-    ? parseTemplateCell(input, {globals, tag, raw})
-    : parseJavaScriptCell(input, {globals});
+export function parseCell(input, options = {}) {
+  return options.tag != null
+    ? parseTemplateCell(input, options)
+    : parseJavaScriptCell(input, options);
 }
 
 function parseJavaScriptCell(input, options) {
