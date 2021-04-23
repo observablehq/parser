@@ -27,7 +27,9 @@ function parseTemplateCell(input, {tag, raw, ...options}) {
   return finishCell(TemplateCellParser.parse(input, {tag, raw}), input, options);
 }
 
-function finishCell(cell, input, {globals}) {
+function finishCell(cell, input, {tag = null, raw, globals} = {}) {
+  cell.tag = tag;
+  cell.raw = !!raw;
   parseReferences(cell, input, globals);
   parseFeatures(cell);
   return cell;
