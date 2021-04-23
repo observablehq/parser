@@ -529,7 +529,6 @@ Node {
   "secrets": Map {},
   "start": 0,
   "tag": "md",
-  "template": true,
   "type": "Cell",
 }
 `
@@ -706,7 +705,6 @@ Node {
   "secrets": Map {},
   "start": 0,
   "tag": "tex",
-  "template": true,
   "type": "Cell",
 }
 `
@@ -3540,7 +3538,6 @@ Node {
   "secrets": Map {},
   "start": 0,
   "tag": "md",
-  "template": true,
   "type": "Cell",
 }
 `
@@ -4591,7 +4588,6 @@ Node {
   "secrets": Map {},
   "start": 0,
   "tag": "md",
-  "template": true,
   "type": "Cell",
 }
 `
@@ -5759,7 +5755,6 @@ Node {
   "secrets": Map {},
   "start": 0,
   "tag": "md",
-  "template": true,
   "type": "Cell",
 }
 `
@@ -6216,7 +6211,6 @@ Node {
   "secrets": Map {},
   "start": 0,
   "tag": "md",
-  "template": true,
   "type": "Cell",
 }
 `

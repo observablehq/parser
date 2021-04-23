@@ -342,7 +342,6 @@ export class TemplateCellParser extends CellParser {
     this.finishNode(body, "TemplateLiteral");
 
     this.expect(tt.eof);
-    node.template = true;
     return this.finishCell(node, body, null);
   }
 }
