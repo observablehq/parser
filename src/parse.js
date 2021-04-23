@@ -23,8 +23,8 @@ function parseJavaScriptCell(input, options) {
   return finishCell(CellParser.parse(input, options), input, options);
 }
 
-function parseTemplateCell(input, {tag, raw, ...options}) {
-  return finishCell(TemplateCellParser.parse(input, {tag, raw}), input, options);
+function parseTemplateCell(input, options) {
+  return finishCell(TemplateCellParser.parse(input, options), input, options);
 }
 
 function finishCell(cell, input, {tag = null, raw, globals} = {}) {
