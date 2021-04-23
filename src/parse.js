@@ -303,7 +303,7 @@ export class TemplateCellParser extends CellParser {
     // Based on acorn’s q_tmpl. We will use this to initialize the 
     // parser context so our `readTemplateToken` override is called.
     // `readTemplateToken` is based on acorn's `readTmplToken` which
-    // is used inside template tags. Our version allows backQuotes.
+    // is used inside template literals. Our version allows backQuotes.
     const o_tmpl = new TokContext(
       "`", // token
       true, // isExpr
