@@ -314,6 +314,9 @@ export class TemplateCellParser extends CellParser {
   parseCell(node) {
     this.startCell();
 
+    // Fix for nextToken calling finishToken(tt.eof)
+    if (this.type === tt.eof) this.value = "";
+
     // Based on acorn.Parser.parseTemplate
     const isTagged = false;
     const body = this.startNode();
