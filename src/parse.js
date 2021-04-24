@@ -1,4 +1,4 @@
-import {getLineInfo, tokTypes as tt, Parser} from "acorn";
+import {getLineInfo, TokContext, tokTypes as tt, Parser} from "acorn";
 import defaultGlobals from "./globals.js";
 import findReferences from "./references.js";
 import findFeatures from "./features.js";
@@ -12,8 +12,15 @@ const STATE_MODIFIER = Symbol("modifier");
 const STATE_FUNCTION = Symbol("function");
 const STATE_NAME = Symbol("name");
 
-export function parseCell(input, {globals} = {}) {
-  const cell = CellParser.parse(input);
+export function parseCell(input, {tag, raw, globals, ...options} = {}) {
+  let cell;
+  if (tag != null) {
+    cell = TemplateCellParser.parse(input, options);
+    cell.tag = tag;
+    cell.raw = !!raw;
+  } else {
+    cell = CellParser.parse(input, options);
+  }
   parseReferences(cell, input, globals);
   parseFeatures(cell);
   return cell;
@@ -165,17 +172,29 @@ export class CellParser extends Parser {
       super.parseExprAtom(refDestructuringErrors)
     );
   }
+  startCell() {
+    this.O_function = 0;
+    this.O_async = false;
+    this.O_generator = false;
+    this.strict = true;
+    this.enterScope(SCOPE_FUNCTION | SCOPE_ASYNC | SCOPE_GENERATOR);
+  }
+  finishCell(node, body, id) {
+    if (id) this.checkLocal(id);
+    node.id = id;
+    node.body = body;
+    node.async = this.O_async;
+    node.generator = this.O_generator;
+    this.exitScope();
+    return this.finishNode(node, "Cell");
+  }
   parseCell(node, eof) {
     const lookahead = new CellParser({}, this.input, this.start);
     let token = lookahead.getToken();
     let body = null;
     let id = null;
 
-    this.O_function = 0;
-    this.O_async = false;
-    this.O_generator = false;
-    this.strict = true;
-    this.enterScope(SCOPE_FUNCTION | SCOPE_ASYNC | SCOPE_GENERATOR);
+    this.startCell();
 
     // An import?
     if (token.type === tt._import && lookahead.getToken().type !== tt.parenL) {
@@ -225,13 +244,7 @@ export class CellParser extends Parser {
     this.semicolon();
     if (eof) this.expect(tt.eof); // TODO
 
-    if (id) this.checkLocal(id);
-    node.id = id;
-    node.async = this.O_async;
-    node.generator = this.O_generator;
-    node.body = body;
-    this.exitScope();
-    return this.finishNode(node, "Cell");
+    return this.finishCell(node, body, id);
   }
   parseTopLevel(node) {
     return this.parseCell(node, true);
@@ -273,6 +286,74 @@ export class CellParser extends Parser {
       node.id = this.parseIdent();
       return this.finishNode(node, type);
     }
+  }
+}
+
+// Based on acorn’s q_tmpl. We will use this to initialize the
+// parser context so our `readTemplateToken` override is called.
+// `readTemplateToken` is based on acorn's `readTmplToken` which
+// is used inside template literals. Our version allows backQuotes.
+const o_tmpl = new TokContext(
+  "`", // token
+  true, // isExpr
+  true, // preserveSpace
+  parser => readTemplateToken.call(parser) // override
+);
+
+export class TemplateCellParser extends CellParser {
+  constructor(...args) {
+    super(...args);
+    // Initialize the type so that we're inside a backQuote
+    this.type = tt.backQuote;
+    this.exprAllowed = false;
+  }
+  initialContext() {
+    // Provide our custom TokContext
+    return [o_tmpl];
+  }
+  parseCell(node) {
+    this.startCell();
+
+    // Based on acorn.Parser.parseTemplate
+    const isTagged = false;
+    const body = this.startNode();
+    body.expressions = [];
+    let curElt = this.parseTemplateElement({isTagged});
+    body.quasis = [curElt];
+    while (this.type !== tt.eof) {
+      this.expect(tt.dollarBraceL);
+      body.expressions.push(this.parseExpression());
+      this.expect(tt.braceR);
+      body.quasis.push(curElt = this.parseTemplateElement({isTagged}));
+    }
+    curElt.tail = true;
+    this.next();
+    this.finishNode(body, "TemplateLiteral");
+
+    this.expect(tt.eof);
+    return this.finishCell(node, body, null);
+  }
+}
+
+// This is our custom override for parsing a template that allows
+// backticks. Based on acorn's readTmplToken.
+function readTemplateToken() {
+  let out = "", chunkStart = this.pos;
+  for (;;) {
+    if (this.pos >= this.input.length) {
+      out += this.input.slice(chunkStart, this.pos);
+      return this.finishToken(tt.template, out);
+    }
+    let ch = this.input.charCodeAt(this.pos);
+    if (ch === 36 && this.input.charCodeAt(this.pos + 1) === 123) { // '${'
+      if (this.pos === this.start && this.type === tt.template) {
+        this.pos += 2;
+        return this.finishToken(tt.dollarBraceL);
+      }
+      out += this.input.slice(chunkStart, this.pos);
+      return this.finishToken(tt.template, out);
+    }
+    ++this.pos;
   }
 }
 

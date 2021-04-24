@@ -462,6 +462,77 @@ Node {
 }
 `
 
+exports[`test/parse-test.js TAP parse await-in-markdown.md > must match snapshot 1`] = `
+Node {
+  "async": true,
+  "body": Node {
+    "end": 30,
+    "expressions": Array [
+      Node {
+        "argument": Node {
+          "arguments": Array [],
+          "callee": Node {
+            "end": 24,
+            "name": "importantValue",
+            "start": 10,
+            "type": "Identifier",
+          },
+          "end": 26,
+          "optional": false,
+          "start": 10,
+          "type": "CallExpression",
+        },
+        "end": 26,
+        "start": 4,
+        "type": "AwaitExpression",
+      },
+    ],
+    "quasis": Array [
+      Node {
+        "end": 2,
+        "start": 0,
+        "tail": false,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": "**",
+          "raw": "**",
+        },
+      },
+      Node {
+        "end": 30,
+        "start": 27,
+        "tail": true,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": "**\\n",
+          "raw": "**\\n",
+        },
+      },
+    ],
+    "start": 0,
+    "type": "TemplateLiteral",
+  },
+  "databaseClients": Map {},
+  "end": 30,
+  "fileAttachments": Map {},
+  "generator": false,
+  "id": null,
+  "raw": false,
+  "references": Array [
+    Node {
+      "end": 24,
+      "name": "importantValue",
+      "start": 10,
+      "type": "Identifier",
+    },
+  ],
+  "secrets": Map {},
+  "start": 0,
+  "tag": "md",
+  "type": "Cell",
+}
+`
+
 exports[`test/parse-test.js TAP parse await-yield.js > must match snapshot 1`] = `
 Node {
   "async": true,
@@ -553,6 +624,87 @@ Node {
   "references": Array [],
   "secrets": Map {},
   "start": 0,
+  "type": "Cell",
+}
+`
+
+exports[`test/parse-test.js TAP parse basic.tex > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "end": 33,
+    "expressions": Array [
+      Node {
+        "end": 11,
+        "name": "numerator",
+        "start": 2,
+        "type": "Identifier",
+      },
+      Node {
+        "end": 32,
+        "name": "denominator",
+        "start": 21,
+        "type": "Identifier",
+      },
+    ],
+    "quasis": Array [
+      Node {
+        "end": 0,
+        "start": 0,
+        "tail": false,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": "",
+          "raw": "",
+        },
+      },
+      Node {
+        "end": 19,
+        "start": 12,
+        "tail": false,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": " \\\\over ",
+          "raw": " \\\\over ",
+        },
+      },
+      Node {
+        "end": 33,
+        "start": 33,
+        "tail": true,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": undefined,
+          "raw": "",
+        },
+      },
+    ],
+    "start": 0,
+    "type": "TemplateLiteral",
+  },
+  "databaseClients": Map {},
+  "end": 33,
+  "fileAttachments": Map {},
+  "generator": false,
+  "id": null,
+  "raw": true,
+  "references": Array [
+    Node {
+      "end": 11,
+      "name": "numerator",
+      "start": 2,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 32,
+      "name": "denominator",
+      "start": 21,
+      "type": "Identifier",
+    },
+  ],
+  "secrets": Map {},
+  "start": 0,
+  "tag": "tex",
   "type": "Cell",
 }
 `
@@ -3331,6 +3483,65 @@ Node {
 }
 `
 
+exports[`test/parse-test.js TAP parse markdown.md > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "end": 104,
+    "expressions": Array [
+      Node {
+        "end": 101,
+        "name": "foo",
+        "start": 98,
+        "type": "Identifier",
+      },
+    ],
+    "quasis": Array [
+      Node {
+        "end": 96,
+        "start": 0,
+        "tail": false,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": "# Header 1\\n\\n\`\`\`\\nconst codeBlock = true;\\n\`\`\`\\n\\nParagraph that references \`codeBlock\`. Foo value: \\"",
+          "raw": "# Header 1\\n\\n\`\`\`\\nconst codeBlock = true;\\n\`\`\`\\n\\nParagraph that references \`codeBlock\`. Foo value: \\"",
+        },
+      },
+      Node {
+        "end": 104,
+        "start": 102,
+        "tail": true,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": "\\".",
+          "raw": "\\".",
+        },
+      },
+    ],
+    "start": 0,
+    "type": "TemplateLiteral",
+  },
+  "databaseClients": Map {},
+  "end": 104,
+  "fileAttachments": Map {},
+  "generator": false,
+  "id": null,
+  "raw": false,
+  "references": Array [
+    Node {
+      "end": 101,
+      "name": "foo",
+      "start": 98,
+      "type": "Identifier",
+    },
+  ],
+  "secrets": Map {},
+  "start": 0,
+  "tag": "md",
+  "type": "Cell",
+}
+`
+
 exports[`test/parse-test.js TAP parse member-assignment.js > must match snapshot 1`] = `
 Node {
   "async": false,
@@ -4224,6 +4435,160 @@ Object {
     "pos": 2,
     "type": "SyntaxError",
   },
+}
+`
+
+exports[`test/parse-test.js TAP parse mutable-in-markdown.md > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "end": 100,
+    "expressions": Array [
+      Node {
+        "argument": Node {
+          "end": 19,
+          "id": Node {
+            "end": 19,
+            "name": "counter",
+            "start": 12,
+            "type": "Identifier",
+          },
+          "start": 4,
+          "type": "MutableExpression",
+        },
+        "end": 19,
+        "operator": "++",
+        "prefix": true,
+        "start": 2,
+        "type": "UpdateExpression",
+      },
+      Node {
+        "argument": Node {
+          "end": 52,
+          "id": Node {
+            "end": 52,
+            "name": "counter",
+            "start": 45,
+            "type": "Identifier",
+          },
+          "start": 37,
+          "type": "MutableExpression",
+        },
+        "end": 52,
+        "operator": "++",
+        "prefix": true,
+        "start": 35,
+        "type": "UpdateExpression",
+      },
+      Node {
+        "argument": Node {
+          "end": 86,
+          "id": Node {
+            "end": 86,
+            "name": "counter",
+            "start": 79,
+            "type": "Identifier",
+          },
+          "start": 71,
+          "type": "MutableExpression",
+        },
+        "end": 86,
+        "operator": "++",
+        "prefix": true,
+        "start": 69,
+        "type": "UpdateExpression",
+      },
+    ],
+    "quasis": Array [
+      Node {
+        "end": 0,
+        "start": 0,
+        "tail": false,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": "",
+          "raw": "",
+        },
+      },
+      Node {
+        "end": 33,
+        "start": 20,
+        "tail": false,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": ". First item\\n",
+          "raw": ". First item\\n",
+        },
+      },
+      Node {
+        "end": 67,
+        "start": 53,
+        "tail": false,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": ". Second item\\n",
+          "raw": ". Second item\\n",
+        },
+      },
+      Node {
+        "end": 100,
+        "start": 87,
+        "tail": true,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": ". Third item\\n",
+          "raw": ". Third item\\n",
+        },
+      },
+    ],
+    "start": 0,
+    "type": "TemplateLiteral",
+  },
+  "databaseClients": Map {},
+  "end": 100,
+  "fileAttachments": Map {},
+  "generator": false,
+  "id": null,
+  "raw": false,
+  "references": Array [
+    Node {
+      "end": 19,
+      "id": Node {
+        "end": 19,
+        "name": "counter",
+        "start": 12,
+        "type": "Identifier",
+      },
+      "start": 4,
+      "type": "MutableExpression",
+    },
+    Node {
+      "end": 52,
+      "id": Node {
+        "end": 52,
+        "name": "counter",
+        "start": 45,
+        "type": "Identifier",
+      },
+      "start": 37,
+      "type": "MutableExpression",
+    },
+    Node {
+      "end": 86,
+      "id": Node {
+        "end": 86,
+        "name": "counter",
+        "start": 79,
+        "type": "Identifier",
+      },
+      "start": 71,
+      "type": "MutableExpression",
+    },
+  ],
+  "secrets": Map {},
+  "start": 0,
+  "tag": "md",
+  "type": "Cell",
 }
 `
 
@@ -5189,6 +5554,211 @@ Node {
 }
 `
 
+exports[`test/parse-test.js TAP parse simple-await-tagged-template.js > must match snapshot 1`] = `
+Node {
+  "async": true,
+  "body": Node {
+    "end": 20,
+    "quasi": Node {
+      "end": 20,
+      "expressions": Array [
+        Node {
+          "argument": Node {
+            "end": 18,
+            "name": "promise",
+            "start": 11,
+            "type": "Identifier",
+          },
+          "end": 18,
+          "start": 5,
+          "type": "AwaitExpression",
+        },
+      ],
+      "quasis": Array [
+        Node {
+          "end": 3,
+          "start": 3,
+          "tail": false,
+          "type": "TemplateElement",
+          "value": Object {
+            "cooked": "",
+            "raw": "",
+          },
+        },
+        Node {
+          "end": 19,
+          "start": 19,
+          "tail": true,
+          "type": "TemplateElement",
+          "value": Object {
+            "cooked": "",
+            "raw": "",
+          },
+        },
+      ],
+      "start": 2,
+      "type": "TemplateLiteral",
+    },
+    "start": 0,
+    "tag": Node {
+      "end": 2,
+      "name": "md",
+      "start": 0,
+      "type": "Identifier",
+    },
+    "type": "TaggedTemplateExpression",
+  },
+  "databaseClients": Map {},
+  "end": 21,
+  "fileAttachments": Map {},
+  "generator": false,
+  "id": null,
+  "references": Array [
+    Node {
+      "end": 2,
+      "name": "md",
+      "start": 0,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 18,
+      "name": "promise",
+      "start": 11,
+      "type": "Identifier",
+    },
+  ],
+  "secrets": Map {},
+  "start": 0,
+  "type": "Cell",
+}
+`
+
+exports[`test/parse-test.js TAP parse simple-await-template.js > must match snapshot 1`] = `
+Node {
+  "async": true,
+  "body": Node {
+    "end": 18,
+    "expressions": Array [
+      Node {
+        "argument": Node {
+          "end": 16,
+          "name": "promise",
+          "start": 9,
+          "type": "Identifier",
+        },
+        "end": 16,
+        "start": 3,
+        "type": "AwaitExpression",
+      },
+    ],
+    "quasis": Array [
+      Node {
+        "end": 1,
+        "start": 1,
+        "tail": false,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": "",
+          "raw": "",
+        },
+      },
+      Node {
+        "end": 17,
+        "start": 17,
+        "tail": true,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": "",
+          "raw": "",
+        },
+      },
+    ],
+    "start": 0,
+    "type": "TemplateLiteral",
+  },
+  "databaseClients": Map {},
+  "end": 19,
+  "fileAttachments": Map {},
+  "generator": false,
+  "id": null,
+  "references": Array [
+    Node {
+      "end": 16,
+      "name": "promise",
+      "start": 9,
+      "type": "Identifier",
+    },
+  ],
+  "secrets": Map {},
+  "start": 0,
+  "type": "Cell",
+}
+`
+
+exports[`test/parse-test.js TAP parse simple-await-template.md > must match snapshot 1`] = `
+Node {
+  "async": true,
+  "body": Node {
+    "end": 16,
+    "expressions": Array [
+      Node {
+        "argument": Node {
+          "end": 15,
+          "name": "promise",
+          "start": 8,
+          "type": "Identifier",
+        },
+        "end": 15,
+        "start": 2,
+        "type": "AwaitExpression",
+      },
+    ],
+    "quasis": Array [
+      Node {
+        "end": 0,
+        "start": 0,
+        "tail": false,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": "",
+          "raw": "",
+        },
+      },
+      Node {
+        "end": 16,
+        "start": 16,
+        "tail": true,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": undefined,
+          "raw": "",
+        },
+      },
+    ],
+    "start": 0,
+    "type": "TemplateLiteral",
+  },
+  "databaseClients": Map {},
+  "end": 16,
+  "fileAttachments": Map {},
+  "generator": false,
+  "id": null,
+  "raw": false,
+  "references": Array [
+    Node {
+      "end": 15,
+      "name": "promise",
+      "start": 8,
+      "type": "Identifier",
+    },
+  ],
+  "secrets": Map {},
+  "start": 0,
+  "tag": "md",
+  "type": "Cell",
+}
+`
+
 exports[`test/parse-test.js TAP parse simple-identifier.js > must match snapshot 1`] = `
 Node {
   "async": false,
@@ -5553,6 +6123,94 @@ Node {
   ],
   "secrets": Map {},
   "start": 0,
+  "type": "Cell",
+}
+`
+
+exports[`test/parse-test.js TAP parse viewof-in-markdown.md > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "end": 37,
+    "expressions": Array [
+      Node {
+        "computed": true,
+        "end": 34,
+        "object": Node {
+          "end": 22,
+          "name": "object",
+          "start": 16,
+          "type": "Identifier",
+        },
+        "optional": false,
+        "property": Node {
+          "end": 33,
+          "id": Node {
+            "end": 33,
+            "name": "foo",
+            "start": 30,
+            "type": "Identifier",
+          },
+          "start": 23,
+          "type": "ViewExpression",
+        },
+        "start": 16,
+        "type": "MemberExpression",
+      },
+    ],
+    "quasis": Array [
+      Node {
+        "end": 14,
+        "start": 0,
+        "tail": false,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": "# \`Code Title ",
+          "raw": "# \`Code Title ",
+        },
+      },
+      Node {
+        "end": 37,
+        "start": 35,
+        "tail": true,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": "\`\\n",
+          "raw": "\`\\n",
+        },
+      },
+    ],
+    "start": 0,
+    "type": "TemplateLiteral",
+  },
+  "databaseClients": Map {},
+  "end": 37,
+  "fileAttachments": Map {},
+  "generator": false,
+  "id": null,
+  "raw": false,
+  "references": Array [
+    Node {
+      "end": 22,
+      "name": "object",
+      "start": 16,
+      "type": "Identifier",
+    },
+    Node {
+      "end": 33,
+      "id": Node {
+        "end": 33,
+        "name": "foo",
+        "start": 30,
+        "type": "Identifier",
+      },
+      "start": 23,
+      "type": "ViewExpression",
+    },
+  ],
+  "secrets": Map {},
+  "start": 0,
+  "tag": "md",
   "type": "Cell",
 }
 `
