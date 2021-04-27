@@ -519,6 +519,10 @@ Node {
   "id": null,
   "raw": false,
   "references": Array [
+    Object {
+      "name": "md",
+      "type": "Tag",
+    },
     Node {
       "end": 24,
       "name": "importantValue",
@@ -689,6 +693,10 @@ Node {
   "id": null,
   "raw": true,
   "references": Array [
+    Object {
+      "name": "tex",
+      "type": "Tag",
+    },
     Node {
       "end": 11,
       "name": "numerator",
@@ -1430,7 +1438,12 @@ Node {
   "generator": false,
   "id": null,
   "raw": false,
-  "references": Array [],
+  "references": Array [
+    Object {
+      "name": "md",
+      "type": "Tag",
+    },
+  ],
   "secrets": Map {},
   "start": 0,
   "tag": "md",
@@ -3563,6 +3576,10 @@ Node {
   "id": null,
   "raw": false,
   "references": Array [
+    Object {
+      "name": "md",
+      "type": "Tag",
+    },
     Node {
       "end": 101,
       "name": "foo",
@@ -4586,6 +4603,10 @@ Node {
   "id": null,
   "raw": false,
   "references": Array [
+    Object {
+      "name": "md",
+      "type": "Tag",
+    },
     Node {
       "end": 19,
       "id": Node {
@@ -5780,6 +5801,10 @@ Node {
   "id": null,
   "raw": false,
   "references": Array [
+    Object {
+      "name": "md",
+      "type": "Tag",
+    },
     Node {
       "end": 15,
       "name": "promise",
@@ -6225,6 +6250,10 @@ Node {
   "id": null,
   "raw": false,
   "references": Array [
+    Object {
+      "name": "md",
+      "type": "Tag",
+    },
     Node {
       "end": 22,
       "name": "object",

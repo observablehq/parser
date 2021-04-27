@@ -31,6 +31,8 @@ export default function findReferences(cell, globals) {
   const globalSet = new Set(globals);
   const references = [];
 
+  if (cell.tag != null) references.push({type: "Tag", name: cell.tag});
+
   function hasLocal(node, name) {
     const l = locals.get(node);
     return l ? l.has(name) : false;
