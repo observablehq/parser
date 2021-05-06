@@ -14,7 +14,9 @@ const STATE_NAME = Symbol("name");
 
 export function parseCell(input, {tag, raw, globals, ...options} = {}) {
   let cell;
-  if (tag != null) {
+  // Parse empty input as JavaScript to keep ensure resulting ast
+  // is consistent for all empty input cases.
+  if (tag != null && input) {
     cell = TemplateCellParser.parse(input, options);
     cell.tag = tag;
     cell.raw = !!raw;
