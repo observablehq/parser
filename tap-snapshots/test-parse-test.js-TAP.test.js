@@ -1406,34 +1406,14 @@ Node {
 exports[`test/parse-test.js TAP parse empty.md > must match snapshot 1`] = `
 Node {
   "async": false,
-  "body": Node {
-    "end": 0,
-    "expressions": Array [],
-    "quasis": Array [
-      Node {
-        "end": 0,
-        "start": 0,
-        "tail": true,
-        "type": "TemplateElement",
-        "value": Object {
-          "cooked": "",
-          "raw": "",
-        },
-      },
-    ],
-    "start": 0,
-    "type": "TemplateLiteral",
-  },
+  "body": null,
   "databaseClients": Map {},
   "end": 0,
   "fileAttachments": Map {},
   "generator": false,
   "id": null,
-  "raw": false,
-  "references": Array [],
   "secrets": Map {},
   "start": 0,
-  "tag": "md",
   "type": "Cell",
 }
 `
