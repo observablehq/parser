@@ -601,6 +601,76 @@ Node {
 }
 `
 
+exports[`test/parse-test.js TAP parse backslash-after-dollar-markdown.md > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "end": 8,
+    "expressions": Array [],
+    "quasis": Array [
+      Node {
+        "end": 8,
+        "start": 0,
+        "tail": true,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": "\${foo}\\n",
+          "raw": "$\\\\{foo}\\n",
+        },
+      },
+    ],
+    "start": 0,
+    "type": "TemplateLiteral",
+  },
+  "databaseClients": Map {},
+  "end": 8,
+  "fileAttachments": Map {},
+  "generator": false,
+  "id": null,
+  "raw": false,
+  "references": Array [],
+  "secrets": Map {},
+  "start": 0,
+  "tag": "md",
+  "type": "Cell",
+}
+`
+
+exports[`test/parse-test.js TAP parse backslash-before-dollar-markdown.md > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "end": 8,
+    "expressions": Array [],
+    "quasis": Array [
+      Node {
+        "end": 8,
+        "start": 0,
+        "tail": true,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": "\${foo}\\n",
+          "raw": "\\\\\${foo}\\n",
+        },
+      },
+    ],
+    "start": 0,
+    "type": "TemplateLiteral",
+  },
+  "databaseClients": Map {},
+  "end": 8,
+  "fileAttachments": Map {},
+  "generator": false,
+  "id": null,
+  "raw": false,
+  "references": Array [],
+  "secrets": Map {},
+  "start": 0,
+  "tag": "md",
+  "type": "Cell",
+}
+`
+
 exports[`test/parse-test.js TAP parse bare-dynamic-import.js > must match snapshot 1`] = `
 Node {
   "async": false,
@@ -664,7 +734,7 @@ Node {
         "tail": false,
         "type": "TemplateElement",
         "value": Object {
-          "cooked": " \\\\over ",
+          "cooked": " over ",
           "raw": " \\\\over ",
         },
       },
