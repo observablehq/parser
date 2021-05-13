@@ -360,7 +360,8 @@ function readTemplateToken() {
     }
     if (ch === 92) { // '\'
       out += this.input.slice(chunkStart, this.pos);
-      out += this.readEscapedChar(true);
+      if (this.pos < this.input.length - 1) out += this.readEscapedChar(true);
+      else ++this.pos;
       chunkStart = this.pos;
     } else if (isNewLine(ch)) {
       out += this.input.slice(chunkStart, this.pos);
