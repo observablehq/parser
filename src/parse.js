@@ -1,4 +1,4 @@
-import {getLineInfo, TokContext, tokTypes as tt, Parser} from "acorn";
+import {getLineInfo, isNewLine, TokContext, tokTypes as tt, Parser} from "acorn";
 import defaultGlobals from "./globals.js";
 import findReferences from "./references.js";
 import findFeatures from "./features.js";
@@ -358,7 +358,32 @@ function readTemplateToken() {
       out += this.input.slice(chunkStart, this.pos);
       return this.finishToken(tt.template, out);
     }
-    ++this.pos;
+    if (ch === 92) { // '\'
+      out += this.input.slice(chunkStart, this.pos);
+      if (this.pos < this.input.length - 1) out += this.readEscapedChar(true);
+      else ++this.pos;
+      chunkStart = this.pos;
+    } else if (isNewLine(ch)) {
+      out += this.input.slice(chunkStart, this.pos);
+      ++this.pos;
+      switch (ch) {
+      case 13:
+        if (this.input.charCodeAt(this.pos) === 10) ++this.pos; // falls through
+      case 10:
+        out += "\n";
+        break;
+      default:
+        out += String.fromCharCode(ch);
+        break;
+      }
+      if (this.options.locations) {
+        ++this.curLine;
+        this.lineStart = this.pos;
+      }
+      chunkStart = this.pos;
+    } else {
+      ++this.pos;
+    }
   }
 }
 
