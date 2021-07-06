@@ -1302,6 +1302,20 @@ Node {
 }
 `
 
+exports[`test/parse-test.js TAP parse destructured-array-assignment.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 4,
+      "line": 2,
+    },
+    "message": "Assignment to constant variable md (2:4)",
+    "pos": 6,
+    "type": "SyntaxError",
+  },
+}
+`
+
 exports[`test/parse-test.js TAP parse destructured-arrow-with-default.js > must match snapshot 1`] = `
 Node {
   "async": false,
@@ -1376,6 +1390,139 @@ Node {
   "secrets": Map {},
   "start": 0,
   "type": "Cell",
+}
+`
+
+exports[`test/parse-test.js TAP parse destructured-assignment-with-default-assignment.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 18,
+      "line": 3,
+    },
+    "message": "Assignment to constant variable md (3:18)",
+    "pos": 33,
+    "type": "SyntaxError",
+  },
+}
+`
+
+exports[`test/parse-test.js TAP parse destructured-assignment-with-default.js > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "body": Array [
+      Node {
+        "declarations": Array [
+          Node {
+            "end": 13,
+            "id": Node {
+              "end": 13,
+              "name": "value",
+              "start": 8,
+              "type": "Identifier",
+            },
+            "init": null,
+            "start": 8,
+            "type": "VariableDeclarator",
+          },
+        ],
+        "end": 14,
+        "kind": "let",
+        "start": 4,
+        "type": "VariableDeclaration",
+      },
+      Node {
+        "end": 42,
+        "expression": Node {
+          "end": 40,
+          "left": Node {
+            "end": 35,
+            "properties": Array [
+              Node {
+                "computed": false,
+                "end": 34,
+                "key": Node {
+                  "end": 22,
+                  "name": "foo",
+                  "start": 19,
+                  "type": "Identifier",
+                },
+                "kind": "init",
+                "method": false,
+                "shorthand": false,
+                "start": 19,
+                "type": "Property",
+                "value": Node {
+                  "end": 34,
+                  "left": Node {
+                    "end": 29,
+                    "name": "value",
+                    "start": 24,
+                    "type": "Identifier",
+                  },
+                  "right": Node {
+                    "end": 34,
+                    "name": "md",
+                    "start": 32,
+                    "type": "Identifier",
+                  },
+                  "start": 24,
+                  "type": "AssignmentPattern",
+                },
+              },
+            ],
+            "start": 18,
+            "type": "ObjectPattern",
+          },
+          "operator": "=",
+          "right": Node {
+            "end": 40,
+            "properties": Array [],
+            "start": 38,
+            "type": "ObjectExpression",
+          },
+          "start": 18,
+          "type": "AssignmentExpression",
+        },
+        "start": 17,
+        "type": "ExpressionStatement",
+      },
+    ],
+    "end": 44,
+    "start": 0,
+    "type": "BlockStatement",
+  },
+  "databaseClients": Map {},
+  "end": 45,
+  "fileAttachments": Map {},
+  "generator": false,
+  "id": null,
+  "references": Array [
+    Node {
+      "end": 34,
+      "name": "md",
+      "start": 32,
+      "type": "Identifier",
+    },
+  ],
+  "secrets": Map {},
+  "start": 0,
+  "type": "Cell",
+}
+`
+
+exports[`test/parse-test.js TAP parse destructured-object-assignment.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 4,
+      "line": 2,
+    },
+    "message": "Assignment to constant variable md (2:4)",
+    "pos": 6,
+    "type": "SyntaxError",
+  },
 }
 `
 

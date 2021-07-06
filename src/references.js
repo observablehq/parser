@@ -167,32 +167,28 @@ export default function findReferences(cell, globals) {
     switch (node.type) {
       case "Identifier":
       case "VariablePattern": {
-        identifier(node, parents);
-        break;
-      }
-      case "ArrayPattern":
-      case "ObjectPattern": {
-        ancestor(
-          node,
-          {
-            Identifier: identifier,
-            VariablePattern: identifier
-          },
-          walk
-        );
-        break;
-      }
-    }
-    function identifier(node, nodeParents) {
-      for (const parent of parents) {
-        if (hasLocal(parent, node.name)) {
+        for (const parent of parents) {
+          if (hasLocal(parent, node.name)) {
+            return;
+          }
+        }
+        if (parents[parents.length - 2].type === "MutableExpression") {
           return;
         }
+        throw Object.assign(new SyntaxError(`Assignment to constant variable ${node.name}`), {node});
       }
-      if (nodeParents[nodeParents.length - 2].type === "MutableExpression") {
+      case "ArrayPattern": {
+        for (const element of node.elements) {
+          checkConst(element, parents);
+        }
         return;
       }
-      throw Object.assign(new SyntaxError(`Assignment to constant variable ${node.name}`), {node});
+      case "ObjectPattern": {
+        for (const property of node.properties) {
+          checkConst(property.value, parents);
+        }
+        return;
+      }
     }
   }
 
@@ -208,6 +204,7 @@ export default function findReferences(cell, globals) {
     ast,
     {
       AssignmentExpression: checkConstLeft,
+      AssignmentPattern: checkConstLeft,
       UpdateExpression: checkConstArgument,
       ForOfStatement: checkConstLeft,
       ForInStatement: checkConstLeft
