@@ -170,16 +170,16 @@ export default function findReferences(cell, globals) {
         identifier(node, parents);
         break;
       }
-      case "ArrayPattern":
+      case "ArrayPattern": {
+        for (const element of node.elements) {
+          checkConst(element, parents);
+        }
+        break;
+      }
       case "ObjectPattern": {
-        ancestor(
-          node,
-          {
-            Identifier: identifier,
-            VariablePattern: identifier
-          },
-          walk
-        );
+        for (const property of node.properties) {
+          checkConst(property.value, parents);
+        }
         break;
       }
     }
@@ -208,6 +208,7 @@ export default function findReferences(cell, globals) {
     ast,
     {
       AssignmentExpression: checkConstLeft,
+      AssignmentPattern: checkConstLeft,
       UpdateExpression: checkConstArgument,
       ForOfStatement: checkConstLeft,
       ForInStatement: checkConstLeft
