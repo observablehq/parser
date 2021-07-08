@@ -494,7 +494,7 @@ Node {
         "tail": false,
         "type": "TemplateElement",
         "value": Object {
-          "cooked": "**",
+          "cooked": null,
           "raw": "**",
         },
       },
@@ -504,7 +504,7 @@ Node {
         "tail": true,
         "type": "TemplateElement",
         "value": Object {
-          "cooked": "**\\n",
+          "cooked": null,
           "raw": "**\\n",
         },
       },
@@ -614,7 +614,7 @@ Node {
         "tail": true,
         "type": "TemplateElement",
         "value": Object {
-          "cooked": "\${foo}\\n",
+          "cooked": null,
           "raw": "$\\\\{foo}\\n",
         },
       },
@@ -649,7 +649,7 @@ Node {
         "tail": true,
         "type": "TemplateElement",
         "value": Object {
-          "cooked": "\${foo}\\n",
+          "cooked": null,
           "raw": "\\\\\${foo}\\n",
         },
       },
@@ -675,16 +675,16 @@ exports[`test/parse-test.js TAP parse backslash-markdown.md > must match snapsho
 Node {
   "async": false,
   "body": Node {
-    "end": 27,
+    "end": 28,
     "expressions": Array [],
     "quasis": Array [
       Node {
-        "end": 27,
+        "end": 28,
         "start": 0,
         "tail": true,
         "type": "TemplateElement",
         "value": Object {
-          "cooked": "Slash before, slash after",
+          "cooked": null,
           "raw": "\\\\Slash before, slash after\\\\",
         },
       },
@@ -693,7 +693,7 @@ Node {
     "type": "TemplateLiteral",
   },
   "databaseClients": Map {},
-  "end": 27,
+  "end": 28,
   "fileAttachments": Map {},
   "generator": false,
   "id": null,
@@ -759,7 +759,7 @@ Node {
         "tail": false,
         "type": "TemplateElement",
         "value": Object {
-          "cooked": "",
+          "cooked": null,
           "raw": "",
         },
       },
@@ -769,7 +769,7 @@ Node {
         "tail": false,
         "type": "TemplateElement",
         "value": Object {
-          "cooked": " over ",
+          "cooked": null,
           "raw": " \\\\over ",
         },
       },
@@ -3770,7 +3770,7 @@ Node {
         "tail": false,
         "type": "TemplateElement",
         "value": Object {
-          "cooked": "# Header 1\\n\\n\`\`\`\\nconst codeBlock = true;\\n\`\`\`\\n\\nParagraph that references \`codeBlock\`. Foo value: \\"",
+          "cooked": null,
           "raw": "# Header 1\\n\\n\`\`\`\\nconst codeBlock = true;\\n\`\`\`\\n\\nParagraph that references \`codeBlock\`. Foo value: \\"",
         },
       },
@@ -3780,7 +3780,7 @@ Node {
         "tail": true,
         "type": "TemplateElement",
         "value": Object {
-          "cooked": "\\".",
+          "cooked": null,
           "raw": "\\".",
         },
       },
@@ -4773,7 +4773,7 @@ Node {
         "tail": false,
         "type": "TemplateElement",
         "value": Object {
-          "cooked": "",
+          "cooked": null,
           "raw": "",
         },
       },
@@ -4783,7 +4783,7 @@ Node {
         "tail": false,
         "type": "TemplateElement",
         "value": Object {
-          "cooked": ". First item\\n",
+          "cooked": null,
           "raw": ". First item\\n",
         },
       },
@@ -4793,7 +4793,7 @@ Node {
         "tail": false,
         "type": "TemplateElement",
         "value": Object {
-          "cooked": ". Second item\\n",
+          "cooked": null,
           "raw": ". Second item\\n",
         },
       },
@@ -4803,7 +4803,7 @@ Node {
         "tail": true,
         "type": "TemplateElement",
         "value": Object {
-          "cooked": ". Third item\\n",
+          "cooked": null,
           "raw": ". Third item\\n",
         },
       },
@@ -5987,7 +5987,7 @@ Node {
         "tail": false,
         "type": "TemplateElement",
         "value": Object {
-          "cooked": "",
+          "cooked": null,
           "raw": "",
         },
       },
@@ -6206,6 +6206,41 @@ Node {
   "references": Array [],
   "secrets": Map {},
   "start": 0,
+  "type": "Cell",
+}
+`
+
+exports[`test/parse-test.js TAP parse underline.tex > must match snapshot 1`] = `
+Node {
+  "async": false,
+  "body": Node {
+    "end": 54,
+    "expressions": Array [],
+    "quasis": Array [
+      Node {
+        "end": 54,
+        "start": 0,
+        "tail": true,
+        "type": "TemplateElement",
+        "value": Object {
+          "cooked": null,
+          "raw": "\\\\text{This is some text \\\\underline{with an underline}}",
+        },
+      },
+    ],
+    "start": 0,
+    "type": "TemplateLiteral",
+  },
+  "databaseClients": Map {},
+  "end": 54,
+  "fileAttachments": Map {},
+  "generator": false,
+  "id": null,
+  "raw": true,
+  "references": Array [],
+  "secrets": Map {},
+  "start": 0,
+  "tag": "tex",
   "type": "Cell",
 }
 `
@@ -6432,7 +6467,7 @@ Node {
         "tail": false,
         "type": "TemplateElement",
         "value": Object {
-          "cooked": "# \`Code Title ",
+          "cooked": null,
           "raw": "# \`Code Title ",
         },
       },
@@ -6442,7 +6477,7 @@ Node {
         "tail": true,
         "type": "TemplateElement",
         "value": Object {
-          "cooked": "\`\\n",
+          "cooked": null,
           "raw": "\`\\n",
         },
       },
