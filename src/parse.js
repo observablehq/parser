@@ -340,14 +340,17 @@ export class TemplateCellParser extends CellParser {
   }
 }
 
-// This is our custom override for parsing a template that allows
-// backticks. Based on acorn's readInvalidTemplateToken.
+// This is our custom override for parsing a template that allows backticks.
+// Based on acorn's readInvalidTemplateToken.
 function readTemplateToken() {
   out: for (; this.pos < this.input.length; this.pos++) {
-    switch (this.input[this.pos]) {
-      case "\\": ++this.pos; break;
-      case "$": {
-        if (this.input[this.pos + 1] === "{") {
+    switch (this.input.charCodeAt(this.pos)) {
+      case 92: { // slash
+        if (this.pos < this.input.length - 1) ++this.pos; // terminal slash
+        break;
+      }
+      case 36: { // dollar
+        if (this.input.charCodeAt(this.pos + 1) === 123) { // dollar curly
           if (this.pos === this.start && this.type === tt.invalidTemplate) {
             this.pos += 2;
             return this.finishToken(tt.dollarBraceL);

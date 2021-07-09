@@ -675,11 +675,11 @@ exports[`test/parse-test.js TAP parse backslash-markdown.md > must match snapsho
 Node {
   "async": false,
   "body": Node {
-    "end": 28,
+    "end": 27,
     "expressions": Array [],
     "quasis": Array [
       Node {
-        "end": 28,
+        "end": 27,
         "start": 0,
         "tail": true,
         "type": "TemplateElement",
@@ -693,7 +693,7 @@ Node {
     "type": "TemplateLiteral",
   },
   "databaseClients": Map {},
-  "end": 28,
+  "end": 27,
   "fileAttachments": Map {},
   "generator": false,
   "id": null,
