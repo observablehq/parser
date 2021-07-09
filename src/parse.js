@@ -346,7 +346,7 @@ function readTemplateToken() {
   out: for (; this.pos < this.input.length; this.pos++) {
     switch (this.input.charCodeAt(this.pos)) {
       case 92: { // slash
-        if (this.pos < this.input.length - 1) ++this.pos; // terminal slash
+        if (this.pos < this.input.length - 1) ++this.pos; // not a terminal slash
         break;
       }
       case 36: { // dollar
