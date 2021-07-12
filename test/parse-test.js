@@ -60,6 +60,7 @@ readdirSync(join("test", "input")).forEach(file => {
         error instanceof SyntaxError ||
         error instanceof TypeError
       ) {
+        if (!error.loc) throw error; // internal unexpected error
         actual = {
           error: {
             type: error.constructor.name,

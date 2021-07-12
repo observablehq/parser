@@ -1316,6 +1316,20 @@ Object {
 }
 `
 
+exports[`test/parse-test.js TAP parse destructured-array-rest-assignment.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 9,
+      "line": 2,
+    },
+    "message": "Assignment to constant variable md (2:9)",
+    "pos": 11,
+    "type": "SyntaxError",
+  },
+}
+`
+
 exports[`test/parse-test.js TAP parse destructured-arrow-with-default.js > must match snapshot 1`] = `
 Node {
   "async": false,
@@ -1521,6 +1535,20 @@ Object {
     },
     "message": "Assignment to constant variable md (2:4)",
     "pos": 6,
+    "type": "SyntaxError",
+  },
+}
+`
+
+exports[`test/parse-test.js TAP parse destructured-object-rest-assignment.js > must match snapshot 1`] = `
+Object {
+  "error": Object {
+    "loc": Object {
+      "column": 7,
+      "line": 2,
+    },
+    "message": "Assignment to constant variable md (2:7)",
+    "pos": 9,
     "type": "SyntaxError",
   },
 }

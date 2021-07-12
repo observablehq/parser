@@ -179,13 +179,14 @@ export default function findReferences(cell, globals) {
       }
       case "ArrayPattern": {
         for (const element of node.elements) {
-          checkConst(element, parents);
+          if (element === null) continue; // sparse array literal
+          checkConst(element.type === "RestElement" ? element.argument : element, parents);
         }
         return;
       }
       case "ObjectPattern": {
         for (const property of node.properties) {
-          checkConst(property.value, parents);
+          checkConst(property.type === "RestElement" ? property.argument : property.value, parents);
         }
         return;
       }
