@@ -164,6 +164,7 @@ export default function findReferences(cell, globals) {
   );
 
   function checkConst(node, parents) {
+    if (!node) return;
     switch (node.type) {
       case "Identifier":
       case "VariablePattern": {
@@ -179,15 +180,22 @@ export default function findReferences(cell, globals) {
       }
       case "ArrayPattern": {
         for (const element of node.elements) {
-          if (element === null) continue; // sparse array literal
-          checkConst(element.type === "RestElement" ? element.argument : element, parents);
+          checkConst(element, parents);
         }
         return;
       }
       case "ObjectPattern": {
         for (const property of node.properties) {
-          checkConst(property.type === "RestElement" ? property.argument : property.value, parents);
+          checkConst(property, parents);
         }
+        return;
+      }
+      case "Property": {
+        checkConst(node.value, parents);
+        return;
+      }
+      case "RestElement": {
+        checkConst(node.argument, parents);
         return;
       }
     }
