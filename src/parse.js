@@ -390,7 +390,13 @@ export class ModuleParser extends CellParser {
 // Check for illegal references to arguments.
 // Check for illegal assignments to global references.
 function parseReferences(cell, input, globals = defaultGlobals) {
-  if (cell.body && cell.body.type !== "ImportDeclaration") {
+  if (!cell.body) {
+    cell.references = [];
+  } else if (cell.body.type === "ImportDeclaration") {
+    cell.references = cell.body.injections
+      ? cell.body.injections.map(i => i.imported)
+      : [];
+  } else {
     try {
       cell.references = findReferences(cell, globals);
     } catch (error) {
