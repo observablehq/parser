@@ -51,8 +51,12 @@ readdirSync(join("test", "input")).forEach(file => {
     try {
       actual = parseCell(readFileSync(infile, "utf8"), {
         globals: null,
-        tag: bareExtension !== 'js' ? bareExtension : undefined,
-        raw: bareExtension == 'tex'
+        mode: bareExtension !== 'js' ? bareExtension : undefined,
+        data: bareExtension === "sql"
+          ? file.startsWith("sql-cell")
+            ? {source: {name: "dbCell", type: "cell", dialect: "mysql"}}
+            : {source: {name: "account_database", type: "database", dialect: "postgres"}}
+          : undefined
       });
     } catch (error) {
       if (

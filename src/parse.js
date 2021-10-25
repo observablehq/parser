@@ -2,6 +2,7 @@ import {getLineInfo, TokContext, tokTypes as tt, Parser} from "acorn";
 import defaultGlobals from "./globals.js";
 import findReferences from "./references.js";
 import findFeatures from "./features.js";
+import {getModeTag, getModeAsync, getModeRaw, getModeReference, getModeDatabaseClient, MODES} from "./mode.js";
 
 const SCOPE_FUNCTION = 2;
 const SCOPE_ASYNC = 4;
@@ -12,19 +13,23 @@ const STATE_MODIFIER = Symbol("modifier");
 const STATE_FUNCTION = Symbol("function");
 const STATE_NAME = Symbol("name");
 
-export function parseCell(input, {tag, raw, globals, ...options} = {}) {
+export function parseCell(input, {mode = MODES.js, data = null, globals, ...options} = {}) {
   let cell;
+  const tag = getModeTag(mode, data);
   // Parse empty input as JavaScript to keep ensure resulting ast
   // is consistent for all empty input cases.
   if (tag != null && input) {
     cell = TemplateCellParser.parse(input, options);
+    const raw = getModeRaw(mode);
+    const async = getModeAsync(mode, data);
     cell.tag = tag;
-    cell.raw = !!raw;
+    cell.raw = raw;
+    if (async) cell.async = async;
   } else {
     cell = CellParser.parse(input, options);
   }
-  parseReferences(cell, input, globals);
-  parseFeatures(cell);
+  parseReferences(cell, input, mode, data, globals);
+  parseFeatures(cell, input, mode, data);
   return cell;
 }
 
@@ -367,8 +372,8 @@ function readTemplateToken() {
 export function parseModule(input, {globals} = {}) {
   const program = ModuleParser.parse(input);
   for (const cell of program.cells) {
-    parseReferences(cell, input, globals);
-    parseFeatures(cell, input, globals);
+    parseReferences(cell, input, MODES.js, null, globals);
+    parseFeatures(cell, input, MODES.js, null);
   }
   return program;
 }
@@ -389,7 +394,7 @@ export class ModuleParser extends CellParser {
 // Find references.
 // Check for illegal references to arguments.
 // Check for illegal assignments to global references.
-function parseReferences(cell, input, globals = defaultGlobals) {
+function parseReferences(cell, input, mode, data, globals = defaultGlobals) {
   if (!cell.body) {
     cell.references = [];
   } else if (cell.body.type === "ImportDeclaration") {
@@ -410,18 +415,26 @@ function parseReferences(cell, input, globals = defaultGlobals) {
       throw error;
     }
   }
+  const reference = getModeReference(mode, data);
+  if (reference) cell.references.push({name: reference, start: null, end: null, type: "Identifier"});
   return cell;
 }
 
 // Find features: file attachments, secrets, database clients.
 // Check for illegal references to arguments.
 // Check for illegal assignments to global references.
-function parseFeatures(cell, input) {
+function parseFeatures(cell, input, mode, data) {
   if (cell.body && cell.body.type !== "ImportDeclaration") {
     try {
       cell.fileAttachments = findFeatures(cell, "FileAttachment");
       cell.databaseClients = findFeatures(cell, "DatabaseClient");
       cell.secrets = findFeatures(cell, "Secret");
+      const database = getModeDatabaseClient(mode, data);
+      if (database) {
+        const loc = {start: null, end: null};
+        if (cell.databaseClients.has(database)) cell.databaseClients.get(database).push(loc);
+        else cell.databaseClients.set(database, [loc]);
+      }
     } catch (error) {
       if (error.node) {
         const loc = getLineInfo(input, error.node.start);
