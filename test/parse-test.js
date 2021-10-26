@@ -51,7 +51,17 @@ readdirSync(join("test", "input")).forEach(file => {
     try {
       actual = parseCell(readFileSync(infile, "utf8"), {
         globals: null,
-        tag: bareExtension !== 'js' ? bareExtension : undefined,
+        tag: bareExtension === "sql"
+        ? file.startsWith("sql-cell")
+          ? "dbCell.sql"
+          : '(await DatabaseClient("database")).sql'
+        : bareExtension === "html"
+        ? "htl.html"
+        : bareExtension === "tex"
+        ? "tex.block"
+        : bareExtension === "md"
+        ? "md"
+        : undefined,
         raw: bareExtension == 'tex'
       });
     } catch (error) {

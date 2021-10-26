@@ -18,13 +18,16 @@ export function parseCell(input, {tag, raw, globals, ...options} = {}) {
   // is consistent for all empty input cases.
   if (tag != null && input) {
     cell = TemplateCellParser.parse(input, options);
-    cell.tag = tag;
+    const parsedTag = CellTagParser.parse(tag, options);
+    parseReferences(parsedTag, tag, globals);
+    parseFeatures(parsedTag, tag);
+    cell.tag = parsedTag;
     cell.raw = !!raw;
   } else {
     cell = CellParser.parse(input, options);
   }
   parseReferences(cell, input, globals);
-  parseFeatures(cell);
+  parseFeatures(cell, input);
   return cell;
 }
 
@@ -383,6 +386,45 @@ export class ModuleParser extends CellParser {
     }
     this.next();
     return this.finishNode(node, "Program");
+  }
+}
+
+export class CellTagParser extends Parser {
+  constructor(options, ...args) {
+    super(Object.assign({ecmaVersion: 12}, options), ...args);
+  }
+  enterScope(flags) {
+    if (flags & SCOPE_FUNCTION) ++this.O_function;
+    return super.enterScope(flags);
+  }
+  exitScope() {
+    if (this.currentScope().flags & SCOPE_FUNCTION) --this.O_function;
+    return super.exitScope();
+  }
+  parseForIn(node, init) {
+    if (this.O_function === 1 && node.await) this.O_async = true;
+    return super.parseForIn(node, init);
+  }
+  parseAwait() {
+    if (this.O_function === 1) this.O_async = true;
+    return super.parseAwait();
+  }
+  parseYield(noIn) {
+    if (this.O_function === 1) this.O_generator = true;
+    return super.parseYield(noIn);
+  }
+  parseTopLevel(node) {
+    this.O_function = 0;
+    this.O_async = false;
+    this.O_generator = false;
+    this.strict = true;
+    this.enterScope(SCOPE_FUNCTION | SCOPE_ASYNC | SCOPE_GENERATOR);
+    node.body = this.parseExpression();
+    node.input = this.input;
+    node.async = this.O_async;
+    node.generator = this.O_generator;
+    this.exitScope();
+    return this.finishNode(node, "CellTag");
   }
 }
 
