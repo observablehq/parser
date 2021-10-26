@@ -18,7 +18,7 @@ export function parseCell(input, {tag, raw, globals, ...options} = {}) {
   // is consistent for all empty input cases.
   if (tag != null && input) {
     cell = TemplateCellParser.parse(input, options);
-    const parsedTag = TagParser.parse(tag, options);
+    const parsedTag = CellTagParser.parse(tag, options);
     parseReferences(parsedTag, tag, globals);
     parseFeatures(parsedTag, tag);
     cell.tag = parsedTag;
@@ -389,7 +389,7 @@ export class ModuleParser extends CellParser {
   }
 }
 
-export class TagParser extends Parser {
+export class CellTagParser extends Parser {
   constructor(options, ...args) {
     super(Object.assign({ecmaVersion: 12}, options), ...args);
   }
