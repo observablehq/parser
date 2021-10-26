@@ -19,21 +19,16 @@ export function parseCell(input, {tag, raw, globals, ...options} = {}) {
   // is consistent for all empty input cases.
   if (tag != null && input) {
     cell = TemplateCellParser.parse(input, options);
-    cell.tag = tag;
-    cell.raw = !!raw;
     parsedTag = TagParser.parse(tag, options);
     parseReferences(parsedTag, tag, globals);
     parseFeatures(parsedTag, tag);
+    cell.tag = parsedTag;
+    cell.raw = !!raw;
   } else {
     cell = CellParser.parse(input, options);
   }
   parseReferences(cell, input, globals);
   parseFeatures(cell, input);
-  if (parsedTag) {
-    if (parsedTag.async) cell.async = true;
-    mergeTagReferences(cell, parsedTag);
-    mergeTagFeatures(cell, parsedTag);
-  }
   return cell;
 }
 
@@ -415,13 +410,20 @@ export class TagParser extends Parser {
     if (this.O_function === 1) this.O_async = true;
     return super.parseAwait();
   }
+  parseYield(noIn) {
+    if (this.O_function === 1) this.O_generator = true;
+    return super.parseYield(noIn);
+  }
   parseTopLevel(node) {
     this.O_function = 0;
     this.O_async = false;
+    this.O_generator = false;
     this.strict = true;
     this.enterScope(SCOPE_FUNCTION | SCOPE_ASYNC | SCOPE_GENERATOR);
     node.body = this.parseExpression();
+    node.input = this.input;
     node.async = this.O_async;
+    node.generator = this.O_generator;
     this.exitScope();
     return this.finishNode(node, "Tag");
   }
@@ -479,22 +481,4 @@ function parseFeatures(cell, input) {
     cell.secrets = new Map();
   }
   return cell;
-}
-
-function mergeTagReferences(cell, parsedTag) {
-  cell.references = cell.references.concat(
-    parsedTag.references.map(
-      ({name, type}) => ({name, type, start: null, end: null})
-    )
-  );
-}
-
-function mergeTagFeatures(cell, parsedTag) {
-  const features = ["databaseClients", "fileAttachments", "secrets"];
-  for (const f of features) {
-    for (const [name] of parsedTag[f]) {
-      if (cell[f].has(name)) cell[f].get(name).push({start: null, end: null});
-      else cell[f].set(name, {start: null, end: null});
-    }
-  }
 }

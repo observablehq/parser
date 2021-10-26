@@ -525,16 +525,34 @@ Node {
       "start": 10,
       "type": "Identifier",
     },
-    Object {
-      "end": null,
-      "name": "md",
-      "start": null,
-      "type": "Identifier",
-    },
   ],
   "secrets": Map {},
   "start": 0,
-  "tag": "md",
+  "tag": Node {
+    "async": false,
+    "body": Node {
+      "end": 2,
+      "name": "md",
+      "start": 0,
+      "type": "Identifier",
+    },
+    "databaseClients": Map {},
+    "end": 2,
+    "fileAttachments": Map {},
+    "generator": false,
+    "input": "md",
+    "references": Array [
+      Node {
+        "end": 2,
+        "name": "md",
+        "start": 0,
+        "type": "Identifier",
+      },
+    ],
+    "secrets": Map {},
+    "start": 0,
+    "type": "Tag",
+  },
   "type": "Cell",
 }
 `
@@ -634,17 +652,34 @@ Node {
   "generator": false,
   "id": null,
   "raw": false,
-  "references": Array [
-    Object {
-      "end": null,
-      "name": "md",
-      "start": null,
-      "type": "Identifier",
-    },
-  ],
+  "references": Array [],
   "secrets": Map {},
   "start": 0,
-  "tag": "md",
+  "tag": Node {
+    "async": false,
+    "body": Node {
+      "end": 2,
+      "name": "md",
+      "start": 0,
+      "type": "Identifier",
+    },
+    "databaseClients": Map {},
+    "end": 2,
+    "fileAttachments": Map {},
+    "generator": false,
+    "input": "md",
+    "references": Array [
+      Node {
+        "end": 2,
+        "name": "md",
+        "start": 0,
+        "type": "Identifier",
+      },
+    ],
+    "secrets": Map {},
+    "start": 0,
+    "type": "Tag",
+  },
   "type": "Cell",
 }
 `
@@ -676,17 +711,34 @@ Node {
   "generator": false,
   "id": null,
   "raw": false,
-  "references": Array [
-    Object {
-      "end": null,
-      "name": "md",
-      "start": null,
-      "type": "Identifier",
-    },
-  ],
+  "references": Array [],
   "secrets": Map {},
   "start": 0,
-  "tag": "md",
+  "tag": Node {
+    "async": false,
+    "body": Node {
+      "end": 2,
+      "name": "md",
+      "start": 0,
+      "type": "Identifier",
+    },
+    "databaseClients": Map {},
+    "end": 2,
+    "fileAttachments": Map {},
+    "generator": false,
+    "input": "md",
+    "references": Array [
+      Node {
+        "end": 2,
+        "name": "md",
+        "start": 0,
+        "type": "Identifier",
+      },
+    ],
+    "secrets": Map {},
+    "start": 0,
+    "type": "Tag",
+  },
   "type": "Cell",
 }
 `
@@ -718,17 +770,34 @@ Node {
   "generator": false,
   "id": null,
   "raw": false,
-  "references": Array [
-    Object {
-      "end": null,
-      "name": "md",
-      "start": null,
-      "type": "Identifier",
-    },
-  ],
+  "references": Array [],
   "secrets": Map {},
   "start": 0,
-  "tag": "md",
+  "tag": Node {
+    "async": false,
+    "body": Node {
+      "end": 2,
+      "name": "md",
+      "start": 0,
+      "type": "Identifier",
+    },
+    "databaseClients": Map {},
+    "end": 2,
+    "fileAttachments": Map {},
+    "generator": false,
+    "input": "md",
+    "references": Array [
+      Node {
+        "end": 2,
+        "name": "md",
+        "start": 0,
+        "type": "Identifier",
+      },
+    ],
+    "secrets": Map {},
+    "start": 0,
+    "type": "Tag",
+  },
   "type": "Cell",
 }
 `
@@ -811,16 +880,47 @@ Node {
       "start": 7,
       "type": "Identifier",
     },
-    Object {
-      "end": null,
-      "name": "htl",
-      "start": null,
-      "type": "Identifier",
-    },
   ],
   "secrets": Map {},
   "start": 0,
-  "tag": "htl.html",
+  "tag": Node {
+    "async": false,
+    "body": Node {
+      "computed": false,
+      "end": 8,
+      "object": Node {
+        "end": 3,
+        "name": "htl",
+        "start": 0,
+        "type": "Identifier",
+      },
+      "optional": false,
+      "property": Node {
+        "end": 8,
+        "name": "html",
+        "start": 4,
+        "type": "Identifier",
+      },
+      "start": 0,
+      "type": "MemberExpression",
+    },
+    "databaseClients": Map {},
+    "end": 8,
+    "fileAttachments": Map {},
+    "generator": false,
+    "input": "htl.html",
+    "references": Array [
+      Node {
+        "end": 3,
+        "name": "htl",
+        "start": 0,
+        "type": "Identifier",
+      },
+    ],
+    "secrets": Map {},
+    "start": 0,
+    "type": "Tag",
+  },
   "type": "Cell",
 }
 `
@@ -898,16 +998,47 @@ Node {
       "start": 21,
       "type": "Identifier",
     },
-    Object {
-      "end": null,
-      "name": "tex",
-      "start": null,
-      "type": "Identifier",
-    },
   ],
   "secrets": Map {},
   "start": 0,
-  "tag": "tex.block",
+  "tag": Node {
+    "async": false,
+    "body": Node {
+      "computed": false,
+      "end": 9,
+      "object": Node {
+        "end": 3,
+        "name": "tex",
+        "start": 0,
+        "type": "Identifier",
+      },
+      "optional": false,
+      "property": Node {
+        "end": 9,
+        "name": "block",
+        "start": 4,
+        "type": "Identifier",
+      },
+      "start": 0,
+      "type": "MemberExpression",
+    },
+    "databaseClients": Map {},
+    "end": 9,
+    "fileAttachments": Map {},
+    "generator": false,
+    "input": "tex.block",
+    "references": Array [
+      Node {
+        "end": 3,
+        "name": "tex",
+        "start": 0,
+        "type": "Identifier",
+      },
+    ],
+    "secrets": Map {},
+    "start": 0,
+    "type": "Tag",
+  },
   "type": "Cell",
 }
 `
@@ -3946,16 +4077,34 @@ Node {
       "start": 98,
       "type": "Identifier",
     },
-    Object {
-      "end": null,
-      "name": "md",
-      "start": null,
-      "type": "Identifier",
-    },
   ],
   "secrets": Map {},
   "start": 0,
-  "tag": "md",
+  "tag": Node {
+    "async": false,
+    "body": Node {
+      "end": 2,
+      "name": "md",
+      "start": 0,
+      "type": "Identifier",
+    },
+    "databaseClients": Map {},
+    "end": 2,
+    "fileAttachments": Map {},
+    "generator": false,
+    "input": "md",
+    "references": Array [
+      Node {
+        "end": 2,
+        "name": "md",
+        "start": 0,
+        "type": "Identifier",
+      },
+    ],
+    "secrets": Map {},
+    "start": 0,
+    "type": "Tag",
+  },
   "type": "Cell",
 }
 `
@@ -5002,16 +5151,34 @@ Node {
       "start": 71,
       "type": "MutableExpression",
     },
-    Object {
-      "end": null,
-      "name": "md",
-      "start": null,
-      "type": "Identifier",
-    },
   ],
   "secrets": Map {},
   "start": 0,
-  "tag": "md",
+  "tag": Node {
+    "async": false,
+    "body": Node {
+      "end": 2,
+      "name": "md",
+      "start": 0,
+      "type": "Identifier",
+    },
+    "databaseClients": Map {},
+    "end": 2,
+    "fileAttachments": Map {},
+    "generator": false,
+    "input": "md",
+    "references": Array [
+      Node {
+        "end": 2,
+        "name": "md",
+        "start": 0,
+        "type": "Identifier",
+      },
+    ],
+    "secrets": Map {},
+    "start": 0,
+    "type": "Tag",
+  },
   "type": "Cell",
 }
 `
@@ -6176,16 +6343,34 @@ Node {
       "start": 8,
       "type": "Identifier",
     },
-    Object {
-      "end": null,
-      "name": "md",
-      "start": null,
-      "type": "Identifier",
-    },
   ],
   "secrets": Map {},
   "start": 0,
-  "tag": "md",
+  "tag": Node {
+    "async": false,
+    "body": Node {
+      "end": 2,
+      "name": "md",
+      "start": 0,
+      "type": "Identifier",
+    },
+    "databaseClients": Map {},
+    "end": 2,
+    "fileAttachments": Map {},
+    "generator": false,
+    "input": "md",
+    "references": Array [
+      Node {
+        "end": 2,
+        "name": "md",
+        "start": 0,
+        "type": "Identifier",
+      },
+    ],
+    "secrets": Map {},
+    "start": 0,
+    "type": "Tag",
+  },
   "type": "Cell",
 }
 `
@@ -6340,23 +6525,54 @@ Node {
       "start": 43,
       "type": "Identifier",
     },
-    Object {
-      "end": null,
-      "name": "dbCell",
-      "start": null,
-      "type": "Identifier",
-    },
   ],
   "secrets": Map {},
   "start": 0,
-  "tag": "dbCell.sql",
+  "tag": Node {
+    "async": false,
+    "body": Node {
+      "computed": false,
+      "end": 10,
+      "object": Node {
+        "end": 6,
+        "name": "dbCell",
+        "start": 0,
+        "type": "Identifier",
+      },
+      "optional": false,
+      "property": Node {
+        "end": 10,
+        "name": "sql",
+        "start": 7,
+        "type": "Identifier",
+      },
+      "start": 0,
+      "type": "MemberExpression",
+    },
+    "databaseClients": Map {},
+    "end": 10,
+    "fileAttachments": Map {},
+    "generator": false,
+    "input": "dbCell.sql",
+    "references": Array [
+      Node {
+        "end": 6,
+        "name": "dbCell",
+        "start": 0,
+        "type": "Identifier",
+      },
+    ],
+    "secrets": Map {},
+    "start": 0,
+    "type": "Tag",
+  },
   "type": "Cell",
 }
 `
 
 exports[`test/parse-test.js TAP parse sql-database-basic.sql > must match snapshot 1`] = `
 Node {
-  "async": true,
+  "async": false,
   "body": Node {
     "end": 47,
     "expressions": Array [
@@ -6392,12 +6608,7 @@ Node {
     "start": 0,
     "type": "TemplateLiteral",
   },
-  "databaseClients": Map {
-    "database" => Object {
-      "end": null,
-      "start": null,
-    },
-  },
+  "databaseClients": Map {},
   "end": 47,
   "fileAttachments": Map {},
   "generator": false,
@@ -6410,16 +6621,74 @@ Node {
       "start": 43,
       "type": "Identifier",
     },
-    Object {
-      "end": null,
-      "name": "DatabaseClient",
-      "start": null,
-      "type": "Identifier",
-    },
   ],
   "secrets": Map {},
   "start": 0,
-  "tag": "(await DatabaseClient(\\"database\\")).sql",
+  "tag": Node {
+    "async": true,
+    "body": Node {
+      "computed": false,
+      "end": 38,
+      "object": Node {
+        "argument": Node {
+          "arguments": Array [
+            Node {
+              "end": 32,
+              "raw": "\\"database\\"",
+              "start": 22,
+              "type": "Literal",
+              "value": "database",
+            },
+          ],
+          "callee": Node {
+            "end": 21,
+            "name": "DatabaseClient",
+            "start": 7,
+            "type": "Identifier",
+          },
+          "end": 33,
+          "optional": false,
+          "start": 7,
+          "type": "CallExpression",
+        },
+        "end": 33,
+        "start": 1,
+        "type": "AwaitExpression",
+      },
+      "optional": false,
+      "property": Node {
+        "end": 38,
+        "name": "sql",
+        "start": 35,
+        "type": "Identifier",
+      },
+      "start": 0,
+      "type": "MemberExpression",
+    },
+    "databaseClients": Map {
+      "database" => Array [
+        Object {
+          "end": 32,
+          "start": 22,
+        },
+      ],
+    },
+    "end": 38,
+    "fileAttachments": Map {},
+    "generator": false,
+    "input": "(await DatabaseClient(\\"database\\")).sql",
+    "references": Array [
+      Node {
+        "end": 21,
+        "name": "DatabaseClient",
+        "start": 7,
+        "type": "Identifier",
+      },
+    ],
+    "secrets": Map {},
+    "start": 0,
+    "type": "Tag",
+  },
   "type": "Cell",
 }
 `
@@ -6536,17 +6805,47 @@ Node {
   "generator": false,
   "id": null,
   "raw": true,
-  "references": Array [
-    Object {
-      "end": null,
-      "name": "tex",
-      "start": null,
-      "type": "Identifier",
-    },
-  ],
+  "references": Array [],
   "secrets": Map {},
   "start": 0,
-  "tag": "tex.block",
+  "tag": Node {
+    "async": false,
+    "body": Node {
+      "computed": false,
+      "end": 9,
+      "object": Node {
+        "end": 3,
+        "name": "tex",
+        "start": 0,
+        "type": "Identifier",
+      },
+      "optional": false,
+      "property": Node {
+        "end": 9,
+        "name": "block",
+        "start": 4,
+        "type": "Identifier",
+      },
+      "start": 0,
+      "type": "MemberExpression",
+    },
+    "databaseClients": Map {},
+    "end": 9,
+    "fileAttachments": Map {},
+    "generator": false,
+    "input": "tex.block",
+    "references": Array [
+      Node {
+        "end": 3,
+        "name": "tex",
+        "start": 0,
+        "type": "Identifier",
+      },
+    ],
+    "secrets": Map {},
+    "start": 0,
+    "type": "Tag",
+  },
   "type": "Cell",
 }
 `
@@ -6815,16 +7114,34 @@ Node {
       "start": 23,
       "type": "ViewExpression",
     },
-    Object {
-      "end": null,
-      "name": "md",
-      "start": null,
-      "type": "Identifier",
-    },
   ],
   "secrets": Map {},
   "start": 0,
-  "tag": "md",
+  "tag": Node {
+    "async": false,
+    "body": Node {
+      "end": 2,
+      "name": "md",
+      "start": 0,
+      "type": "Identifier",
+    },
+    "databaseClients": Map {},
+    "end": 2,
+    "fileAttachments": Map {},
+    "generator": false,
+    "input": "md",
+    "references": Array [
+      Node {
+        "end": 2,
+        "name": "md",
+        "start": 0,
+        "type": "Identifier",
+      },
+    ],
+    "secrets": Map {},
+    "start": 0,
+    "type": "Tag",
+  },
   "type": "Cell",
 }
 `
