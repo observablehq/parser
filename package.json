@@ -1,6 +1,6 @@
 {
   "name": "@observablehq/parser",
-  "version": "4.5.0",
+  "version": "5.0.0",
   "license": "ISC",
   "main": "dist/parser.min.js",
   "module": "src/index.js",
