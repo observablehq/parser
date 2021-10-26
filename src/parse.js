@@ -14,12 +14,11 @@ const STATE_NAME = Symbol("name");
 
 export function parseCell(input, {tag, raw, globals, ...options} = {}) {
   let cell;
-  let parsedTag;
   // Parse empty input as JavaScript to keep ensure resulting ast
   // is consistent for all empty input cases.
   if (tag != null && input) {
     cell = TemplateCellParser.parse(input, options);
-    parsedTag = TagParser.parse(tag, options);
+    const parsedTag = TagParser.parse(tag, options);
     parseReferences(parsedTag, tag, globals);
     parseFeatures(parsedTag, tag);
     cell.tag = parsedTag;
@@ -425,7 +424,7 @@ export class TagParser extends Parser {
     node.async = this.O_async;
     node.generator = this.O_generator;
     this.exitScope();
-    return this.finishNode(node, "Tag");
+    return this.finishNode(node, "CellTag");
   }
 }
 

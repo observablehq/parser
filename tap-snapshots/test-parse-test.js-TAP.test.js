@@ -551,7 +551,7 @@ Node {
     ],
     "secrets": Map {},
     "start": 0,
-    "type": "Tag",
+    "type": "CellTag",
   },
   "type": "Cell",
 }
@@ -678,7 +678,7 @@ Node {
     ],
     "secrets": Map {},
     "start": 0,
-    "type": "Tag",
+    "type": "CellTag",
   },
   "type": "Cell",
 }
@@ -737,7 +737,7 @@ Node {
     ],
     "secrets": Map {},
     "start": 0,
-    "type": "Tag",
+    "type": "CellTag",
   },
   "type": "Cell",
 }
@@ -796,7 +796,7 @@ Node {
     ],
     "secrets": Map {},
     "start": 0,
-    "type": "Tag",
+    "type": "CellTag",
   },
   "type": "Cell",
 }
@@ -919,7 +919,7 @@ Node {
     ],
     "secrets": Map {},
     "start": 0,
-    "type": "Tag",
+    "type": "CellTag",
   },
   "type": "Cell",
 }
@@ -1037,7 +1037,7 @@ Node {
     ],
     "secrets": Map {},
     "start": 0,
-    "type": "Tag",
+    "type": "CellTag",
   },
   "type": "Cell",
 }
@@ -4103,7 +4103,7 @@ Node {
     ],
     "secrets": Map {},
     "start": 0,
-    "type": "Tag",
+    "type": "CellTag",
   },
   "type": "Cell",
 }
@@ -5177,7 +5177,7 @@ Node {
     ],
     "secrets": Map {},
     "start": 0,
-    "type": "Tag",
+    "type": "CellTag",
   },
   "type": "Cell",
 }
@@ -6369,7 +6369,7 @@ Node {
     ],
     "secrets": Map {},
     "start": 0,
-    "type": "Tag",
+    "type": "CellTag",
   },
   "type": "Cell",
 }
@@ -6564,7 +6564,7 @@ Node {
     ],
     "secrets": Map {},
     "start": 0,
-    "type": "Tag",
+    "type": "CellTag",
   },
   "type": "Cell",
 }
@@ -6687,7 +6687,7 @@ Node {
     ],
     "secrets": Map {},
     "start": 0,
-    "type": "Tag",
+    "type": "CellTag",
   },
   "type": "Cell",
 }
@@ -6844,7 +6844,7 @@ Node {
     ],
     "secrets": Map {},
     "start": 0,
-    "type": "Tag",
+    "type": "CellTag",
   },
   "type": "Cell",
 }
@@ -7140,7 +7140,7 @@ Node {
     ],
     "secrets": Map {},
     "start": 0,
-    "type": "Tag",
+    "type": "CellTag",
   },
   "type": "Cell",
 }
