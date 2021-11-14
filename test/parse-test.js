@@ -7,7 +7,7 @@ import {parseCell, walk} from "@observablehq/parser";
 (async () => {
   for (const file of fs.readdirSync(path.join("test", "input"))) {
     it(`parse ${file}`, () => {
-      const extension = path.extname(file);
+      const extension = file.substring(file.indexOf(".")); // path.extname, but taking the first dot
       const infile = path.join("test", "input", file);
       const outfile = path.resolve(path.join("test", "output"), `${file}.json`);
 
@@ -19,6 +19,8 @@ import {parseCell, walk} from "@observablehq/parser";
           tag:
             extension === ".sql"
               ? "db.sql"
+              : extension === ".db.sql"
+              ? `(await DatabaseClient("database")).sql`
               : extension === ".html"
               ? "htl.html"
               : extension === ".tex"
