@@ -1,8 +1,7 @@
-import {simple} from "acorn-walk";
 import assert from "assert";
 import * as fs from "fs";
 import * as path from "path";
-import {parseCell, walk} from "@observablehq/parser";
+import {parseCell} from "@observablehq/parser";
 
 (async () => {
   for (const file of fs.readdirSync(path.join("test", "input"))) {
@@ -53,23 +52,7 @@ import {parseCell, walk} from "@observablehq/parser";
         }
       }
 
-      // Treat BigInt as Number for test purposes.
-      if (cell.body) {
-        simple(
-          cell.body,
-          {
-            Literal(node) {
-              if (node.bigint) {
-                node.value = Number(node.value);
-              }
-            }
-          },
-          walk
-        );
-      }
-
-      // Convert to a suitable JSON representation.
-      const actual = JSON.stringify(normalizeFeatures(cell), null, 2);
+      const actual = JSON.stringify(cell, stringify, 2);
 
       let expected;
       try {
@@ -89,12 +72,9 @@ import {parseCell, walk} from "@observablehq/parser";
   }
 })();
 
-function normalizeFeatures(node) {
-  return {
-    ...node,
-    databaseClients: node.databaseClients && [...node.databaseClients],
-    fileAttachments: node.fileAttachments && [...node.fileAttachments],
-    secrets: node.secrets && [...node.secrets],
-    tag: node.tag && normalizeFeatures(node.tag)
-  };
+// Convert to a serializable representation.
+function stringify(key, value) {
+  return typeof value === "bigint" ? value.toString()
+    : value instanceof Map ? [...value]
+    : value;
 }
