@@ -1,3 +1,2 @@
 dist/
-test/
-tap-snapshots/
+test/input/

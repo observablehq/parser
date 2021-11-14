@@ -1,7 +1,5 @@
 # @observablehq/parser
 
-[![Node CI](https://github.com/observablehq/parser/workflows/Node%20CI/badge.svg)](https://github.com/observablehq/parser/actions?workflow=Node+CI)
-
 To parse a cell:
 
 ```js
@@ -423,17 +421,9 @@ Injecting a view injects both the view symbol (`viewof foo`) and the value symbo
 
 ## API Reference
 
-<a href="#parseCell" name="parseCell">#</a> <b>parseCell</b>(<i>input</i>[, <i>options</i>]) [<>](https://github.com/observablehq/parser/blob/master/src/parse.js "Source")
+<a href="#parseCell" name="parseCell">#</a> <b>parseCell</b>(<i>input</i>[, <i>options</i>]) [<>](https://github.com/observablehq/parser/blob/main/src/parse.js "Source")
 
 Returns a [cell](#cell).
-
-<a href="#parseModule" name="parseModule">#</a> <b>parseModule</b>(<i>input</i>[, <i>options</i>]) [<>](https://github.com/observablehq/parser/blob/master/src/parse.js "Source")
-
-Returns a [program](#program).
-
-<a href="#peekId" name="peekId">#</a> <b>peekId</b>(<i>input</i>) [<>](https://github.com/observablehq/parser/blob/master/src/parse.js "Source")
-
-Tries to find the ID of a cell given a snippet of its contents, and returns it as a string if found.
 
 ### Cell
 
