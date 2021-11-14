@@ -18,11 +18,6 @@
     "prepublishOnly": "rm -rf dist && rollup -c",
     "postpublish": "git push && git push --tags"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn test"
-    }
-  },
   "dependencies": {
     "acorn": "^7.1.1",
     "acorn-walk": "^7.0.0"
@@ -34,8 +29,7 @@
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.0.0",
     "rollup-plugin-terser": "^7.0.2",
-    "tap": "^14.10.2",
-    "husky": "^3.1.0"
+    "tap": "^14.10.2"
   },
   "files": [
     "dist/**/*.js",
