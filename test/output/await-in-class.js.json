@@ -28,7 +28,6 @@
               "type": "MethodDefinition",
               "start": 22,
               "end": 65,
-              "kind": "method",
               "static": false,
               "computed": false,
               "key": {
@@ -37,6 +36,7 @@
                 "end": 34,
                 "name": "method"
               },
+              "kind": "method",
               "value": {
                 "type": "FunctionExpression",
                 "start": 34,

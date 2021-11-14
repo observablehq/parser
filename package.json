@@ -36,8 +36,8 @@
     "@observablehq/parser": "./src/index.js"
   },
   "dependencies": {
-    "acorn": "7",
-    "acorn-walk": "7"
+    "acorn": "8",
+    "acorn-walk": "8"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "21",

@@ -28,7 +28,7 @@ export function parseCell(input, {tag, raw, globals, ...options} = {}) {
 
 export class CellParser extends Parser {
   constructor(options, ...args) {
-    super(Object.assign({ecmaVersion: 12}, options), ...args);
+    super(Object.assign({ecmaVersion: 13}, options), ...args);
   }
   enterScope(flags) {
     if (flags & SCOPE_FUNCTION) ++this.O_function;
@@ -86,7 +86,7 @@ export class CellParser extends Parser {
       } else {
         node.local = node.imported;
       }
-      this.checkLVal(node.local, "let");
+      this.checkLValSimple(node.local, "let");
       if (identifiers.has(node.local.name)) {
         this.raise(node.local.start, `Identifier '${node.local.name}' has already been declared`);
       }
@@ -196,8 +196,8 @@ export class CellParser extends Parser {
     }
     return super.checkUnreserved(node);
   }
-  checkLVal(expr, bindingType, checkClashes) {
-    return super.checkLVal(
+  checkLValSimple(expr, bindingType, checkClashes) {
+    return super.checkLValSimple(
       expr.type === "MutableExpression" ? expr.id : expr,
       bindingType,
       checkClashes
