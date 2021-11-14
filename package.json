@@ -28,7 +28,7 @@
     "node": ">=14.5.0"
   },
   "scripts": {
-    "test": "mkdir -p test/output && mocha -r module-alias/register 'test/**/parse-test.js' && eslint src test",
+    "test": "mkdir -p test/output && mocha -r module-alias/register 'test/**/*-test.js' && eslint src test",
     "prepublishOnly": "rm -rf dist && rollup -c",
     "postpublish": "git push && git push --tags"
   },
