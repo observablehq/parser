@@ -40,8 +40,6 @@
     "acorn-walk": "8"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "21",
-    "@rollup/plugin-node-resolve": "13",
     "eslint": "8",
     "mocha": "9",
     "module-alias": "2",
