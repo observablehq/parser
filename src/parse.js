@@ -7,11 +7,6 @@ const SCOPE_FUNCTION = 2;
 const SCOPE_ASYNC = 4;
 const SCOPE_GENERATOR = 8;
 
-const STATE_START = Symbol("start");
-const STATE_MODIFIER = Symbol("modifier");
-const STATE_FUNCTION = Symbol("function");
-const STATE_NAME = Symbol("name");
-
 export function parseCell(input, {tag, raw, globals, ...options} = {}) {
   let cell;
   // Parse empty input as JavaScript to keep ensure resulting ast
@@ -31,79 +26,9 @@ export function parseCell(input, {tag, raw, globals, ...options} = {}) {
   return cell;
 }
 
-/*
-                       ┌─────┐
-           ┌───────────│START│─function|class
-           │           └─────┘             │
-viewof|mutable|async      │                ▼
-           │              │           ┌────────┐     ┌─┐
-           ▼              │           │FUNCTION│◀───▶│*│
-      ┌────────┐          │           └────────┘     └─┘
-      │MODIFIER│          │                │
-      └────────┘        name             name
-           │              │                │
-           └──name─┐      │                ▼
-                   ▼      │         ┌─────────────┐
-              ┌────────┐  │         │FUNCTION_NAME│
-              │  NAME  │◀─┘         └─────────────┘
-              └────────┘
-                   │
-                   =
-                   ▼
-              ┌────────┐
-              │   EQ   │
-              └────────┘
-*/
-
-export function peekId(input) {
-  let state = STATE_START;
-  let name;
-  try {
-    for (const token of Parser.tokenizer(input, {ecmaVersion: 11})) {
-      switch (state) {
-        case STATE_START:
-        case STATE_MODIFIER: {
-          if (token.type === tt.name) {
-            if (
-              state === STATE_START &&
-              (token.value === "viewof" ||
-                token.value === "mutable" ||
-                token.value === "async")
-            ) {
-              state = STATE_MODIFIER;
-              continue;
-            }
-            state = STATE_NAME;
-            name = token;
-            continue;
-          }
-          if (token.type === tt._function || token.type === tt._class) {
-            state = STATE_FUNCTION;
-            continue;
-          }
-          break;
-        }
-        case STATE_NAME: {
-          if (token.type === tt.eq) return name.value;
-          break;
-        }
-        case STATE_FUNCTION: {
-          if (token.type === tt.star) continue;
-          if (token.type === tt.name && token.end < input.length)
-            return token.value;
-          break;
-        }
-      }
-      return;
-    }
-  } catch (ignore) {
-    return;
-  }
-}
-
 export class CellParser extends Parser {
   constructor(options, ...args) {
-    super(Object.assign({ecmaVersion: 12}, options), ...args);
+    super(Object.assign({ecmaVersion: 13}, options), ...args);
   }
   enterScope(flags) {
     if (flags & SCOPE_FUNCTION) ++this.O_function;
@@ -161,7 +86,7 @@ export class CellParser extends Parser {
       } else {
         node.local = node.imported;
       }
-      this.checkLVal(node.local, "let");
+      this.checkLValSimple(node.local, "let");
       if (identifiers.has(node.local.name)) {
         this.raise(node.local.start, `Identifier '${node.local.name}' has already been declared`);
       }
@@ -271,8 +196,8 @@ export class CellParser extends Parser {
     }
     return super.checkUnreserved(node);
   }
-  checkLVal(expr, bindingType, checkClashes) {
-    return super.checkLVal(
+  checkLValSimple(expr, bindingType, checkClashes) {
+    return super.checkLValSimple(
       expr.type === "MutableExpression" ? expr.id : expr,
       bindingType,
       checkClashes
@@ -365,28 +290,6 @@ function readTemplateToken() {
     }
   }
   return this.finishToken(tt.invalidTemplate, this.input.slice(this.start, this.pos));
-}
-
-export function parseModule(input, {globals} = {}) {
-  const program = ModuleParser.parse(input);
-  for (const cell of program.cells) {
-    parseReferences(cell, input, globals);
-    parseFeatures(cell, input, globals);
-  }
-  return program;
-}
-
-export class ModuleParser extends CellParser {
-  parseTopLevel(node) {
-    if (!node.cells) node.cells = [];
-    while (this.type !== tt.eof) {
-      const cell = this.parseCell(this.startNode());
-      cell.input = this.input;
-      node.cells.push(cell);
-    }
-    this.next();
-    return this.finishNode(node, "Program");
-  }
 }
 
 export class CellTagParser extends Parser {
