@@ -1,7 +1,7 @@
 {
   "name": "@observablehq/parser",
   "description": "An Acorn parser for Observable JavaScript",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "author": {
     "name": "Observable, Inc.",
     "url": "https://observablehq.com"
