@@ -135,10 +135,10 @@ export class CellParser extends Parser {
     else if (token.type !== tt.eof && token.type !== tt.semi) {
 
       // A destructuring cell, maybe?
-      // (But not an object expression or arrow function!)
+      // (A parenthesized expression followed by the equals operator.)
       if (token.type === tt.parenL) {
         id = this.parseParenAndDistinguishExpression(true);
-        if (id.type !== "ArrowFunctionExpression" && this.eat(tt.eq)) {
+        if (this.eat(tt.eq)) {
           this.checkYieldAwaitInDefaultParams();
           id = this.toAssignable(id, true);
           this.checkCellDeclaration(id);
