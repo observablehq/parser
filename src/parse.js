@@ -134,8 +134,8 @@ export class CellParser extends Parser {
     // A non-empty cell?
     else if (token.type !== tt.eof && token.type !== tt.semi) {
 
-      // A destructuring cell, maybe?
-      // (A parenthesized expression followed by the equals operator.)
+      // A destructuring cell, or parenthesized expression? (A destructuring
+      // cell is a parenthesized expression followed by the equals operator.)
       if (token.type === tt.parenL) {
         id = this.parseParenAndDistinguishExpression(true);
         if (this.eat(tt.eq)) {
@@ -168,7 +168,7 @@ export class CellParser extends Parser {
         }
       }
 
-      // A block or an expression?
+      // A block or non-parenthesized expression?
       if (body === null) {
         body = token.type === tt.braceL
           ? this.parseBlock()
