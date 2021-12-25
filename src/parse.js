@@ -142,11 +142,11 @@ export class CellParser extends Parser {
           this.checkYieldAwaitInDefaultParams();
           id = this.toAssignable(id, true);
           this.checkCellDeclaration(id);
+          token = new Token(this);
         } else {
           body = id;
           id = null;
         }
-        token = new Token(this);
       }
 
       // A simple named cell?
