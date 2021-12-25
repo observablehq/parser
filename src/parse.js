@@ -106,7 +106,6 @@ export class CellParser extends Parser {
     this.O_function = 0;
     this.O_async = false;
     this.O_generator = false;
-    this.O_destructuring = null;
     this.strict = true;
     this.enterScope(SCOPE_FUNCTION | SCOPE_ASYNC | SCOPE_GENERATOR);
   }
@@ -141,7 +140,7 @@ export class CellParser extends Parser {
         id = this.parseParenAndDistinguishExpression(true);
         if (id.type !== "ArrowFunctionExpression" && this.eat(tt.eq)) {
           this.checkYieldAwaitInDefaultParams();
-          id = this.toAssignable(id, true, this.O_destructuring);
+          id = this.toAssignable(id, true);
           this.checkCellDeclaration(id);
         } else {
           body = id;
@@ -228,10 +227,6 @@ export class CellParser extends Parser {
     if (defaultGlobals.has(node.name) || node.name === "arguments") {
       this.raise(node.start, `Identifier '${node.name}' is reserved`);
     }
-  }
-  checkExpressionErrors(refDestructuringErrors, andThrow) {
-    this.O_destructuring = refDestructuringErrors;
-    return super.checkExpressionErrors(refDestructuringErrors, andThrow);
   }
   checkUnreserved(node) {
     if (node.name === "viewof" || node.name === "mutable") {
