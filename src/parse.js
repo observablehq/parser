@@ -140,6 +140,7 @@ export class CellParser extends Parser {
       if (token.type === tt.parenL) {
         id = this.parseParenAndDistinguishExpression(true);
         if (id.type !== "ArrowFunctionExpression" && this.eat(tt.eq)) {
+          this.checkYieldAwaitInDefaultParams();
           id = this.toAssignable(id, true, this.O_destructuring);
           this.checkCellDeclaration(id);
         } else {

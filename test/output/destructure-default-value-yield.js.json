@@ -1,7 +1,7 @@
 {
   "error": {
     "type": "SyntaxError",
-    "message": "Await expression cannot be a default value (1:13)",
+    "message": "Cannot use 'yield' as identifier inside a generator (1:13)",
     "pos": 13,
     "loc": {
       "line": 1,

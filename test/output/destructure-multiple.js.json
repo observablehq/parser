@@ -1,0 +1,11 @@
+{
+  "error": {
+    "type": "SyntaxError",
+    "message": "Assigning to rvalue (1:1)",
+    "pos": 1,
+    "loc": {
+      "line": 1,
+      "column": 1
+    }
+  }
+}
