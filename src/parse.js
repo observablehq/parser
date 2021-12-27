@@ -218,6 +218,7 @@ export class CellParser extends Parser {
         this.checkCellDeclaration(node.left);
         break;
       default:
+        // Don’t allow destructuring into viewof or mutable declarations.
         this.unexpected();
         break;
     }
