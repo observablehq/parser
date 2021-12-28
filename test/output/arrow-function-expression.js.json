@@ -1,11 +1,11 @@
 {
   "error": {
     "type": "SyntaxError",
-    "message": "Assigning to rvalue (1:0)",
-    "pos": 0,
+    "message": "Unexpected token (1:25)",
+    "pos": 25,
     "loc": {
       "line": 1,
-      "column": 0
+      "column": 25
     }
   }
 }
