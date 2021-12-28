@@ -1,0 +1,77 @@
+{
+  "type": "Cell",
+  "start": 0,
+  "end": 28,
+  "id": {
+    "type": "ArrayPattern",
+    "start": 1,
+    "end": 14,
+    "elements": [
+      {
+        "type": "Identifier",
+        "start": 2,
+        "end": 5,
+        "name": "foo"
+      },
+      {
+        "type": "RestElement",
+        "start": 7,
+        "end": 13,
+        "argument": {
+          "type": "Identifier",
+          "start": 10,
+          "end": 13,
+          "name": "bar"
+        }
+      }
+    ]
+  },
+  "body": {
+    "type": "ArrayExpression",
+    "start": 18,
+    "end": 27,
+    "elements": [
+      {
+        "type": "Literal",
+        "start": 19,
+        "end": 20,
+        "value": 1,
+        "raw": "1"
+      },
+      {
+        "type": "Literal",
+        "start": 22,
+        "end": 23,
+        "value": 2,
+        "raw": "2"
+      },
+      {
+        "type": "Literal",
+        "start": 25,
+        "end": 26,
+        "value": 3,
+        "raw": "3"
+      }
+    ]
+  },
+  "async": false,
+  "generator": false,
+  "references": [],
+  "fileAttachments": [],
+  "databaseClients": [],
+  "secrets": [],
+  "declarations": [
+    {
+      "type": "Identifier",
+      "start": 2,
+      "end": 5,
+      "name": "foo"
+    },
+    {
+      "type": "Identifier",
+      "start": 10,
+      "end": 13,
+      "name": "bar"
+    }
+  ]
+}

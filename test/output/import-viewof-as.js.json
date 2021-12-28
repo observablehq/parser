@@ -41,5 +41,13 @@
   "references": [],
   "fileAttachments": [],
   "databaseClients": [],
-  "secrets": []
+  "secrets": [],
+  "declarations": [
+    {
+      "type": "Identifier",
+      "start": 22,
+      "end": 25,
+      "name": "bar"
+    }
+  ]
 }

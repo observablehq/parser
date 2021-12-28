@@ -243,5 +243,13 @@
   ],
   "fileAttachments": [],
   "databaseClients": [],
-  "secrets": []
+  "secrets": [],
+  "declarations": [
+    {
+      "type": "Identifier",
+      "start": 0,
+      "end": 4,
+      "name": "cell"
+    }
+  ]
 }

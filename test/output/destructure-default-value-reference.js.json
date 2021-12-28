@@ -1,0 +1,88 @@
+{
+  "type": "Cell",
+  "start": 0,
+  "end": 23,
+  "id": {
+    "type": "ArrayPattern",
+    "start": 1,
+    "end": 15,
+    "elements": [
+      {
+        "type": "Identifier",
+        "start": 2,
+        "end": 3,
+        "name": "x"
+      },
+      {
+        "type": "AssignmentPattern",
+        "start": 5,
+        "end": 14,
+        "left": {
+          "type": "Identifier",
+          "start": 5,
+          "end": 6,
+          "name": "y"
+        },
+        "right": {
+          "type": "BinaryExpression",
+          "start": 9,
+          "end": 14,
+          "left": {
+            "type": "Identifier",
+            "start": 9,
+            "end": 10,
+            "name": "x"
+          },
+          "operator": "+",
+          "right": {
+            "type": "Identifier",
+            "start": 13,
+            "end": 14,
+            "name": "z"
+          }
+        }
+      }
+    ]
+  },
+  "body": {
+    "type": "ArrayExpression",
+    "start": 19,
+    "end": 22,
+    "elements": [
+      {
+        "type": "Literal",
+        "start": 20,
+        "end": 21,
+        "value": 1,
+        "raw": "1"
+      }
+    ]
+  },
+  "async": false,
+  "generator": false,
+  "references": [
+    {
+      "type": "Identifier",
+      "start": 13,
+      "end": 14,
+      "name": "z"
+    }
+  ],
+  "fileAttachments": [],
+  "databaseClients": [],
+  "secrets": [],
+  "declarations": [
+    {
+      "type": "Identifier",
+      "start": 2,
+      "end": 3,
+      "name": "x"
+    },
+    {
+      "type": "Identifier",
+      "start": 5,
+      "end": 6,
+      "name": "y"
+    }
+  ]
+}

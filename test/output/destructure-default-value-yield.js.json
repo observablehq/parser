@@ -1,0 +1,11 @@
+{
+  "error": {
+    "type": "SyntaxError",
+    "message": "Cannot use 'yield' as identifier inside a generator (1:13)",
+    "pos": 13,
+    "loc": {
+      "line": 1,
+      "column": 13
+    }
+  }
+}

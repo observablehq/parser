@@ -23,6 +23,7 @@ export function parseCell(input, {tag, raw, globals, ...options} = {}) {
   }
   parseReferences(cell, input, globals);
   parseFeatures(cell, input);
+  parseDeclarations(cell);
   return cell;
 }
 
@@ -133,8 +134,15 @@ export class CellParser extends Parser {
 
     // A non-empty cell?
     else if (token.type !== tt.eof && token.type !== tt.semi) {
-      // A named cell?
-      if (token.type === tt.name) {
+
+      // A destructuring cell, or parenthesized expression? (A destructuring
+      // cell is a parenthesized expression followed by the equals operator.)
+      if (token.type === tt.parenL) {
+        ({id, body} = this.parseParenAndDistinguishCell());
+      }
+
+      // A simple named cell?
+      else if (token.type === tt.name) {
         if (token.value === "viewof" || token.value === "mutable") {
           token = lookahead.getToken();
           if (token.type !== tt.name) {
@@ -152,22 +160,20 @@ export class CellParser extends Parser {
         }
       }
 
-      // A block?
-      if (token.type === tt.braceL) {
-        body = this.parseBlock();
+      // A block or non-parenthesized expression?
+      if (body === null) {
+        body = token.type === tt.braceL
+          ? this.parseBlock()
+          : this.parseExpression();
       }
 
-      // An expression?
-      // Possibly a function or class declaration?
-      else {
-        body = this.parseExpression();
-        if (
-          id === null &&
-          (body.type === "FunctionExpression" ||
-            body.type === "ClassExpression")
-        ) {
-          id = body.id;
-        }
+      // Promote the name of a function or class declaration?
+      if (
+        id === null &&
+        (body.type === "FunctionExpression" ||
+          body.type === "ClassExpression")
+      ) {
+        id = body.id;
       }
     }
 
@@ -175,6 +181,99 @@ export class CellParser extends Parser {
     if (eof) this.expect(tt.eof); // TODO
 
     return this.finishCell(node, body, id);
+  }
+  // Adapted from parseParenAndDistinguishExpression
+  parseParenAndDistinguishCell() {
+    let startPos = this.start,
+        startLoc = this.startLoc,
+        val;
+
+    this.next();
+
+    let innerStartPos = this.start,
+        innerStartLoc = this.startLoc,
+        exprList = [],
+        first = true,
+        lastIsComma = false,
+        refDestructuringErrors = new DestructuringErrors,
+        oldYieldPos = this.yieldPos,
+        oldAwaitPos = this.awaitPos,
+        spreadStart;
+
+    this.yieldPos = 0;
+    this.awaitPos = 0;
+
+    // Do not save awaitIdentPos to allow checking awaits nested in parameters
+    while (this.type !== tt.parenR) {
+      first ? first = false : this.expect(tt.comma);
+      if (this.afterTrailingComma(tt.parenR, true)) {
+        lastIsComma = true;
+        break;
+      } else if (this.type === tt.ellipsis) {
+        spreadStart = this.start;
+        exprList.push(this.parseParenItem(this.parseRestBinding()));
+        if (this.type === tt.comma) this.raise(this.start, "Comma is not permitted after the rest element");
+        break;
+      } else {
+        exprList.push(this.parseMaybeAssign(false, refDestructuringErrors, this.parseParenItem));
+      }
+    }
+
+    let innerEndPos = this.lastTokEnd, innerEndLoc = this.lastTokEndLoc;
+    this.expect(tt.parenR);
+
+    if (!this.canInsertSemicolon()) {
+      if (this.eat(tt.arrow)) {
+        this.checkPatternErrors(refDestructuringErrors, false);
+        this.checkYieldAwaitInDefaultParams();
+        this.yieldPos = oldYieldPos;
+        this.awaitPos = oldAwaitPos;
+        return {
+          id: null,
+          body: this.parseParenArrowList(startPos, startLoc, exprList)
+        };
+      }
+      if (this.eat(tt.eq)) {
+        if (exprList.length !== 1 || lastIsComma) this.unexpected(this.lastTokStart);
+        this.checkPatternErrors(refDestructuringErrors, false);
+        this.checkYieldAwaitInDefaultParams();
+        this.yieldPos = oldYieldPos;
+        this.awaitPos = oldAwaitPos;
+
+        val = this.parseParenArrowList(startPos, startLoc, exprList);
+
+        // Don’t allow destructuring into viewof or mutable declarations.
+        declarePattern(val.params[0], id => {
+          if (id.type !== "Identifier") {
+            this.unexpected(id.start);
+          }
+        });
+
+        return {
+          id: val.params[0],
+          body: val.body
+        };
+      }
+    }
+
+    if (!exprList.length || lastIsComma) this.unexpected(this.lastTokStart);
+    if (spreadStart) this.unexpected(spreadStart);
+    this.checkExpressionErrors(refDestructuringErrors, true);
+    this.yieldPos = oldYieldPos || this.yieldPos;
+    this.awaitPos = oldAwaitPos || this.awaitPos;
+
+    if (exprList.length > 1) {
+      val = this.startNodeAt(innerStartPos, innerStartLoc);
+      val.expressions = exprList;
+      this.finishNodeAt(val, "SequenceExpression", innerEndPos, innerEndLoc);
+    } else {
+      val = exprList[0];
+    }
+
+    return {
+      id: null,
+      body: val
+    };
   }
   parseTopLevel(node) {
     return this.parseCell(node, true);
@@ -204,10 +303,8 @@ export class CellParser extends Parser {
     );
   }
   unexpected(pos) {
-    this.raise(
-      pos != null ? pos : this.start,
-      this.type === tt.eof ? "Unexpected end of input" : "Unexpected token"
-    );
+    if (pos == null) pos = this.start;
+    this.raise(pos, pos === this.input.length ? "Unexpected end of input" : "Unexpected token");
   }
   parseMaybeKeywordExpression(keyword, type) {
     if (this.isContextual(keyword)) {
@@ -229,6 +326,14 @@ const o_tmpl = new TokContext(
   true, // preserveSpace
   parser => readTemplateToken.call(parser) // override
 );
+
+function DestructuringErrors() {
+  this.shorthandAssign =
+  this.trailingComma =
+  this.parenthesizedAssign =
+  this.parenthesizedBind =
+  this.doubleProto = -1;
+}
 
 export class TemplateCellParser extends CellParser {
   constructor(...args) {
@@ -383,4 +488,57 @@ function parseFeatures(cell, input) {
     cell.secrets = new Map();
   }
   return cell;
+}
+
+// Find declarations: things that this cell defines.
+function parseDeclarations(cell) {
+  if (!cell.body) {
+    cell.declarations = [];
+  } else if (cell.body.type === "ImportDeclaration") {
+    cell.declarations = cell.body.specifiers.map(s => s.local);
+  } else if (!cell.id) {
+    cell.declarations = [];
+  } else {
+    switch (cell.id.type) {
+      case "Identifier":
+      case "ViewExpression":
+      case "MutableExpression":
+        cell.declarations = [cell.id];
+        break;
+      case "ArrayPattern":
+      case "ObjectPattern":
+        cell.declarations = [];
+        declarePattern(cell.id, node => cell.declarations.push(node));
+        break;
+      default:
+        throw new Error(`unexpected identifier: ${cell.id.type}`);
+    }
+  }
+}
+
+function declarePattern(node, callback) {
+  switch (node.type) {
+    case "Identifier":
+    case "ViewExpression":
+    case "MutableExpression":
+      callback(node);
+      break;
+    case "ObjectPattern":
+      node.properties.forEach(node => declarePattern(node, callback));
+      break;
+    case "ArrayPattern":
+      node.elements.forEach(node => node && declarePattern(node, callback));
+      break;
+    case "Property":
+      declarePattern(node.value, callback);
+      break;
+    case "RestElement":
+      declarePattern(node.argument, callback);
+      break;
+    case "AssignmentPattern":
+      declarePattern(node.left, callback);
+      break;
+    default:
+      throw new Error(`unexpected declaration: ${node.type}`);
+  }
 }

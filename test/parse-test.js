@@ -75,6 +75,6 @@ import {parseCell} from "@observablehq/parser";
 // Convert to a serializable representation.
 function stringify(key, value) {
   return typeof value === "bigint" ? value.toString()
-    : value instanceof Map ? [...value]
+    : value instanceof Map || value instanceof Set ? [...value]
     : value;
 }

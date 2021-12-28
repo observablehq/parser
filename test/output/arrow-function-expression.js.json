@@ -1,0 +1,11 @@
+{
+  "error": {
+    "type": "SyntaxError",
+    "message": "Unexpected token (1:25)",
+    "pos": 25,
+    "loc": {
+      "line": 1,
+      "column": 25
+    }
+  }
+}

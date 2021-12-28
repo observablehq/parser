@@ -1,0 +1,59 @@
+{
+  "type": "Cell",
+  "start": 0,
+  "end": 74,
+  "id": {
+    "type": "ObjectPattern",
+    "start": 1,
+    "end": 20,
+    "properties": [
+      {
+        "type": "Property",
+        "start": 2,
+        "end": 19,
+        "method": false,
+        "shorthand": false,
+        "computed": false,
+        "key": {
+          "type": "Identifier",
+          "start": 2,
+          "end": 9,
+          "name": "default"
+        },
+        "value": {
+          "type": "Identifier",
+          "start": 11,
+          "end": 19,
+          "name": "confetti"
+        },
+        "kind": "init"
+      }
+    ]
+  },
+  "body": {
+    "type": "ImportExpression",
+    "start": 24,
+    "end": 73,
+    "source": {
+      "type": "Literal",
+      "start": 31,
+      "end": 72,
+      "value": "https://cdn.skypack.dev/canvas-confetti",
+      "raw": "\"https://cdn.skypack.dev/canvas-confetti\""
+    }
+  },
+  "async": false,
+  "generator": false,
+  "references": [],
+  "fileAttachments": [],
+  "databaseClients": [],
+  "secrets": [],
+  "declarations": [
+    {
+      "type": "Identifier",
+      "start": 11,
+      "end": 19,
+      "name": "confetti"
+    }
+  ]
+}
