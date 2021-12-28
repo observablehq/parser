@@ -383,5 +383,18 @@
     ]
   ],
   "databaseClients": [],
-  "secrets": []
+  "secrets": [],
+  "declarations": [
+    {
+      "type": "ViewExpression",
+      "start": 0,
+      "end": 13,
+      "id": {
+        "type": "Identifier",
+        "start": 7,
+        "end": 13,
+        "name": "slider"
+      }
+    }
+  ]
 }

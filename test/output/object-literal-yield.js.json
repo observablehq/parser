@@ -43,5 +43,6 @@
   "references": [],
   "fileAttachments": [],
   "databaseClients": [],
-  "secrets": []
+  "secrets": [],
+  "declarations": []
 }

@@ -119,5 +119,19 @@
   "references": [],
   "fileAttachments": [],
   "databaseClients": [],
-  "secrets": []
+  "secrets": [],
+  "declarations": [
+    {
+      "type": "Identifier",
+      "start": 2,
+      "end": 5,
+      "name": "foo"
+    },
+    {
+      "type": "Identifier",
+      "start": 7,
+      "end": 10,
+      "name": "bar"
+    }
+  ]
 }

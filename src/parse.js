@@ -23,6 +23,7 @@ export function parseCell(input, {tag, raw, globals, ...options} = {}) {
   }
   parseReferences(cell, input, globals);
   parseFeatures(cell, input);
+  parseDeclarations(cell);
   return cell;
 }
 
@@ -199,29 +200,12 @@ export class CellParser extends Parser {
       : super.toAssignable(node, isBinding, refDestructuringErrors);
   }
   checkCellDeclaration(node) {
-    switch (node.type) {
-      case "Identifier":
-        break;
-      case "ObjectPattern":
-        for (const p of node.properties) this.checkCellDeclaration(p);
-        break;
-      case "ArrayPattern":
-        for (const e of node.elements) e && this.checkCellDeclaration(e);
-        break;
-      case "Property":
-        this.checkCellDeclaration(node.value);
-        break;
-      case "RestElement":
-        this.checkCellDeclaration(node.argument);
-        break;
-      case "AssignmentPattern":
-        this.checkCellDeclaration(node.left);
-        break;
-      default:
-        // Don’t allow destructuring into viewof or mutable declarations.
+    // Don’t allow destructuring into viewof or mutable declarations.
+    declarePattern(node, id => {
+      if (id.type !== "Identifier") {
         this.unexpected();
-        break;
-    }
+      }
+    });
   }
   checkLocal(id) {
     const node = id.id || id;
@@ -422,4 +406,57 @@ function parseFeatures(cell, input) {
     cell.secrets = new Map();
   }
   return cell;
+}
+
+// Find declarations: things that this cell defines.
+function parseDeclarations(cell) {
+  if (!cell.body) {
+    cell.declarations = [];
+  } else if (cell.body.type === "ImportDeclaration") {
+    cell.declarations = cell.body.specifiers.map(s => s.local);
+  } else if (!cell.id) {
+    cell.declarations = [];
+  } else {
+    switch (cell.id.type) {
+      case "Identifier":
+      case "ViewExpression":
+      case "MutableExpression":
+        cell.declarations = [cell.id];
+        break;
+      case "ArrayPattern":
+      case "ObjectPattern":
+        cell.declarations = [];
+        declarePattern(cell.id, node => cell.declarations.push(node));
+        break;
+      default:
+        throw new Error(`unexpected identifier: ${cell.id.type}`);
+    }
+  }
+}
+
+function declarePattern(node, callback) {
+  switch (node.type) {
+    case "Identifier":
+    case "ViewExpression":
+    case "MutableExpression":
+      callback(node);
+      break;
+    case "ObjectPattern":
+      node.properties.forEach(node => declarePattern(node, callback));
+      break;
+    case "ArrayPattern":
+      node.elements.forEach(node => node && declarePattern(node, callback));
+      break;
+    case "Property":
+      declarePattern(node.value, callback);
+      break;
+    case "RestElement":
+      declarePattern(node.argument, callback);
+      break;
+    case "AssignmentPattern":
+      declarePattern(node.left, callback);
+      break;
+    default:
+      throw new Error(`unexpected declaration: ${node.type}`);
+  }
 }

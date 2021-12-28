@@ -85,5 +85,13 @@
   "references": [],
   "fileAttachments": [],
   "databaseClients": [],
-  "secrets": []
+  "secrets": [],
+  "declarations": [
+    {
+      "type": "Identifier",
+      "start": 19,
+      "end": 22,
+      "name": "qux"
+    }
+  ]
 }
