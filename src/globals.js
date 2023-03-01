@@ -44,6 +44,7 @@ export default new Set([
   "Map",
   "Math",
   "NaN",
+  "nodeName",
   "Number",
   "navigator",
   "Object",
