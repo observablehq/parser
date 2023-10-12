@@ -367,6 +367,7 @@ function parseFeatures(cell, input) {
       cell.fileAttachments = findFeatures(cell, "FileAttachment");
       cell.databaseClients = findFeatures(cell, "DatabaseClient");
       cell.secrets = findFeatures(cell, "Secret");
+      cell.notificationClients = findFeatures(cell, "NotificationClient", true); // TODO: mike dislikes positional boolean arguments
     } catch (error) {
       if (error.node) {
         const loc = getLineInfo(input, error.node.start);
@@ -381,6 +382,7 @@ function parseFeatures(cell, input) {
     cell.fileAttachments = new Map();
     cell.databaseClients = new Map();
     cell.secrets = new Map();
+    cell.notificationClients = new Map();
   }
   return cell;
 }
