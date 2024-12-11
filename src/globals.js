@@ -23,6 +23,7 @@ export default new Set([
   "Error",
   "escape",
   "eval",
+  "Event",
   "fetch",
   "File",
   "FileList",
